@@ -1,0 +1,29 @@
+{
+  "name": "chatapplicationserver",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-session": "^1.17.2",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.2",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.4",
+    "passport": "^0.5.2",
+    "passport-facebook-token": "^4.0.0",
+    "passport-jwt": "^4.0.0",
+    "session-file-store": "^1.5.0"
+  },
+  "main": "app.js",
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
