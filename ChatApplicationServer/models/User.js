@@ -12,8 +12,14 @@ const User = new Schema({
         default: ''
     },
     Connections_Id: [{
-        type: String,
-        default: ''
+        _id:{
+            type: String,
+            default: ''
+        },
+        username:{
+            type:String,
+            default:''
+        }
     }],
     admin: {
         type: Boolean,

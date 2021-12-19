@@ -141,6 +141,91 @@ router.get('/logout',cors.corsWithOptions,(req,res,next)=>{
   }
 });
 
+router.route('/connections')
+.get(cors.corsWithOptions,authenticate.verifyUser, function(req, res, next) {
+  User.findById(req.user._id)
+    .then((user)=>{
+        res.statusCode=200;
+        res.setHeader('Content-Type','application/json');
+        res.json(user.Connections_Id);
+    },(err)=>next(err))
+    .catch((err)=>next(err));
+})
+.post(cors.corsWithOptions,authenticate.verifyUser,(req,res,next)=>{
+  User.findById(req.user._id)
+  .then((user)=>{
+    var ind=-1,c=0;
+    for(var i=0;i<user.Connections_Id.length;i++)
+    {
+      var ob=user.Connections_Id[i];
+      console.log(ob);
+      if(ob._id==req.body._id)
+      {
+        ind=c;
+        break;
+      }
+      c++;
+    }
+    if(ind!=-1)
+    {
+      err=new Error('Person alread exist in list of connections');
+      err.status=403;
+      return next(err);
+    }
+    else
+    {
+      user.Connections_Id.push(req.body);
+      user.save()
+      .then((connections)=>{
+          res.statusCode=200;
+          res.setHeader('Content-Type','application/json');
+          res.json(connections);
+      },(err)=>next(err))
+      .catch((err)=>next(err));
+    }
+  },(err)=>next(err))
+  .catch((err)=>{console.log(err);next(err)});
+})
+.put(cors.corsWithOptions,authenticate.verifyUser,(req,res,next)=>{
+  res.statusCode=403;
+  res.end('PUT operation not supported on /user/connections');
+})
+.delete(cors.corsWithOptions,authenticate.verifyUser,(req,res,next)=>{
+  User.findById(req.user._id)
+  .then((user)=>{
+      var ind=-1,c=0;
+      for(var i=0;i<user.Connections_Id.length;i++)
+      {
+        var ob=user.Connections_Id[i];
+        console.log(ob);
+        if(ob._id==req.body._id)
+        {
+          ind=c;
+          break;
+        }
+        c++;
+      }
+      if(ind>-1)
+      {
+          user.Connections_Id.splice(ind,1);
+          user.save()
+          .then((resp)=>{
+              res.statusCode=200;
+              res.setHeader('Content-Type','application/json');
+              res.json(resp);
+          },(err)=>next(err))
+          .catch((err)=>next(err));
+      }
+      else
+      {
+          err=new Error('Id not found in list of connections');
+          err.status=403;
+          return next(err);
+      }
+  },(err)=>next(err))
+  .catch((err)=>next(err));
+});
+
 router.get('/checkJWTToken',cors.corsWithOptions,(req,res)=>{
   passport.authenticate('jwt',{session:false},(err,user,info)=>{
     if(err)
@@ -157,5 +242,8 @@ router.get('/checkJWTToken',cors.corsWithOptions,(req,res)=>{
       return res.json({status:'JWT valid!',success:true,user:user});
     }
   })(req,res);
-})
+});
+
+
+
 module.exports = router;
