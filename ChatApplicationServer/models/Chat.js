@@ -1,27 +1,25 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require('passport-local-mongoose');
 
-const Text = new Schema({
-    userID: {
-        type: String,
-        required: true
-    },
-    text: {
-        type: String,
-        default: ''
-    }
-})
 
 const ChatSchema = new Schema({
-    _ID: {
+    sender: {
         type: String,
         required: true
     },
-    Texts: [Text]
+    receiver: {
+        type: String,
+        required: true
+    },
+    message: {
+        type: String,
+        required: true
+    }
 },
     {
         timestamps: true
     });
 
-const Chat = mongoose.model('Chat', ChatSchema);
-module.exports = Chat;
+ChatSchema.plugin(passportLocalMongoose);
+module.exports = mongoose.model('Chat', ChatSchema);
