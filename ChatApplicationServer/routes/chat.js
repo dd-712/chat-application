@@ -19,7 +19,7 @@ function decryptMessage(text) {
     return message;
 }
 
-router.get(("/getChat"), cors.corsWithOptions, (req, res) => {
+router.get(("/getChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res) => {
     Chat.find({
         $or: [
             { $and: [{ sender: req.body.sender }, { receiver: req.body.receiver }] },
@@ -32,9 +32,12 @@ router.get(("/getChat"), cors.corsWithOptions, (req, res) => {
         console.log(messages);
         for (let i = 0; i < messages.length; i++) {
             chats.chat.push({
+                _id:messages[i]._id,
                 sender: messages[i].sender,
-                receiver: messages[i].receicer,
+                receiver: messages[i].receiver,
                 text: decryptMessage(messages[i].message),
+                File:messages[i].File,
+                data:messages[i].data,
                 time: messages[i].createdAt
             });
         }
@@ -44,21 +47,42 @@ router.get(("/getChat"), cors.corsWithOptions, (req, res) => {
     })
 })
 
-router.post(("/addChat"), cors.corsWithOptions, (req, res) => {
-    const encrypt = encryptMessage(req.body.message);
+router.post(("/addChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res) => {
+    if(req.body.data==0)
+    {
+        //console.log(req.body.File);
+        const encrypt = encryptMessage("Not a Message");
+        const chat = new Chat({
+            sender: req.body.sender,
+            receiver: req.body.receiver,
+            message:encrypt,
+            data:0,
+            File:req.body.File
+        })
+        chat.save();
 
-    const chat = new Chat({
-        sender: req.body.sender,
-        receiver: req.body.receiver,
-        message: encrypt
-    })
-    chat.save();
+        res.statusCode = 200;
+        res.json({ status: "Saved" });
+    }
+    else
+    {
+        //console.log(req.body);
+        const encrypt = encryptMessage(req.body.message);
+        const chat = new Chat({
+            sender: req.body.sender,
+            receiver: req.body.receiver,
+            message: encrypt,
+            data:1,
+            File:{'filename':'Not a file','title':'No file'}
+        })
+        chat.save();
 
-    res.statusCode = 200;
-    res.json({ status: "Saved" });
+        res.statusCode = 200;
+        res.json({ status: "Saved" });
+    }
 })
 
-router.delete(("/deleteChat"), cors.corsWithOptions, (req, res) => {
+router.delete(("/deleteChat"),authenticate.verifyUser, cors.corsWithOptions, (req, res) => {
     Chat.findByIdAndDelete(req.body.id, (err) => {
         console.log(err);
     });
