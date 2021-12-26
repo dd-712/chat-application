@@ -5,6 +5,7 @@ const User = require('../models/user');
 const CryptoJS = require('crypto-js');
 const authenticate = require('../authenticate');
 const cors = require('./cors');
+const fs=require('fs');
 require('dotenv').config();
 
 const router = express.Router();
@@ -22,8 +23,8 @@ function decryptMessage(text) {
 router.get(("/getChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res) => {
     Chat.find({
         $or: [
-            { $and: [{ sender: req.body.sender }, { receiver: req.body.receiver }] },
-            { $and: [{ sender: req.body.receiver }, { receiver: req.body.sender }] }
+            { $and: [{ sender: req.user._id }, { receiver: req.body.receiver }] },
+            { $and: [{ sender: req.body.receiver }, { receiver: req.user._id }] }
         ]
     }, (err, messages) => {
         const chats = {
@@ -53,7 +54,7 @@ router.post(("/addChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res
         //console.log(req.body.File);
         const encrypt = encryptMessage("Not a Message");
         const chat = new Chat({
-            sender: req.body.sender,
+            sender: req.user._id,
             receiver: req.body.receiver,
             message:encrypt,
             data:0,
@@ -69,7 +70,7 @@ router.post(("/addChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res
         //console.log(req.body);
         const encrypt = encryptMessage(req.body.message);
         const chat = new Chat({
-            sender: req.body.sender,
+            sender: req.user._id,
             receiver: req.body.receiver,
             message: encrypt,
             data:1,
@@ -83,11 +84,28 @@ router.post(("/addChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res
 })
 
 router.delete(("/deleteChat"),authenticate.verifyUser, cors.corsWithOptions, (req, res) => {
-    Chat.findByIdAndDelete(req.body.id, (err) => {
-        console.log(err);
-    });
-    res.statusCode = 200;
-    res.json({ status: "Deleted" });
+    Chat.findById(req.body._Id)
+    .then((chat)=>{
+        if(req.user._id!=chat.sender && req.user._id!=chat.receiver)
+        {
+            err=new Error('You are not allowed to delete this post');
+            err.status=403;
+            return next(err);
+        }
+        else
+        {
+            if(chat.data==0)
+            fs.unlinkSync('./public/Files/'+chat.File.filename);
+            Chat.deleteOne(chat)
+            .then((resp)=>{
+                res.statusCode=200;
+                res.setHeader('Content-Type','application/json');
+                res.json(resp);
+            },(err)=>next(err))
+            .catch((err)=>next(err));
+        }
+    })
+    .catch((err)=>next(err));
 })
 
 module.exports = router;
