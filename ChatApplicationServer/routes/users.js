@@ -77,7 +77,7 @@ router.post('/login',cors.cors,(req,res,next)=>{
 router.post('/changeUsername',authenticate.verifyUser,cors.corsWithOptions,function(req,res,next){
   User.findById(req.user._id)
   .then((user)=>{
-    var OldUsername=req.user.username,newUsername=req.body.username;
+    var newUsername=req.body.username;
     user.username="";
     User.findOne({username:newUsername})
     .then((userFound)=>{
@@ -94,7 +94,7 @@ router.post('/changeUsername',authenticate.verifyUser,cors.corsWithOptions,funct
       }
       else
       {
-        user.username=oldUsername;
+        user.username=req.user.username;
         user.save();
         err=new Error('Username already taken by someone');
         err.status=400;
@@ -158,10 +158,11 @@ router.route('/connections')
     for(var i=0;i<user.Connections_Id.length;i++)
     {
       var ob=user.Connections_Id[i];
-      console.log(ob);
-      if(ob._id==req.body._id)
+      //console.log(ob);
+      if(ob.username==req.body.username)
       {
         ind=c;
+        req.body._id=ob._id;
         break;
       }
       c++;
@@ -174,14 +175,43 @@ router.route('/connections')
     }
     else
     {
-      user.Connections_Id.push(req.body);
-      user.save()
-      .then((connections)=>{
-          res.statusCode=200;
-          res.setHeader('Content-Type','application/json');
-          res.json(connections);
-      },(err)=>next(err))
-      .catch((err)=>next(err));
+      //console.log(req.body.username);
+      //console.log(typeof(req.body.username));
+      User.find({'username' : new RegExp(req.body.username, 'i')}, function(err, person) {
+        if (err) {
+          err=new Error('Person not Found!!!');
+          err.status=404;
+          return next(err);
+        }
+        else
+        {
+         //console.log(person);
+         var found=-1;
+         for(var i=0;i<person.length;i++)
+         {
+           if(person[i].username==req.body.username)
+           {
+             found=i;
+             break;
+           }
+         }
+         if(found==-1)
+         {
+          err=new Error('Person not Found!!!');
+          err.status=404;
+          return next(err);
+        }
+          req.body._id=person[i]._id;
+          user.Connections_Id.push(req.body);
+          user.save()
+          .then((connections)=>{
+              res.statusCode=200;
+              res.setHeader('Content-Type','application/json');
+              res.json(connections);
+          },(err)=>next(err))
+          .catch((err)=>next(err));
+        }
+      },(err)=>next(err));
     }
   },(err)=>next(err))
   .catch((err)=>{console.log(err);next(err)});
