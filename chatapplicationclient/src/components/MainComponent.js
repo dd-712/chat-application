@@ -56,12 +56,12 @@ class Main extends Component {
         return (
             <div>
                 <Header />
-                <Route exact path="/login" component={() => <Login />} />
-                <Route exact path="/signup" component={() => <Signup />} />
+                <Route exact path="/login" component={() => <Login loginUser={this.props.loginUser}/>} />
+                <Route exact path="/signup" component={() => <Signup signupUser={this.props.signupUser}/>} />
             </div>
         );
     }
 }
 
-//export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
-export default Main;
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+//export default Main;

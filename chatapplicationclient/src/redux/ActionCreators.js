@@ -3,10 +3,10 @@ import {baseUrl} from '../shared/baseUrl';
 
 export const fetchContacts = () => (dispatch) => {
     dispatch(contactsLoading(true));
-   
+   //alert(localStorage.getItem('token'));
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'connections', {
+    return fetch(baseUrl + 'users/connections', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -15,6 +15,7 @@ export const fetchContacts = () => (dispatch) => {
         credentials: 'same-origin'
     })
     .then(response => {
+        //alert(JSON.stringify(response));
         if (response.ok) {
             return response;
         }
@@ -54,7 +55,7 @@ export const postContact = (username) => (dispatch) => {
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'connections', {
+    return fetch(baseUrl + 'users/connections', {
         method: 'POST',
         body: JSON.stringify(newContact),
         headers: {
@@ -88,7 +89,7 @@ export const deleteContact = (_ID) => (dispatch) => {
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'connections', {
+    return fetch(baseUrl + 'users/connections', {
         method: 'DELETE',
         body: JSON.stringify(deleteContact),
         headers: {
@@ -291,13 +292,20 @@ export const ErrorMess = (errmess) => ({
 
 export const signupUser = (username,password,firstname,lastname) => (dispatch) => {
 
-    const newUser={
+    const newUse={
         username:username,
         password:password,
         firstname:firstname,
         lastname:lastname
 
     };
+    const newUser={
+        username:newUse.username.username,
+        password:newUse.username.password,
+        firstname:newUse.username.firstname,
+        lastname:newUse.username.lastname
+    }
+    alert(JSON.stringify(newUser));
     return fetch(baseUrl + 'users/signup', {
         method: 'POST',
         body: JSON.stringify(newUser),
@@ -374,6 +382,7 @@ export const loginUser = (creds) => (dispatch) => {
             //console.log(response);
             localStorage.setItem('token', response.token);
             localStorage.setItem('creds', JSON.stringify(creds));
+            window.location.reload(false);
             dispatch(fetchContacts());
             dispatch(receiveLogin(response));
         }
@@ -383,7 +392,8 @@ export const loginUser = (creds) => (dispatch) => {
             throw error;
         }
     })
-    .catch(error => dispatch(loginError(error.message)))
+    .catch(error=>alert(error.message))
+    //.catch(error => dispatch(loginError(error.message)))
 };
 
 export const requestLogout = () => {

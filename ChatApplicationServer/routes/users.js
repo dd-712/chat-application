@@ -19,14 +19,17 @@ router.get('/',cors.corsWithOptions,authenticate.verifyUser,authenticate.verifyA
 });
 
 router.post('/signup',cors.corsWithOptions,function(req,res,next){
+  //console.log(req.body.username.firstname);
   User.register(new User({username: req.body.username}), 
     req.body.password, (err, user) => {
     if(err) {
+     // console.log(err.message);
       err=new Error(err.message)
       err.status = 500;
       return next(err);
     }
     else {
+      
         if(req.body.firstname)
           user.firstname=req.body.firstname;
         if(req.body.lastname)
@@ -142,6 +145,7 @@ router.get('/logout',cors.corsWithOptions,(req,res,next)=>{
 });
 
 router.route('/connections')
+.options(cors.corsWithOptions,(req,res)=>{res.sendStatus(200);})
 .get(cors.corsWithOptions,authenticate.verifyUser, function(req, res, next) {
   User.findById(req.user._id)
     .then((user)=>{
@@ -227,7 +231,7 @@ router.route('/connections')
       for(var i=0;i<user.Connections_Id.length;i++)
       {
         var ob=user.Connections_Id[i];
-        console.log(ob);
+        //console.log(ob);
         if(ob._id==req.body._id)
         {
           ind=c;
