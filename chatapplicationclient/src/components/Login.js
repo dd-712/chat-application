@@ -10,12 +10,11 @@ function Login(props) {
                 <h1>Login</h1>
                 <div class="content">
                     <div class="input-field">
-                        <input type="email" placeholder="Email" autocomplete="nope" />
+                        <input type="text" placeholder="Username" autocomplete="nope" id="userName" />
                     </div>
                     <div class="input-field">
-                        <input type="password" placeholder="Password" autocomplete="new-password" />
+                        <input type="password" placeholder="Password" autocomplete="new-password" id="password" />
                     </div>
-                    <a href="#" class="link">Forgot Your Password?</a>
                 </div>
                 <div class="action">
                     <Link to="/signup" style={{ textDecoration: 'none' }}><button>Signup</button></Link>
