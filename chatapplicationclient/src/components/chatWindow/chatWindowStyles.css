@@ -1,0 +1,24 @@
+
+.chatWindowHeader {
+    height: 8vh;
+    border: 1.5px solid black;
+    margin: 0;
+}
+
+.friendName {
+    font-size: 30px;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.audioIcon, .videoIcon {
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+
+
+.chatWindowFooter {
+    margin: 0%;
+}

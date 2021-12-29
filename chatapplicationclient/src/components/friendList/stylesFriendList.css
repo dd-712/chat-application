@@ -1,0 +1,29 @@
+
+.friendListDiv {
+    width: 100%;
+    margin-left: 0;
+    padding: 3px;
+    margin-left: 4px;
+    height: 90vh;
+    overflow-y: auto;
+}
+
+.input {
+    width: 80%;
+    
+}
+
+.input,.searchIcon,.friendRequest {
+    display: inline-block;
+    margin: 3px;
+}
+
+.friendBox {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    border: 1.5px solid black;
+    outline: none;
+    color: black;
+    margin-top: 2px;
+}
