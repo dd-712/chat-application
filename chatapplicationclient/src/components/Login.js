@@ -20,7 +20,7 @@ function Login(props) {
                 <h1>Login</h1>
                 <div className="content">
                     <div className="input-field">
-                        <input type="text" onChange={e => setUserName(e.target.value)} placeholder="Username" autocomplete="nope" id="userName" />
+                        <input type="text" onChange={e => setUserName(e.target.value)} placeholder="Username" autocomplete="off" id="userName" />
                     </div>
                     <div className="input-field">
                         <input type="password" onChange={e => setPassword(e.target.value)} placeholder="Password" autocomplete="new-password" id="password" />

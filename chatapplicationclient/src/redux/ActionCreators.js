@@ -1,38 +1,58 @@
 
 import * as ActionTypes from './ActionTypes';
-import {baseUrl} from '../shared/baseUrl';
+import { baseUrl } from '../shared/baseUrl';
+
+// export function fetchContacts() {
+//     return async function (dispatch) {
+//         await dispatch(contactsLoading(true));
+        
+//         const bearer = 'Bearer ' + localStorage.getItem('token');
+//         const response = await fetch(baseUrl + 'users/connections', {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': bearer
+//             },
+//             credentials: 'same-origin'
+//         },alert("Done"));
+//         alert(JSON.stringify(response));
+//         if (response.ok) {
+//             const contacts = JSON.stringify(response);
+//             alert(contacts);
+//             await dispatch(addcontacts(contacts))
+//         }
+//     }
+// }
 
 export const fetchContacts = () => (dispatch) => {
-    dispatch(contactsLoading(true));
-   //alert(localStorage.getItem('token'));
-    const bearer = 'Bearer ' + localStorage.getItem('token');
+dispatch(contactsLoading(true));
+const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'users/connections', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': bearer
-        },
-        credentials: 'same-origin'
-    },alert('done'))
-    .then((response) => {
-      //  alert('done3');
-        if (response.status==200) {
-            return response;
-        }
-        else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            error.response = response;
-            throw error;
-        }
+return fetch(baseUrl + 'users/connections', {
+    method: 'GET',
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': bearer
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => JSON.stringify(response))
-    .then(contacts => dispatch(addcontacts(contacts)))
-    .catch(error => {alert(error.message);dispatch(contactsFailed(error.message))});
+    credentials: 'same-origin'
+}).then((response) => {
+    alert('done');
+if (response.ok) {
+    return response;
+}
+else {
+    var error = new Error('Error ' + response.status + ': ' + response.statusText);
+    error.response = response;
+    throw error;
+}
+},
+error => {
+    var errmess = new Error(error.message);
+    throw errmess;}
+)
+.then(response => JSON.stringify(response))
+.then(contacts => dispatch(addcontacts(contacts)))
+.catch(error => {alert(error.message);dispatch(contactsFailed(error.message))});
 }
 
 export const contactsLoading = () => ({
@@ -52,7 +72,7 @@ export const addcontacts = (contacts) => ({
 export const postContact = (username) => (dispatch) => {
 
     const newContact = {
-        username:username
+        username: username
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -64,8 +84,7 @@ export const postContact = (username) => (dispatch) => {
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -75,18 +94,18 @@ export const postContact = (username) => (dispatch) => {
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response=>dispatch(fetchContacts()))
-    .catch(error => { dispatch(ErrorMess('New contact not added')); })
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => dispatch(fetchContacts()))
+        .catch(error => { dispatch(ErrorMess('New contact not added')); })
 }
 
 export const deleteContact = (_ID) => (dispatch) => {
 
     const deleteContact = {
-        _id:_ID
+        _id: _ID
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -98,8 +117,7 @@ export const deleteContact = (_ID) => (dispatch) => {
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -109,18 +127,18 @@ export const deleteContact = (_ID) => (dispatch) => {
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => dispatch(fetchContacts()))
-    .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this contact'));})
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => dispatch(fetchContacts()))
+        .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this contact')); })
 }
 
 export const fetchChats = (receiver) => (dispatch) => {
     dispatch(chatsLoading(true));
     const chats = {
-        receiver:receiver
+        receiver: receiver
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -132,8 +150,7 @@ export const fetchChats = (receiver) => (dispatch) => {
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -143,13 +160,13 @@ export const fetchChats = (receiver) => (dispatch) => {
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => response.json())
-    .then(chats => dispatch(addchats(chats)))
-    .catch(error => dispatch(chatsFailed(error.message)));
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(chats => dispatch(addchats(chats)))
+        .catch(error => dispatch(chatsFailed(error.message)));
 }
 
 export const chatsLoading = () => ({
@@ -166,13 +183,13 @@ export const addchats = (chats) => ({
     payload: chats
 });
 
-export const postChat = (receiver, message,data,title,File) => (dispatch) => {
+export const postChat = (receiver, message, data, title, File) => (dispatch) => {
 
     const newChat = {
         receiver: receiver,
-        message:message,
-        data:data,
-        File:{'filename':File,'title':title}
+        message: message,
+        data: data,
+        File: { 'filename': File, 'title': title }
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -184,8 +201,7 @@ export const postChat = (receiver, message,data,title,File) => (dispatch) => {
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -195,31 +211,30 @@ export const postChat = (receiver, message,data,title,File) => (dispatch) => {
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response=>dispatch(fetchChats()))
-    .catch(error => { dispatch(ErrorMess('Your data could not be send')); })
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => dispatch(fetchChats()))
+        .catch(error => { dispatch(ErrorMess('Your data could not be send')); })
 }
 
 export const deleteChat = (_ID) => (dispatch) => {
 
     const deleteChat = {
-        _Id:_ID
+        _Id: _ID
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
     return fetch(baseUrl + 'deleteChat', {
         method: 'DELETE',
-        body:JSON.stringify(deleteChat),
+        body: JSON.stringify(deleteChat),
         headers: {
             'Content-Type': 'application/json',
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -229,27 +244,26 @@ export const deleteChat = (_ID) => (dispatch) => {
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => dispatch(fetchChats()))
-    .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this chat'));})
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => dispatch(fetchChats()))
+        .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this chat')); })
 }
 
-export const postFile=(formadata, receiver, message,data,title)=>(dispatch)=>{
-    const bearer ='Bearer ' +localStorage.getItem('token');
-    
-    return fetch(baseUrl+'UploadFile',{
+export const postFile = (formadata, receiver, message, data, title) => (dispatch) => {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+
+    return fetch(baseUrl + 'UploadFile', {
         method: 'POST',
         body: formadata,
-        headers:{
-            
+        headers: {
+
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -259,21 +273,21 @@ export const postFile=(formadata, receiver, message,data,title)=>(dispatch)=>{
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => response.json())
-    .then(response => {
-        dispatch(postChat(receiver, message,data,title,response.file));
-    })
-    .catch(error => {
-        if(error.message=="Error 401: Unauthorized")
-        dispatch(ErrorMess('Please LOGIN to chat'));
-        else
-        dispatch(ErrorMess('Please upload File with valid file extension.'));
-        dispatch(Set_default());
-    })
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(response => {
+            dispatch(postChat(receiver, message, data, title, response.file));
+        })
+        .catch(error => {
+            if (error.message == "Error 401: Unauthorized")
+                dispatch(ErrorMess('Please LOGIN to chat'));
+            else
+                dispatch(ErrorMess('Please upload File with valid file extension.'));
+            dispatch(Set_default());
+        })
 }
 
 export const addFile = (name) => ({
@@ -281,9 +295,9 @@ export const addFile = (name) => ({
     payload: name
 });
 
-export const Set_default=()=>({
-    type:ActionTypes.SET_DEFAULT,
-    payload:'00'
+export const Set_default = () => ({
+    type: ActionTypes.SET_DEFAULT,
+    payload: '00'
 });
 
 export const ErrorMess = (errmess) => ({
@@ -291,20 +305,20 @@ export const ErrorMess = (errmess) => ({
     payload: errmess
 });
 
-export const signupUser = (username,password,firstname,lastname) => (dispatch) => {
+export const signupUser = (username, password, firstname, lastname) => (dispatch) => {
 
-    const newUse={
-        username:username,
-        password:password,
-        firstname:firstname,
-        lastname:lastname
+    const newUse = {
+        username: username,
+        password: password,
+        firstname: firstname,
+        lastname: lastname
 
     };
-    const newUser={
-        username:newUse.username.username,
-        password:newUse.username.password,
-        firstname:newUse.username.firstname,
-        lastname:newUse.username.lastname
+    const newUser = {
+        username: newUse.username.username,
+        password: newUse.username.password,
+        firstname: newUse.username.firstname,
+        lastname: newUse.username.lastname
     }
     alert(JSON.stringify(newUser));
     return fetch(baseUrl + 'users/signup', {
@@ -314,8 +328,7 @@ export const signupUser = (username,password,firstname,lastname) => (dispatch) =
             'Content-Type': 'application/json',
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -325,13 +338,13 @@ export const signupUser = (username,password,firstname,lastname) => (dispatch) =
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => response.json())
-    .then(response =>  alert(response.status))
-    .catch(error => { dispatch(ErrorMess('Username Already Taken'));})
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(response => alert(response.status))
+        .catch(error => { dispatch(ErrorMess('Username Already Taken')); })
 };
 
 export const requestLogin = (creds) => {
@@ -340,7 +353,7 @@ export const requestLogin = (creds) => {
         creds
     }
 }
-  
+
 export const receiveLogin = (response) => {
     return {
         type: ActionTypes.LOGIN_SUCCESS,
@@ -360,12 +373,11 @@ export const loginUser = (creds) => (dispatch) => {
 
     return fetch(baseUrl + 'users/login', {
         method: 'POST',
-        headers: { 
-            'Content-Type':'application/json' 
+        headers: {
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(creds)
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         } else {
@@ -373,39 +385,38 @@ export const loginUser = (creds) => (dispatch) => {
             error.response = response;
             throw error;
         }
-        },
+    },
         error => {
             throw error;
         })
-    .then(response => response.json())
-    .then(response => {
-        if (response.success) {
-            //console.log(response);
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('creds', JSON.stringify(creds));
-            window.location.reload(false);
-            dispatch(fetchContacts());
-            dispatch(receiveLogin(response));
-        }
-        else {
-            var error = new Error('Error ' + response.status);
-            error.response = response;
-            throw error;
-        }
-    })
-    .catch(error=>alert(error.message))
+        .then(response => response.json())
+        .then(response => {
+            if (response.success) {
+                localStorage.setItem('token', response.token);
+                localStorage.setItem('creds', JSON.stringify(creds));
+                window.location.reload(false);
+                dispatch(fetchContacts());
+                dispatch(receiveLogin(response));
+            }
+            else {
+                var error = new Error('Error ' + response.status);
+                error.response = response;
+                throw error;
+            }
+        })
+        .catch(error => alert(error.message))
     //.catch(error => dispatch(loginError(error.message)))
 };
 
 export const requestLogout = () => {
     return {
-      type: ActionTypes.LOGOUT_REQUEST
+        type: ActionTypes.LOGOUT_REQUEST
     }
 }
-  
+
 export const receiveLogout = () => {
     return {
-      type: ActionTypes.LOGOUT_SUCCESS
+        type: ActionTypes.LOGOUT_SUCCESS
     }
 }
 
@@ -419,7 +430,7 @@ export const logoutUser = () => (dispatch) => {
 export const postChangeUsername = (newUsername) => (dispatch) => {
 
     const newName = {
-        comment:newUsername
+        comment: newUsername
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
@@ -431,8 +442,7 @@ export const postChangeUsername = (newUsername) => (dispatch) => {
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
+    }).then(response => {
         if (response.ok) {
             return response;
         }
@@ -442,12 +452,14 @@ export const postChangeUsername = (newUsername) => (dispatch) => {
             throw error;
         }
     },
-    error => {
-        var errmess = new Error(error.message);
-        throw errmess;
-    })
-    .then(response => response.json())
-    .then(response => alert(response.statusValue))
-    .catch(error => { console.log('Error: ', error.message);
-        alert('Error: '+ error.message); })
+        error => {
+            var errmess = new Error(error.message);
+            throw errmess;
+        })
+        .then(response => response.json())
+        .then(response => alert(response.statusValue))
+        .catch(error => {
+            console.log('Error: ', error.message);
+            alert('Error: ' + error.message);
+        })
 }
