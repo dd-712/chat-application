@@ -102,3 +102,41 @@ html, body {
 .login-form .action button:nth-child(2):hover {
   background: #3c4d6d;
 }
+
+.login{
+  background-color:	#228ea1;
+  color:white;
+  cursor: pointer;
+  padding: 3px 9px;
+  border-radius: 3px;
+}
+.login:hover{
+  background-color:#39a6b9 ;
+}
+.signup{
+  background-color:	#1b8d4a;
+  color:white;
+  cursor: pointer;
+  padding: 3px 9px;
+  margin-left: 10px;
+  border-radius: 3px;
+}
+.signup:hover{
+  background-color:#39aa52 ;
+}
+.usname{
+  color:#3b1c32 ;
+  font-size: 16px;
+  font-weight: 500;
+}
+.logout{
+  background-color:	#974343;
+  color:white;
+  cursor: pointer;
+  padding: 3px 9px;
+  border-radius: 3px;
+  margin-left: 10px;
+}
+.logout:hover{
+  background-color:#a80d1f ;
+}

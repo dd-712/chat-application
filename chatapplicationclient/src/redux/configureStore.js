@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import { Chats } from './Chats';
 import {Contacts} from './Contacts';
 import {ErrorMess} from './ErrorMess';
@@ -15,8 +16,8 @@ export const ConfigureStore = () => {
             errorMess:ErrorMess,
             auth: Auth,
             file:File
-        }),
+        }),composeWithDevTools(
         applyMiddleware(thunk, logger)
-    );
+    ));
     return store;
 }

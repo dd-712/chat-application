@@ -1,3 +1,4 @@
+
 import * as ActionTypes from './ActionTypes';
 import {baseUrl} from '../shared/baseUrl';
 
@@ -13,10 +14,10 @@ export const fetchContacts = () => (dispatch) => {
             'Authorization': bearer
         },
         credentials: 'same-origin'
-    })
-    .then(response => {
-        //alert(JSON.stringify(response));
-        if (response.ok) {
+    },alert('done'))
+    .then((response) => {
+      //  alert('done3');
+        if (response.status==200) {
             return response;
         }
         else {
@@ -29,9 +30,9 @@ export const fetchContacts = () => (dispatch) => {
         var errmess = new Error(error.message);
         throw errmess;
     })
-    .then(response => response.json())
+    .then(response => JSON.stringify(response))
     .then(contacts => dispatch(addcontacts(contacts)))
-    .catch(error => dispatch(contactsFailed(error.message)));
+    .catch(error => {alert(error.message);dispatch(contactsFailed(error.message))});
 }
 
 export const contactsLoading = () => ({

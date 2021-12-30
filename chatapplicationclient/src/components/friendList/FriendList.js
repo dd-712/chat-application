@@ -12,7 +12,7 @@ function FriendList(props) {
                 <div className='searchIcon'><img src='/search-icon.png' width='20px' /></div>
                 <div className='friendRequest'><img src='/person-icon.png' width='20px' /></div>
             </div>
-
+            
             <Friend />
         </div>
 
