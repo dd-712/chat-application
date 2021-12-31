@@ -39,6 +39,23 @@
     width: 80%;
 }
 
+.msg {
+    width: 100%;
+    padding: 3px;
+    overflow-wrap: break-word;
+}
+
+.text {
+    font-size: larger;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.time {
+    float: right;
+    font-size: small;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .sender {
     float: right;
     width: 75%;
