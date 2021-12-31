@@ -4,7 +4,7 @@ import './chatWindowStyles.css';
 
 function ChatMessage(props) {
 
-    const [user, setuser] = useState('sender');
+    const [user, setuser] = useState('receiver');
     const [msgType, setMsgType] = useState('msg');
 
     return (
