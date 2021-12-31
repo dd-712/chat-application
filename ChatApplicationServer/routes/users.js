@@ -146,7 +146,7 @@ router.route('/connections')
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.json(user.Connections_Id);
-        console.log(res);
+        //console.log(res);
       }, (err) => next(err))
       .catch((err) => next(err));
   })

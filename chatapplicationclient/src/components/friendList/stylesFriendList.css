@@ -21,9 +21,21 @@
 .friendBox {
     display: flex;
     align-items: center;
-    height: 35px;
+    height: 40px;
     border: 1.5px solid black;
     outline: none;
     color: black;
-    margin-top: 2px;
+    margin-top: 3px;
+    border-radius: 2px;
+    width: 95%;
+}
+
+.uname{
+    margin-left:1%;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 900;
+}
+.remove{
+    position:absolute;
+    margin-left:80% ;
 }
