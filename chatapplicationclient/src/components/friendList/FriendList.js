@@ -17,7 +17,7 @@ function FriendList(props) {
                 <div className='friendRequest'><img src='/person-icon.png' width='20px' /></div>
             </div>
             <div>
-                <Friend deleteFriend={props.deleteFriend}/>
+                <Friend deleteFriend={props.deleteFriend} className='friendList'/>
             </div>
         </div>
     );

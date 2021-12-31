@@ -5,7 +5,10 @@
     padding: 3px;
     margin-left: 4px;
     height: 90vh;
-    overflow-y: auto;
+}
+
+.friendList {
+    overflow-y: scroll;
 }
 
 .input {
