@@ -6,7 +6,7 @@ import ChatMessage from './ChatMessage';
 function ChatList(props) {
 
     return (
-        <div>
+        <div className='chatMessageDiv'>
             <ChatMessage />
         </div>
         

@@ -3,6 +3,10 @@ html, body {
   overflow:hidden;
 }
 
+.mainComponentDiv {
+  position:relative;
+}
+
 .mainDiv {
   height: 90vh;
 }

@@ -17,8 +17,49 @@
     margin-right: 10px;
 }
 
-
+.chatMessageDiv{
+    margin-top: 5px;
+    width: 100%;
+    height: 75vh;
+}
 
 .chatWindowFooter {
+    width: 100%;
     margin: 0%;
+    position: absolute;
+    bottom: 9px;
+}
+
+.inputForm {
+    display: inline-block;
+    width: 90%;
+}
+
+.inputMessage {
+    width: 80%;
+}
+
+.sender {
+    float: right;
+    width: 75%;
+    align-self: flex-end;
+    padding-right: 10px;
+    margin-right: 15px;
+    border-radius: 7px 7px 0px 7px;
+    background-color: #ffffff;
+    color: #707c97;
+    border: 1px solid rgba(112, 124, 151, 0.25);
+}
+
+.receiver {
+    width: 75%;
+    align-self: flex-start;
+    padding-left: 10px;
+    margin-left: 15px;
+    border-radius: 0px 7px 7px 7px;
+    background: rgb(96, 169, 246);
+    background: linear-gradient(135deg, rgba(96, 169, 246, 1) 0%, rgba(42, 139, 242, 1) 100%);
+    color: #ffffff;
+    box-shadow: 10px 10px 25px 0px rgba(42, 139, 242, 0.1), 15px 15px 35px 0px rgba(33, 44, 56, 0.05),
+        10px 10px 50px 0px rgba(42, 139, 242, 0.1);
 }

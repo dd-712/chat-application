@@ -51,35 +51,35 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 class Main extends Component {
-/*
-    componentDidMount() {
-      this.props.fetchChats();
-      this.props.fetchContacts();
-      document.title="Chat App";
-    }
-    
-   
-    componentDidUpdate(){
-        this.props.fetchChats();
-        this.props.fetchContacts();
-    }
-*/
+    /*
+        componentDidMount() {
+          this.props.fetchChats();
+          this.props.fetchContacts();
+          document.title="Chat App";
+        }
+        
+       
+        componentDidUpdate(){
+            this.props.fetchChats();
+            this.props.fetchContacts();
+        }
+    */
     render() {
         let Valid = this.props.auth.isAuthenticated;
         if (!Valid) {
             return (
-                <div>
-                    <Header auth={this.props.auth} logoutUser={this.props.logoutUser}/>
+                <div className='mainComponentDiv'>
+                    <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
                     <Route exact path="/login" component={() => <Login loginUser={this.props.loginUser} />} />
                     <Route exact path="/signup" component={() => <Signup signupUser={this.props.signupUser} />} />
                 </div>
             );
         } else {
             //alert(JSON.stringify(this.props.contacts));
-            
+
             return (
-                <div>
-                    <Header auth={this.props.auth} logoutUser={this.props.logoutUser}/>
+                <div className='mainComponentDiv'>
+                    <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
                     <div className='mainDiv'>
                         <div className='row'>
                             <div className='col-lg-4'>

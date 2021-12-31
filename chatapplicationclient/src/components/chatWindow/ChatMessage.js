@@ -1,25 +1,18 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './chatWindowStyles.css';
 
 function ChatMessage(props) {
 
-    let chatType = 'msg';
+    const [user, setuser] = useState('receiver');
+    const [msgType, setMsgType] = useState('msg');
 
-    if (chatType == "msg") {
-        return (
-            <div className="">
-                <div>msg</div>
-                <div>time</div>
-            </div>
-        );
-    } else {
-        return (
-            <div className="">
-                <div>time</div>
-            </div>
-        );
-    }
+    return (
+        <div className={`${user}`} >
+            <div>msg</div>
+            <div>time</div>
+        </div >
+    );
 }
 
 export default ChatMessage;
