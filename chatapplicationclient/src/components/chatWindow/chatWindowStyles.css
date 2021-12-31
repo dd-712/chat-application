@@ -43,6 +43,7 @@
     width: 100%;
     padding: 3px;
     overflow-wrap: break-word;
+    margin-bottom: 5px;
 }
 
 .text {
@@ -78,4 +79,8 @@
     background-color: #3d8fdb;
     color: #ffffff;
     border: 1px solid rgba(112, 124, 151, 0.25);
+}
+
+.chatMessageDiv {
+    overflow-y: scroll;
 }
