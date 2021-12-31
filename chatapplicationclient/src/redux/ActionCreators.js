@@ -2,27 +2,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
-// export function fetchContacts() {
-//     return async function (dispatch) {
-//         await dispatch(contactsLoading(true));
-        
-//         const bearer = 'Bearer ' + localStorage.getItem('token');
-//         const response = await fetch(baseUrl + 'users/connections', {
-//             method: 'GET',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': bearer
-//             },
-//             credentials: 'same-origin'
-//         },alert("Done"));
-//         alert(JSON.stringify(response));
-//         if (response.ok) {
-//             const contacts = JSON.stringify(response);
-//             alert(contacts);
-//             await dispatch(addcontacts(contacts))
-//         }
-//     }
-// }
 
 export const fetchContacts = () => (dispatch) => {
 dispatch(contactsLoading(true));
@@ -98,7 +77,7 @@ export const postContact = (username) => (dispatch) => {
             var errmess = new Error(error.message);
             throw errmess;
         })
-        .then(response => dispatch(fetchContacts()))
+        // .then(response => dispatch(fetchContacts()))
         .catch(error => { dispatch(ErrorMess('New contact not added')); })
 }
 
@@ -131,7 +110,7 @@ export const deleteContact = (_ID) => (dispatch) => {
             var errmess = new Error(error.message);
             throw errmess;
         })
-        .then(response => dispatch(fetchContacts()))
+        // .then(response => dispatch(fetchContacts()))
         .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this contact')); })
 }
 
@@ -395,7 +374,7 @@ export const loginUser = (creds) => (dispatch) => {
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('creds', JSON.stringify(creds));
                 window.location.reload(false);
-                dispatch(fetchContacts());
+                // dispatch(fetchContacts());
                 dispatch(receiveLogin(response));
             }
             else {
