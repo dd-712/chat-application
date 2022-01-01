@@ -82,7 +82,7 @@ class Main extends Component {
                     <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
                     <div className='mainDiv'>
                         <div className='row'>
-                            <div className='col-lg-4'>
+                            <div className='col-lg-3'>
                                 <FriendList
                                     fetchFriends={this.props.fetchContacts}
                                     data={this.props.contacts}
@@ -92,7 +92,7 @@ class Main extends Component {
                                     deleteFriend={this.props.deleteContact}
                                 />
                             </div>
-                            <div className='col-lg-8'>
+                            <div className='col-lg-9'>
                                 <Chat
                                     fetchChat={this.props.fetchChats}
                                     postChat={this.props.postChat}

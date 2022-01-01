@@ -15,12 +15,14 @@ html, body {
   height: 10vh;
 }
 
-.col-lg-4 {
-  background-color: antiquewhite;
+.col-lg-3 {
+  padding-left: 0px;
+  background-color: #A6B1E1;
 }
 
-.col-lg-8 {
-  background-color: wheat;
+.col-lg-9 {
+  padding: 0px;
+  background-color: #fff;
 }
 
 .form {

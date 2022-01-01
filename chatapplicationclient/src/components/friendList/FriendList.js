@@ -15,18 +15,20 @@ function FriendList(props) {
     function toggleModal() {
         setState(!modelOpen);
     }
+    
     function addFriend(event) {
+        event.preventDefault();
         toggleModal();
         props.postFriends(username);
         window.location.reload(false);
-        event.preventDefault();
     }
+
     return (
         <div className='friendListDiv'>
             <div className='friendListHeader'>
                 <input type='text' placeholder='Search Friends' className='input' />
-                <div className='searchIcon'><img src='/search-icon.png' width='20px' /></div>
-                <div className='friendRequest' onClick={toggleModal}><img src='/person-icon.png' width='20px' /></div>
+                <button className='searchIcon btn'><i class="fas fa-search"></i></button>
+                <button className='friendRequest btn' onClick={toggleModal}><i class="fas fa-user-alt"></i></button>
                 <Modal  isOpen={modelOpen} toggle={toggleModal}>
                     <ModalHeader toggle={toggleModal}>Add Friend</ModalHeader>
                     <ModalBody>
@@ -34,7 +36,9 @@ function FriendList(props) {
                             <FormGroup>
                                 <Label htmlFor="username">Username</Label>
                                 <Input type="text" id="username" name="username"
-                                    onChange={e => setUserName(e.target.value)} />
+                                    onChange={e => setUserName(e.target.value)}
+                                    autocomplete='off'    
+                                />
                             </FormGroup>
                             <Button type="submit" value="submit" color="primary">Add</Button>
                         </Form>

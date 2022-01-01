@@ -52,10 +52,10 @@ function Friend(props) {
       <div key={index}>
         <Link className="link" to={`/${'connect__'+info.username}/${info._id}`} >
           <div className='friendBox'>
-            <span className='uname'>{info.username}</span>
-            <span className="remove">
-              <button onClick={() => { props.deleteFriend(info._id); setAlert(true); }}>remove</button>
-            </span>
+            <div className='uname'>{info.username}</div>
+            <div className="remove">
+              <button className='btn' onClick={() => { props.deleteFriend(info._id); setAlert(true); }}><i class="far fa-trash-alt"></i></button>
+            </div>
           </div>
         </Link>
       </div>
@@ -64,7 +64,7 @@ function Friend(props) {
   if (friendList.length == 0)
     FriendList = "No Friend found";
   return (
-    <div>
+    <div className='friendList'>
       {FriendList}
     </div>
   );

@@ -5,7 +5,7 @@ import './styles.css';
 function Header(props) {
     return (
       <div className="header">
-        <header className="d-flex  align-items-center justify-content-center justify-content-md-between  mb-4 border-bottom">
+        <header className="d-flex  align-items-center justify-content-md-between  mb-4 border-bottom">
           <a href="/" className="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
             <img src="https://cdn.dribbble.com/users/267404/screenshots/3713416/talkup.png" width="90" />
           </a>

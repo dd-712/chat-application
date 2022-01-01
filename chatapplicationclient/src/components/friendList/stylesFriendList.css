@@ -2,18 +2,51 @@
 .friendListDiv {
     width: 100%;
     margin-left: 0;
-    padding: 3px;
+    padding: 0px;
     margin-left: 4px;
     height: 90vh;
+    overflow-y: scroll;
+    border-right:2px solid #0000004f;
 }
 
-.friendList {
-    overflow-y: scroll;
+.friendListDiv::-webkit-scrollbar-track
+{
+	background-color: #ebebeb;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.friendListDiv::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+.friendListDiv::-webkit-scrollbar-thumb
+{
+	-webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #6d6d6d; 
 }
 
 .input {
-    width: 80%;
-    
+    width: 60%;
+    border-bottom:2px solid rgb(19, 107, 207);
+    border-radius:4px;
+    margin:8px 0;
+    outline:none;
+    padding:8px;
+    transition:.3s;
+    background: transparent;
+    color: #000;
+}
+
+.input::placeholder { 
+    color: #000;
+}
+
+.input:focus {
+    border-color:#6e99e6;
+    box-shadow:0 0 8px 0 #6e99e6;
 }
 
 .input,.searchIcon,.friendRequest {
@@ -22,7 +55,7 @@
 }
 
 .friendBox {
-    display: flex;
+    display: inline-block;
     align-items: center;
     height: 40px;
     border: 1.5px solid black;
@@ -31,14 +64,25 @@
     margin-top: 3px;
     border-radius: 2px;
     width: 95%;
+    position: relative;
+    border-radius: 4px;
+    
 }
+
+.friendBox:hover {
+    background: linear-gradient(105deg,#093c94 ,#6e99e6);
+    color: #fff;
+}
+
 
 .uname{
     margin-left:1%;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: cursive;
     font-weight: 900;
+    position: absolute;
+    left: 12px;
 }
 .remove{
     position: absolute;
-    margin-left: 60%;
+    right: 12px;
 }
