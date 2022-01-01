@@ -98,6 +98,7 @@ class Main extends Component {
                                     postChat={this.props.postChat}
                                     deleteChat={this.props.deleteChat}
                                     postFile={this.props.postFile}
+                                    data={this.props.chats}
                                 />
                             </div>
                         </div>

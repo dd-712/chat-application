@@ -7,7 +7,7 @@ function ChatList(props) {
 
     return (
         <div className='chatMessageDiv'>
-            <ChatMessage />
+            <ChatMessage fetchChat={props.fetchChats} postChat={props.postChat} deleteChat={props.deleteChat} postFile={props.postFile} data={props.data}/>
         </div>
         
     );

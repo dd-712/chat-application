@@ -50,12 +50,14 @@ function Friend(props) {
   var FriendList = friendList.map((info, index) => {
     return (
       <div key={index}>
-        <div className='friendBox'>
-          <span className='uname'>{info.username}</span>
-          <span className="remove">
-            <button onClick={() => { props.deleteFriend(info._id); setAlert(true); }}>remove</button>
-          </span>
-        </div>
+        <Link className="link" to={`/${'connect__'+info.username}/${info._id}`} >
+          <div className='friendBox'>
+            <span className='uname'>{info.username}</span>
+            <span className="remove">
+              <button onClick={() => { props.deleteFriend(info._id); setAlert(true); }}>remove</button>
+            </span>
+          </div>
+        </Link>
       </div>
     );
   });

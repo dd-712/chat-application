@@ -12,7 +12,7 @@ function Chat(props) {
     return (
         <div>
             <ChatHeader />
-            <ChatList />
+            <ChatList fetchChat={props.fetchChats} postChat={props.postChat} deleteChat={props.deleteChat} postFile={props.postFile} data={props.data}/>
             <ChatFooter />
         </div>
     );
