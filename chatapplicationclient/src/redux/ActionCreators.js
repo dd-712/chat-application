@@ -115,14 +115,15 @@ export const deleteContact = (_ID) => (dispatch) => {
 }
 
 export const fetchChats = (receiver) => (dispatch) => {
+    //alert(receiver);
     dispatch(chatsLoading(true));
     const chats = {
         receiver: receiver
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'getChat', {
-        method: 'GET',
+    return fetch(baseUrl + 'chat/getChat', {
+        method: 'POST',
         body: JSON.stringify(chats),
         headers: {
             'Content-Type': 'application/json',
@@ -130,6 +131,7 @@ export const fetchChats = (receiver) => (dispatch) => {
         },
         credentials: 'same-origin'
     }).then(response => {
+        alert(JSON.stringify(response));
         if (response.ok) {
             return response;
         }
@@ -145,7 +147,7 @@ export const fetchChats = (receiver) => (dispatch) => {
         })
         .then(response => response.json())
         .then(chats => dispatch(addchats(chats)))
-        .catch(error => dispatch(chatsFailed(error.message)));
+        .catch(error => {alert(error.message);dispatch(chatsFailed(error.message))});
 }
 
 export const chatsLoading = () => ({

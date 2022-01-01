@@ -4,10 +4,9 @@ import './chatWindowStyles.css';
 import ChatMessage from './ChatMessage';
 
 function ChatList(props) {
-
     return (
         <div className='chatMessageDiv'>
-            <ChatMessage fetchChat={props.fetchChats} postChat={props.postChat} deleteChat={props.deleteChat} postFile={props.postFile} data={props.data}/>
+            <ChatMessage fetchChat={props.fetchChat} postChat={props.postChat} deleteChat={props.deleteChat} postFile={props.postFile} data={props.data}/>
         </div>
         
     );

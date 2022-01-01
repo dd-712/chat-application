@@ -6,10 +6,11 @@ const CryptoJS = require('crypto-js');
 const authenticate = require('../authenticate');
 const cors = require('./cors');
 const fs=require('fs');
+const { response } = require('express');
 require('dotenv').config();
 
 const router = express.Router();
-
+router.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200); });
 function encryptMessage(text) {
     let message = CryptoJS.AES.encrypt(text, process.env.secretKey).toString();
     return message;
@@ -20,7 +21,9 @@ function decryptMessage(text) {
     return message;
 }
 
-router.get(("/getChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res) => {
+router.post(("/getChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res) => {
+    //console.log(req.user._id);
+    //console.log(req.body);
     Chat.find({
         $or: [
             { $and: [{ sender: req.user._id }, { receiver: req.body.receiver }] },
@@ -30,7 +33,7 @@ router.get(("/getChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res)
         const chats = {
             chat: []
         };
-        console.log(messages);
+        //console.log(messages);
         for (let i = 0; i < messages.length; i++) {
             chats.chat.push({
                 _id:messages[i]._id,
@@ -42,9 +45,10 @@ router.get(("/getChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res)
                 time: messages[i].createdAt
             });
         }
-
+        //console.log(chats);
         res.statusCode = 200;
         res.json(chats);
+        
     })
 })
 
