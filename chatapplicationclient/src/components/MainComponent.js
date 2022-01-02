@@ -81,8 +81,8 @@ class Main extends Component {
                 <div className='mainComponentDiv'>
                     <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
                     <div className='mainDiv'>
-                        <div className='row'>
-                            <div className='col-lg-3'>
+                        <div className='row' >
+                            <div className='col-lg-3' style={{padding: '0px'}}>
                                 <FriendList
                                     fetchFriends={this.props.fetchContacts}
                                     data={this.props.contacts}
@@ -92,7 +92,7 @@ class Main extends Component {
                                     deleteFriend={this.props.deleteContact}
                                 />
                             </div>
-                            <div className='col-lg-9'>
+                            <div className='col-lg-9' style={{padding: '0px'}}>
                                 <Chat
                                     fetchChat={this.props.fetchChats}
                                     postChat={this.props.postChat}

@@ -5,10 +5,10 @@ import './chatWindowStyles.css';
 function ChatFooter(props) {
     return (
         <footer className="chatWindowFooter">
-            <span className="file"><img src="/send-file-icon.png" width='20px'></img></span>
+            <span className="file"><i class="far fa-file-alt"></i></span>   
             <form className='inputForm'>
                 <input className="inputMessage" type="message" placeholder="Enter Message" autoComplete="off" />
-                <span className="sendButton"><img src="/send-icon.png" width='20px'></img></span>
+                <span className="sendButton"><i class="fas fa-paper-plane"></i></span>
             </form>
         </footer>
     );

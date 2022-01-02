@@ -31,8 +31,8 @@ function ChatHeader(props) {
   return (
       <header className="chatWindowHeader">
         <span className='friendName'>{friend}</span>
-        <span className='audioIcon'><img src='/audio-chat.png' width='30px' /></span>
-        <span className='videoIcon'><img src='/video-chat.png' width='30px' /></span>
+        <span className='audioIcon'><i class="fas fa-phone-alt"></i></span>
+        <span className='videoIcon'><i class="fas fa-video"></i></span>
       </header>
   );
 }

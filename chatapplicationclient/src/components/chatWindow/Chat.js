@@ -14,14 +14,13 @@ function Chat(props) {
     const [friend, setFriend] = useState('');
     const [id, setId] = useState('id');
     const [chatList, setChatList] = useState([]);
-    const [alerts, setAlert] = useState(false);
     const [last, setLast] = useState('');
-    const alertRef = useRef(alerts);
+
+    let found = 0;
 
     useEffect(() => {
-
         let url = window.location.href.split("/");
-        let found = 0;
+
         for (let i = 2; i < url.length; i++) {
             if (url[i].length >= 9 && url[i].slice(0, 9) == 'connect__' && i + 1 != url.length) {
                 found = 1;
@@ -30,6 +29,9 @@ function Chat(props) {
                 break;
             }
         }
+    })
+
+    useEffect(() => {
 
         if (friend === '')
             return;
@@ -54,7 +56,7 @@ function Chat(props) {
             })
 
             let response = res.data.chat;
-            //alert(JSON.stringify(response));
+
             let li = [];
 
             for (let i = 0; i < response.length; i++) {
@@ -87,23 +89,15 @@ function Chat(props) {
 
         if (found == 1) {
             getList();
-            alertRef.current = true;
             setLast(friend);
         }
 
-    }, [friend, chatList, alerts]);
+    }, [friend, chatList]);
 
-    useEffect(() => {
-        if (alerts) {
-            setTimeout(() => {
-                setAlert(false);
-            }, 1000)
-        }
-    }, [alerts])
 
     return (
-        <div>
-            {friend !== '' && chatList.length ?
+        <div className='mainChatWindow'>
+            {friend !== '' ?
                 <>
                     <ChatHeader />
                     <ChatList
@@ -118,8 +112,6 @@ function Chat(props) {
                 :
                 <div> Empty </div>
             }
-
-
         </div>
     );
 }

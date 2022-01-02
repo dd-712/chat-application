@@ -8,7 +8,7 @@ import './chatWindowStyles.css';
 function ChatMessage(props) {
   
   return (
-    <div key={props.index}>
+    <div key={props.index} className='msgDiv'>
       <div className={`msg ${props.type}`} >
         <div className='text'>{props.info}</div>
         <div className='time'> {props.time}</div>
