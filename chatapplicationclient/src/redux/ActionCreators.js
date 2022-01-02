@@ -131,7 +131,7 @@ export const fetchChats = (receiver) => (dispatch) => {
         },
         credentials: 'same-origin'
     }).then(response => {
-        alert(JSON.stringify(response));
+        
         if (response.ok) {
             return response;
         }
@@ -174,7 +174,7 @@ export const postChat = (receiver, message, data, title, File) => (dispatch) => 
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'addChat', {
+    return fetch(baseUrl + 'chat/addChat', {
         method: 'POST',
         body: JSON.stringify(newChat),
         headers: {
@@ -196,7 +196,6 @@ export const postChat = (receiver, message, data, title, File) => (dispatch) => 
             var errmess = new Error(error.message);
             throw errmess;
         })
-        .then(response => dispatch(fetchChats()))
         .catch(error => { dispatch(ErrorMess('Your data could not be send')); })
 }
 
@@ -207,7 +206,7 @@ export const deleteChat = (_ID) => (dispatch) => {
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'deleteChat', {
+    return fetch(baseUrl + 'chat/deleteChat', {
         method: 'DELETE',
         body: JSON.stringify(deleteChat),
         headers: {
@@ -229,7 +228,6 @@ export const deleteChat = (_ID) => (dispatch) => {
             var errmess = new Error(error.message);
             throw errmess;
         })
-        .then(response => dispatch(fetchChats()))
         .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this chat')); })
 }
 
@@ -301,7 +299,6 @@ export const signupUser = (username, password, firstname, lastname) => (dispatch
         firstname: newUse.username.firstname,
         lastname: newUse.username.lastname
     }
-    alert(JSON.stringify(newUser));
     return fetch(baseUrl + 'users/signup', {
         method: 'POST',
         body: JSON.stringify(newUser),
@@ -385,8 +382,8 @@ export const loginUser = (creds) => (dispatch) => {
                 throw error;
             }
         })
-        .catch(error => alert(error.message))
-    //.catch(error => dispatch(loginError(error.message)))
+        //.catch(error => alert(error.message))
+    .catch(error => dispatch(loginError(error.message)))
 };
 
 export const requestLogout = () => {

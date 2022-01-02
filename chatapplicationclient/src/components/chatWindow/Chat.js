@@ -82,8 +82,6 @@ function Chat(props) {
                     nchat.type = 'receiver';
                 li.push(nchat);
             }
-
-            // alert(JSON.stringify(li));
             setChatList(li);
         }
 
@@ -107,7 +105,7 @@ function Chat(props) {
                         postFile={props.postFile}
                         data={props.data}
                     />
-                    <ChatFooter />
+                    <ChatFooter postChat={props.postChat} postFile={props.postFile} receiver={id}/>
                 </>
                 :
                 <div> Empty </div>

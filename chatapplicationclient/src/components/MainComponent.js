@@ -75,7 +75,6 @@ class Main extends Component {
                 </div>
             );
         } else {
-            //alert(JSON.stringify(this.props.contacts));
 
             return (
                 <div className='mainComponentDiv'>

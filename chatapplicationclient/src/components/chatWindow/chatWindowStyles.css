@@ -39,8 +39,11 @@
 
 .file, .sendButton {
     margin: 5px;
+    cursor: pointer;
 }
-
+.File{
+    cursor: pointer;
+}
 .inputForm {
     display: inline-block;
     width: 90%;

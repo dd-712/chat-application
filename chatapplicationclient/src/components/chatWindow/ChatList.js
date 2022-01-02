@@ -14,6 +14,12 @@ function ChatList(props) {
                         type={info.type}
                         info={info.text}
                         time={info.time}
+                        _id={info._id}
+                        sender={info.sender}
+                        receiver={info.receiver}
+                        File={info.File}
+                        title={info.title}
+                        data={info.data}
                     />
                 );
             })}
