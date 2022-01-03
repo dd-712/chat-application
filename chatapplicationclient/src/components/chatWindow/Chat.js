@@ -76,10 +76,18 @@ function Chat(props) {
                     "data": response[i].data,
                     "time": hour + ":" + min
                 };
-                if (response[i].receiver == id)
-                    nchat.type = 'sender';
-                else
-                    nchat.type = 'receiver';
+                if (response[i].receiver == id) {
+                    // if (nchat.data == 1)
+                        nchat.type = 'sender';
+                    // else
+                    //     nchat.type = 'sender fileSender';
+
+                } else {
+                    // if (nchat.data == 1)
+                        nchat.type = 'receiver';
+                    // else
+                    //     nchat.type = 'receiver fileReceiver';
+                }
                 li.push(nchat);
             }
             setChatList(li);
@@ -99,13 +107,14 @@ function Chat(props) {
                 <>
                     <ChatHeader />
                     <ChatList
+                        className='List'
                         chatList={chatList}
                         postChat={props.postChat}
                         deleteChat={props.deleteChat}
                         postFile={props.postFile}
                         data={props.data}
                     />
-                    <ChatFooter postChat={props.postChat} postFile={props.postFile} receiver={id}/>
+                    <ChatFooter postChat={props.postChat} postFile={props.postFile} receiver={id} />
                 </>
                 :
                 <div> Empty </div>

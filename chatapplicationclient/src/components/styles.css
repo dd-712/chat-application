@@ -29,11 +29,13 @@ html, body {
 
 .col-lg-3 {
   background-color: #A6B1E1;
+  height: 90vh;
 }
 
 .col-lg-9 {
   padding: 0px;
   background-color: #fff;
+  height: 90vh;
 }
 
 .form {

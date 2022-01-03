@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useState, useEffect, useRef } from 'react';
 import { Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label } from 'reactstrap';
 import './chatWindowStyles.css';
@@ -9,7 +9,8 @@ function ChatFooter(props) {
     const [File, setFile] = useState(null);
     const [title, setTitle] = useState('No title');
     const [modelOpen, setState] = useState(false);
- 
+
+
     function toggleModal() {
         setState(!modelOpen);
     }
@@ -32,21 +33,23 @@ function ChatFooter(props) {
         props.postChat(
             receiver, message, data, title, "Not a File"
         );
-        
+        e.target.value='';
       }
       const handleKeypress = e => {
       if (e.key ==='Enter') {
         handleSubmit(e);
       }
     };
+
     const onFileChange = event => {
         setFile(event.target.files[0]);
     };
+
     return (
         <footer className="chatWindowFooter">
             <span className="file far fa-file-alt" onClick={toggleModal}/>
             <form className='inputForm'>
-                <input className="inputMessage" onChange={e => setMessage(e.target.value)} type="message" placeholder="Enter Message" autoComplete="on" onKeyDown={handleKeypress} />
+                <input id="textField" className="inputMessage" onChange={e => setMessage(e.target.value)} type="message" placeholder="Enter Message" autoComplete="off" onKeyDown={handleKeypress} />
                 <span className="sendButton" onClick={handleSubmit}><i class="fas fa-paper-plane"></i></span>
             </form>
             <Modal  isOpen={modelOpen} toggle={toggleModal}>
