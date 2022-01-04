@@ -18,7 +18,11 @@ function ChatHeader(props) {
             {
                 found=1;
                 setFriend(url[i].slice(9,url[i].length));
-                setId(url[i+1]);
+                let len=url[i+1].length;
+                if(url[i+1].indexOf("?")!=-1)
+                len=url[i+1].indexOf("?");
+                //alert(url[i+1].slice(0,len));
+                setId(url[i+1].slice(0,len));
                 break;
             }
         }

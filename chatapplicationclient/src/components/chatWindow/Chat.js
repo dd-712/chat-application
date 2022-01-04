@@ -25,7 +25,11 @@ function Chat(props) {
             if (url[i].length >= 9 && url[i].slice(0, 9) == 'connect__' && i + 1 != url.length) {
                 found = 1;
                 setFriend(url[i].slice(9, url[i].length));
-                setId(url[i + 1]);
+                let len=url[i+1].length;
+                if(url[i+1].indexOf("?")!=-1)
+                len=url[i+1].indexOf("?");
+                //alert(url[i+1].slice(0,len));
+                setId(url[i+1].slice(0,len));
                 break;
             }
         }
@@ -43,12 +47,10 @@ function Chat(props) {
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
-            const url = baseUrl + 'chat/getChat';
-            const data = {
-                'receiver': id,
-            };
+            const url = baseUrl + 'chat/getChat/'+id;
+        
 
-            const res = await axios.post(url, data, {
+            const res = await axios.get(url, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': bearer

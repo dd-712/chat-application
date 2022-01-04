@@ -21,13 +21,13 @@ function decryptMessage(text) {
     return message;
 }
 
-router.post(("/getChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res) => {
+router.get(("/getChat/:receiver"),authenticate.verifyUser,cors.corsWithOptions, (req, res) => {
     //console.log(req.user._id);
     //console.log(req.body);
     Chat.find({
         $or: [
-            { $and: [{ sender: req.user._id }, { receiver: req.body.receiver }] },
-            { $and: [{ sender: req.body.receiver }, { receiver: req.user._id }] }
+            { $and: [{ sender: req.user._id }, { receiver: req.params.receiver }] },
+            { $and: [{ sender: req.params.receiver }, { receiver: req.user._id }] }
         ]
     }, (err, messages) => {
         const chats = {
