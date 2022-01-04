@@ -8,8 +8,10 @@ function ChatMessage(props) {
   const [modelOpen, setState] = useState(false);
   function toggleModal() {
     setState(!modelOpen);
-}
-
+  }
+  function deleteChat(){
+    props.deleteChat(props._id);
+  }
 
   if (props.data === 1) {
     return (
@@ -20,7 +22,7 @@ function ChatMessage(props) {
         </div>
         <div className='deleteArrow' onClick={toggleModal}><i class="fas fa-chevron-right"></i></div>
         <Modal isOpen={modelOpen} toggle={toggleModal}>
-          <ModalHeader toggle={toggleModal}><button>Delete Chat</button></ModalHeader>
+          <ModalHeader toggle={toggleModal}><button onClick={deleteChat}>Delete Chat</button></ModalHeader>
         </Modal>
       </div>
     );

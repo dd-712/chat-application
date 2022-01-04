@@ -32,7 +32,7 @@ function Chat(props) {
     })
 
     useEffect(() => {
-
+        alert(last);
         if (friend === '')
             return;
 
@@ -114,7 +114,7 @@ function Chat(props) {
                         postFile={props.postFile}
                         data={props.data}
                     />
-                    <ChatFooter postChat={props.postChat} postFile={props.postFile} receiver={id} />
+                    <ChatFooter postChat={props.postChat} postFile={props.postFile} receiver={id} last={setLast}/>
                 </>
                 :
                 <div> Empty </div>

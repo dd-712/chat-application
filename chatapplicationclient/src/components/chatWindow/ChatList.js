@@ -20,6 +20,7 @@ function ChatList(props) {
                         File={info.File}
                         title={info.title}
                         data={info.data}
+                        deleteChat={props.deleteChat}
                     />
                 );
             })}

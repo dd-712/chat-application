@@ -24,6 +24,7 @@ function ChatFooter(props) {
             File.name
         );
         props.postFile(formData, props.receiver, 'File', 0, File.name);
+        props.last('newOne');
         event.preventDefault();
     }
 
@@ -34,6 +35,8 @@ function ChatFooter(props) {
             receiver, message, data, title, "Not a File"
         );
         e.target.value='';
+        //alert(typeof(props.last));
+        props.last('newOne');
       }
       const handleKeypress = e => {
       if (e.key ==='Enter') {
