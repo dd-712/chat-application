@@ -6,7 +6,7 @@ import ChatMessage from './ChatMessage';
 function ChatList(props) {
 
     return (
-        <div className='chatList'>
+        <div id='chatList'>
             {props.chatList.map((info, index) => {
                 return (
                     <ChatMessage
@@ -21,6 +21,7 @@ function ChatList(props) {
                         title={info.title}
                         data={info.data}
                         deleteChat={props.deleteChat}
+                        last={props.last}
                     />
                 );
             })}

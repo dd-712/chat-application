@@ -1,6 +1,8 @@
 import React, { forwardRef, useState, useEffect, useRef } from 'react';
-import { Button, Modal, ModalHeader, ModalBody,
-    Form, FormGroup, Input, Label } from 'reactstrap';
+import {
+    Button, Modal, ModalHeader, ModalBody,
+    Form, FormGroup, Input, Label
+} from 'reactstrap';
 import './chatWindowStyles.css';
 
 function ChatFooter(props) {
@@ -14,8 +16,8 @@ function ChatFooter(props) {
     function toggleModal() {
         setState(!modelOpen);
     }
-    
-    function sendFile(event) {
+
+    async function sendFile(event) {
         toggleModal();
         const formData = new FormData();
         formData.append(
@@ -23,25 +25,24 @@ function ChatFooter(props) {
             File,
             File.name
         );
-        props.postFile(formData, props.receiver, 'File', 0, File.name);
+        await props.postFile(formData, props.receiver, 'File', 0, File.name);
         props.last('newOne');
         event.preventDefault();
     }
 
     const handleSubmit = async e => {
         e.preventDefault();
-        let receiver=props.receiver;
-        props.postChat(
+        let receiver = props.receiver;
+        await props.postChat(
             receiver, message, data, title, "Not a File"
         );
-        e.target.value='';
-        //alert(typeof(props.last));
+        document.getElementById("chatInput").reset();
         props.last('newOne');
-      }
-      const handleKeypress = e => {
-      if (e.key ==='Enter') {
-        handleSubmit(e);
-      }
+    }
+    const handleKeypress = e => {
+        if (e.key === 'Enter') {
+            handleSubmit(e);
+        }
     };
 
     const onFileChange = event => {
@@ -50,24 +51,24 @@ function ChatFooter(props) {
 
     return (
         <footer className="chatWindowFooter">
-            <span className="file far fa-file-alt" onClick={toggleModal}/>
-            <form className='inputForm'>
+            <span className="file far fa-file-alt" onClick={toggleModal} />
+            <form className='inputForm' id="chatInput">
                 <input id="textField" className="inputMessage" onChange={e => setMessage(e.target.value)} type="message" placeholder="Enter Message" autoComplete="off" onKeyDown={handleKeypress} />
                 <span className="sendButton" onClick={handleSubmit}><i class="fas fa-paper-plane"></i></span>
             </form>
-            <Modal  isOpen={modelOpen} toggle={toggleModal}>
-                    <ModalHeader toggle={toggleModal}>Select File</ModalHeader>
-                    <ModalBody>
-                        <Form onSubmit={sendFile}>
-                            <FormGroup>
-                                <Label htmlFor="file">Upload File</Label>
-                                <Input type="file" id="file" name="file"
-                                        onChange={onFileChange}/>
-                            </FormGroup>
-                            <Button type="submit" value="submit" color="primary">Send</Button>
-                        </Form>
-                    </ModalBody>
-                </Modal>
+            <Modal isOpen={modelOpen} toggle={toggleModal}>
+                <ModalHeader toggle={toggleModal}>Select File</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={sendFile}>
+                        <FormGroup>
+                            <Label htmlFor="file">Upload File</Label>
+                            <Input type="file" id="file" name="file"
+                                onChange={onFileChange} />
+                        </FormGroup>
+                        <Button type="submit" value="submit" color="primary">Send</Button>
+                    </Form>
+                </ModalBody>
+            </Modal>
         </footer>
     );
 }

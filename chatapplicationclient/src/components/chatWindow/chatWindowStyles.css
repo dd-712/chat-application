@@ -24,7 +24,7 @@
     
 }
 
-.chatList {
+#chatList {
     flex: 1;
     height: 74vh;
     margin-right: 20px;
@@ -34,19 +34,19 @@
     scroll-behavior: smooth;
 }
 
-.chatList::-webkit-scrollbar-track
+#chatList::-webkit-scrollbar-track
 {
 	background-color: #ebebeb;
     -webkit-border-radius: 10px;
     border-radius: 10px;
 }
 
-.chatList::-webkit-scrollbar
+#chatList::-webkit-scrollbar
 {
 	width: 10px;
 }
 
-.chatList::-webkit-scrollbar-thumb
+#chatList::-webkit-scrollbar-thumb
 {
 	-webkit-border-radius: 10px;
     border-radius: 10px;

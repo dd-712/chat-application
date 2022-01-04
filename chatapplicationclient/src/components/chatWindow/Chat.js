@@ -32,7 +32,7 @@ function Chat(props) {
     })
 
     useEffect(() => {
-        alert(last);
+
         if (friend === '')
             return;
 
@@ -77,16 +77,9 @@ function Chat(props) {
                     "time": hour + ":" + min
                 };
                 if (response[i].receiver == id) {
-                    // if (nchat.data == 1)
-                        nchat.type = 'sender';
-                    // else
-                    //     nchat.type = 'sender fileSender';
-
+                    nchat.type = 'sender';
                 } else {
-                    // if (nchat.data == 1)
-                        nchat.type = 'receiver';
-                    // else
-                    //     nchat.type = 'receiver fileReceiver';
+                    nchat.type = 'receiver';
                 }
                 li.push(nchat);
             }
@@ -96,9 +89,16 @@ function Chat(props) {
         if (found == 1) {
             getList();
             setLast(friend);
-        }
 
-    }, [friend, chatList]);
+            setTimeout(() => {
+                const element = document.querySelectorAll('.msgDiv');
+                console.log(element);
+                if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
+            }, 300);
+
+
+        }
+    }, [friend, chatList, last]);
 
 
     return (
@@ -113,8 +113,14 @@ function Chat(props) {
                         deleteChat={props.deleteChat}
                         postFile={props.postFile}
                         data={props.data}
+                        last={setLast}
                     />
-                    <ChatFooter postChat={props.postChat} postFile={props.postFile} receiver={id} last={setLast}/>
+                    <ChatFooter
+                        postChat={props.postChat}
+                        postFile={props.postFile}
+                        receiver={id}
+                        last={setLast}
+                    />
                 </>
                 :
                 <div> Empty </div>
