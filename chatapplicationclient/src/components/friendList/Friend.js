@@ -6,62 +6,21 @@ import './stylesFriendList.css';
 
 function Friend(props) {
 
-  const [friendList, setFriendList] = useState([]);
-  const [alert, setAlert] = useState(false);
-
-  useEffect(() => {
-
-    if (friendList.length && !alert) {
-      return;
-    }
-
-    const getList = async () => {
-
-      const bearer = 'Bearer ' + localStorage.getItem('token');
-      const url = baseUrl + 'users/connections';
-
-      const res = await axios.get(url, {
-        headers: {
-          Authorization: bearer
-        }
-      })
-
-      var response = res.data;
-      var li = [];
-      for (var i = 0; i < response.length; i++) {
-        li.push(response[i]);
-      }
-
-      setFriendList(li);
-    }
-
-    getList();
-
-  }, [alert, friendList])
-
-  useEffect(() => {
-    if (alert) {
-      setTimeout(() => {
-        setAlert(false);
-      }, 100)
-    }
-  }, [alert])
-
-  var FriendList = friendList.map((info, index) => {
+  var FriendList = props.friendList.map((info, index) => {
     return (
       <div key={index}>
-        <Link className="link" to={`/${'connect__'+info.username}/${info._id}`} >
+        <Link className="link" to={`/${'connect__' + info.username}/${info._id}`} >
           <div className='friendBox'>
             <div className='uname'>{info.username}</div>
             <div className="remove">
-              <button className='btn' onClick={() => { props.deleteFriend(info._id); setAlert(true); }}><i class="far fa-trash-alt"></i></button>
+              <button className='btn' onClick={() => { props.deleteFriend(info._id); props.setAlert(true); }}><i class="far fa-trash-alt"></i></button>
             </div>
           </div>
         </Link>
       </div>
     );
   });
-  if (friendList.length == 0)
+  if ( props.friendList.length == 0)
     FriendList = "No Friend found";
   return (
     <div className='friendList'>

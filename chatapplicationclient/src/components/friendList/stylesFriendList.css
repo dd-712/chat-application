@@ -32,8 +32,13 @@
     margin-left: 15px;
 }
 
+#searchFriend {
+    display: inline-block;
+    width: 80%;
+}
+
 .input {
-    width: 60%;
+    width: 80%;
     border-bottom:2px solid rgb(19, 107, 207);
     border-radius:4px;
     margin:8px 0;

@@ -92,7 +92,6 @@ function Chat(props) {
 
             setTimeout(() => {
                 const element = document.querySelectorAll('.msgDiv');
-                console.log(element);
                 if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
             }, 300);
 
