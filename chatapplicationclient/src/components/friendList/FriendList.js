@@ -3,12 +3,12 @@ import {
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
 import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
 import Friend from './Friend';
 import jwt from 'jwt-decode';
-import io from 'socket.io-client';
+
 
 const socket = io("http://localhost:3001");
 
@@ -95,6 +95,7 @@ function FriendList(props) {
         //alerts(curId);
         event.preventDefault();
         toggleModal();
+
         //alerts(curId._id);
         await props.postFriends(curId._id,username);
         
@@ -104,6 +105,7 @@ function FriendList(props) {
         if(idd!=" ")
         await props.postFriends(idd,props.auth.user.username);
         window.location.reload(false);
+
     }
 
     const handleSubmit = async e => {

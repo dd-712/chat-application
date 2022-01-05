@@ -50,8 +50,8 @@ function Chat(props) {
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
-            const url = baseUrl + 'chat/getChat/'+id;
-        
+            const url = baseUrl + 'chat/getChat/' + id;
+
 
             const res = await axios.get(url, {
                 headers: {
@@ -99,7 +99,9 @@ function Chat(props) {
                 const element = document.querySelectorAll('.msgDiv');
                 if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
             }, 300);
+
             socket.emit('newMessage');
+
         }
     }, [friend, chatList, last]);
 
@@ -109,7 +111,6 @@ function Chat(props) {
             console.log('msg');
         })
     });
-    
     return (
         <div className='mainChatWindow'>
             {friend !== '' ?
