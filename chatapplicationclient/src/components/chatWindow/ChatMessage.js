@@ -37,6 +37,10 @@ function ChatMessage(props) {
   async function deleteChat() {
     await props.deleteChat(props._id);
     props.last('newOne');
+    props.socket.emit("sendMessage", {
+      senderId: props.userId,
+      receiverId: props.receiverId
+    });
   }
   const handleDownload = (url, filename) => {
     axios({

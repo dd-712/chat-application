@@ -22,6 +22,9 @@ function ChatList(props) {
                         data={info.data}
                         deleteChat={props.deleteChat}
                         last={props.last}
+                        socket={props.socket}
+                        userId={props.socket}
+                        receiverId={props.socket}
                     />
                 );
             })}

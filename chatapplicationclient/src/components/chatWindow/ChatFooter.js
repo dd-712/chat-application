@@ -6,7 +6,7 @@ import {
 import './chatWindowStyles.css';
 
 function ChatFooter(props) {
-    const [message, setMessage] = useState();
+    const [message, setMessage] = useState('');
     const [data, setData] = useState(1);
     const [File, setFile] = useState(null);
     const [title, setTitle] = useState('No title');
@@ -32,12 +32,18 @@ function ChatFooter(props) {
 
     const handleSubmit = async e => {
         e.preventDefault();
+        if (message === '')
+            return;
         let receiver = props.receiver;
         await props.postChat(
             receiver, message, data, title, "Not a File"
         );
         document.getElementById("chatInput").reset();
         props.last('newOne');
+        props.socket.emit("sendMessage", {
+            senderId: props.userId,
+            receiverId: props.receiverId
+        });
     }
     const handleKeypress = e => {
         if (e.key === 'Enter') {

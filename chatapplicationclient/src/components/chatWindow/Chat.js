@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { baseUrl } from '../../shared/baseUrl';
 import axios from 'axios';
 import io from 'socket.io-client';
+import jwt from 'jwt-decode';
 import './chatWindowStyles.css';
 
 
@@ -10,16 +11,24 @@ import ChatHeader from './ChatHeader';
 import ChatFooter from './ChatFooter';
 import ChatList from './ChatList';
 
-const socket = io("http://localhost:3001");
-
 function Chat(props) {
 
     const [friend, setFriend] = useState('');
     const [id, setId] = useState('id');
     const [chatList, setChatList] = useState([]);
     const [last, setLast] = useState('');
-
+    const socket = useRef();
     let found = 0;
+
+    useEffect(() => {
+        socket.current = io("http://localhost:3000");
+        socket.current.emit("addUser", jwt(localStorage.getItem('token'))._id);
+        socket.current.on("getMessage", (data) => {
+            setLast('');
+        });
+    }, []);
+
+
 
     useEffect(() => {
         let url = window.location.href.split("/");
@@ -100,17 +109,12 @@ function Chat(props) {
                 if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
             }, 300);
 
-            socket.emit('newMessage');
 
         }
     }, [friend, chatList, last]);
 
-    useEffect(() => {
-        socket.on('newMessage', () => {
-            setLast('')
-            console.log('msg');
-        })
-    });
+
+
     return (
         <div className='mainChatWindow'>
             {friend !== '' ?
@@ -124,12 +128,18 @@ function Chat(props) {
                         postFile={props.postFile}
                         data={props.data}
                         last={setLast}
+                        socket={socket.current}
+                        userId={jwt(localStorage.getItem('token'))._id}
+                        receiverId={id}
                     />
                     <ChatFooter
                         postChat={props.postChat}
                         postFile={props.postFile}
                         receiver={id}
                         last={setLast}
+                        socket={socket.current}
+                        userId={jwt(localStorage.getItem('token'))._id}
+                        receiverId={id}
                     />
                 </>
                 :
