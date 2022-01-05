@@ -3,11 +3,12 @@ import {
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
 import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
 import Friend from './Friend';
 
+const socket = io("http://localhost:3001");
 
 function FriendList(props) {
 
@@ -23,7 +24,7 @@ function FriendList(props) {
         if (friendList.length && !alert) {
             return;
         }
-        console.log(searchWord);
+        // console.log(searchWord);
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -76,14 +77,13 @@ function FriendList(props) {
         event.preventDefault();
         toggleModal();
         props.postFriends(username);
-        window.location.reload(false);
+        setAlert(true);
     }
 
     const handleSubmit = async e => {
         e.preventDefault();
         setAlert(true);
         document.getElementById("searchFriend").reset();
-        // setSearchWord('');
     }
 
     return (

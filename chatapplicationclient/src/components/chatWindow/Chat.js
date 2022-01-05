@@ -2,12 +2,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { baseUrl } from '../../shared/baseUrl';
 import axios from 'axios';
+import io from 'socket.io-client';
 import './chatWindowStyles.css';
 
 
 import ChatHeader from './ChatHeader';
 import ChatFooter from './ChatFooter';
 import ChatList from './ChatList';
+
+const socket = io("http://localhost:3001");
 
 function Chat(props) {
 
@@ -25,11 +28,11 @@ function Chat(props) {
             if (url[i].length >= 9 && url[i].slice(0, 9) == 'connect__' && i + 1 != url.length) {
                 found = 1;
                 setFriend(url[i].slice(9, url[i].length));
-                let len=url[i+1].length;
-                if(url[i+1].indexOf("?")!=-1)
-                len=url[i+1].indexOf("?");
+                let len = url[i + 1].length;
+                if (url[i + 1].indexOf("?") != -1)
+                    len = url[i + 1].indexOf("?");
                 //alert(url[i+1].slice(0,len));
-                setId(url[i+1].slice(0,len));
+                setId(url[i + 1].slice(0, len));
                 break;
             }
         }
@@ -47,8 +50,8 @@ function Chat(props) {
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
-            const url = baseUrl + 'chat/getChat/'+id;
-        
+            const url = baseUrl + 'chat/getChat/' + id;
+
 
             const res = await axios.get(url, {
                 headers: {
@@ -97,10 +100,17 @@ function Chat(props) {
                 if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
             }, 300);
 
+            socket.emit('newMessage');
 
         }
     }, [friend, chatList, last]);
 
+    useEffect(() => {
+        socket.on('newMessage', () => {
+            setLast('')
+            console.log('msg');
+        })
+    });
 
     return (
         <div className='mainChatWindow'>
