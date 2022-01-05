@@ -7,7 +7,25 @@ import './chatWindowStyles.css';
 import { baseUrl } from '../../shared/baseUrl';
 import fileDownload from 'js-file-download';
 import axios from 'axios';
-import {fileSaver} from 'file-saver';
+import { fileSaver } from 'file-saver';
+
+function ShowDeleteArrow({ type, toggleModal, modelOpen, deleteChat }) {
+  if (type === 'sender') {
+    return (
+      <>
+        <div className='deleteArrow' onClick={toggleModal} > <i class="fas fa-chevron-right"></i></div>
+        <Modal isOpen={modelOpen} toggle={toggleModal}>
+          <ModalHeader toggle={toggleModal}><button onClick={() => { deleteChat(); toggleModal(); }}>Delete Chat</button></ModalHeader>
+        </Modal>
+      </>
+    )
+  } else {
+    return (
+      <></>
+    )
+  }
+}
+
 function ChatMessage(props) {
 
   const [modelOpen, setState] = useState(false);
@@ -33,15 +51,15 @@ function ChatMessage(props) {
           new Blob([response.data], { type: "application/octet-stream" })
         );
         link.download = filename;
-    
+
         document.body.appendChild(link);
-    
+
         link.click();
         setTimeout(function () {
           window.URL.revokeObjectURL(link);
         }, 200);
       })
-      .catch((error) => {});
+      .catch((error) => { });
   }
 
   if (props.data === 1) {
@@ -51,10 +69,12 @@ function ChatMessage(props) {
         <div className='time'>
           <div className='timeContent'>{props.time}</div>
         </div>
-        <div className='deleteArrow' onClick={toggleModal}><i class="fas fa-chevron-right"></i></div>
-        <Modal isOpen={modelOpen} toggle={toggleModal}>
-          <ModalHeader toggle={toggleModal}><button onClick={() => { deleteChat(); toggleModal(); }}>Delete Chat</button></ModalHeader>
-        </Modal>
+        <ShowDeleteArrow
+          type={props.type}
+          toggleModal={toggleModal}
+          modelOpen={modelOpen}
+          deleteChat={deleteChat}
+        />
       </div>
     );
   }
@@ -70,13 +90,15 @@ function ChatMessage(props) {
         <div className='time'>
           <div className='timeContent'>{props.time}</div>
         </div>
-        <div className='downloadBtn' onClick={() => handleDownload(baseUrl+'Files/'+props.File.filename,props.File.filename)}>
+        <div className='downloadBtn' onClick={() => handleDownload(baseUrl + 'Files/' + props.File.filename, props.File.filename)}>
           <i className="fas fa-arrow-circle-down downloadBtn"></i>
         </div>
-        <div className='deleteArrow' onClick={toggleModal}><i class="fas fa-chevron-right"></i></div>
-        <Modal isOpen={modelOpen} toggle={toggleModal}>
-          <ModalHeader toggle={toggleModal}><button onClick={() => { deleteChat(); toggleModal(); }}>Delete Chat</button></ModalHeader>
-        </Modal>
+        <ShowDeleteArrow
+          type={props.type}
+          toggleModal={toggleModal}
+          modelOpen={modelOpen}
+          deleteChat={deleteChat}
+        />
       </div>
     );
   }

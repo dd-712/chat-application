@@ -138,6 +138,40 @@ router.get('/logout', cors.corsWithOptions, (req, res, next) => {
   }
 });
 
+
+router.route('/connections/:username')
+.options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+.get(cors.corsWithOptions, authenticate.verifyUser, function (req, res, next) {
+  User.find({ 'username': new RegExp(req.params.username, 'i') }, function (err, person) {
+    if (err) {
+      err = new Error('Person not Found!!!');
+      err.status = 404;
+      return next(err);
+    }
+    else {
+      //console.log(person);
+      var found = -1;
+      for (var i = 0; i < person.length; i++) {
+        
+        if (person[i].username == req.params.username) {
+          found = i;
+          break;
+        }
+      }
+      if (found == -1) {
+        err = new Error('Person not Found!!!');
+        err.status = 404;
+        return next(err);
+      }
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'application/json');
+      res.json({'_id':person[found]._id});
+      
+    }
+  }, (err) => next(err));
+})
+
+
 router.route('/connections')
   .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
   .get(cors.corsWithOptions, authenticate.verifyUser, function (req, res, next) {
@@ -151,7 +185,7 @@ router.route('/connections')
       .catch((err) => next(err));
   })
   .post(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    User.findById(req.user._id)
+    User.findById(req.body._id)
       .then((user) => {
         var ind = -1, c = 0;
         for (var i = 0; i < user.Connections_Id.length; i++) {
@@ -212,13 +246,13 @@ router.route('/connections')
     res.end('PUT operation not supported on /user/connections');
   })
   .delete(cors.corsWithOptions, authenticate.verifyUser, (req, res, next) => {
-    User.findById(req.user._id)
+    User.findById(req.body._id1)
       .then((user) => {
         var ind = -1, c = 0;
         for (var i = 0; i < user.Connections_Id.length; i++) {
           var ob = user.Connections_Id[i];
           //console.log(ob);
-          if (ob._id == req.body._id) {
+          if (ob._id == req.body._id2) {
             ind = c;
             break;
           }

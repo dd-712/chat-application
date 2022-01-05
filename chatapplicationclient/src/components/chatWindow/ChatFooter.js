@@ -25,7 +25,7 @@ function ChatFooter(props) {
             File,
             File.name
         );
-        await props.postFile(formData, props.receiver, 'File', 0, File.name);
+        props.postFile(formData, props.receiver, 'File', 0, File.name);
         props.last('newOne');
         event.preventDefault();
     }

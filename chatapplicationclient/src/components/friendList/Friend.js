@@ -1,11 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
 import './stylesFriendList.css';
+import jwt from 'jwt-decode';
 
 function Friend(props) {
 
+  const getList = async (id) => {
+
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    const url = baseUrl + 'chat/getChat/'+id;
+
+
+    const res = await axios.get(url, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': bearer
+        }
+    })
+
+      let response = res.data.chat;
+
+      for (let i = 0; i < response.length; i++) {
+          await props.deleteChat(response[i]._id);
+      }
+    }
+  async function removeSecondAndChat(_Id){
+    let curId=jwt(localStorage.getItem('token'));
+    await getList(_Id);
+    await props.deleteFriend(curId._id,_Id);
+    await props.deleteFriend(_Id,curId._id);
+    //window.location.href = 'http://localhost:3001/users';
+    window.location.reload(false);
+  }
   var FriendList = props.friendList.map((info, index) => {
     return (
       <div key={index}>
@@ -13,7 +41,7 @@ function Friend(props) {
           <div className='friendBox'>
             <div className='uname'>{info.username}</div>
             <div className="remove">
-              <button className='btn' onClick={() => { props.deleteFriend(info._id); props.setAlert(true); }}><i class="far fa-trash-alt"></i></button>
+              <button className='btn' onClick={() => { removeSecondAndChat(info._id); props.setAlert(true); }}><i class="far fa-trash-alt"></i></button>
             </div>
           </div>
         </Link>

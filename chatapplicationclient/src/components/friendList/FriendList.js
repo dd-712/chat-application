@@ -7,7 +7,10 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { baseUrl } from '../../shared/baseUrl';
 import Friend from './Friend';
+import jwt from 'jwt-decode';
+import io from 'socket.io-client';
 
+const socket = io("http://localhost:3001");
 
 function FriendList(props) {
 
@@ -16,14 +19,14 @@ function FriendList(props) {
     const [searchWord, setSearchWord] = useState('');
 
     const [friendList, setFriendList] = useState([]);
-    const [alert, setAlert] = useState(false);
+    const [alerts, setAlert] = useState(false);
 
     useEffect(() => {
 
-        if (friendList.length && !alert) {
+        if (friendList.length && !alerts) {
             return;
         }
-        console.log(searchWord);
+        // console.log(searchWord);
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -57,25 +60,49 @@ function FriendList(props) {
 
         getList();
 
-    }, [alert, friendList])
+    }, [alerts, friendList])
 
     useEffect(() => {
-        if (alert) {
+        if (alerts) {
             setTimeout(() => {
                 setAlert(false);
                 setSearchWord('');
             }, 100)
         }
-    }, [alert])
+    }, [alerts])
 
     function toggleModal() {
         setState(!modelOpen);
     }
+    async function findId(username){
+        const bearer = 'Bearer ' + localStorage.getItem('token');
+            const url = baseUrl + 'users/connections/'+username;
+        
 
-    function addFriend(event) {
+            const res = await axios.get(url, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': bearer
+                }
+            })
+            
+            let response = res.data._id;
+            //alert(JSON.stringify(res));
+            return response;
+    }
+    async function addFriend(event) {
+        let curId=jwt(localStorage.getItem('token'));
+        //alerts(curId);
         event.preventDefault();
         toggleModal();
-        props.postFriends(username);
+        //alerts(curId._id);
+        await props.postFriends(curId._id,username);
+        
+        let idd=await findId(username);
+        
+        //alert(idd);
+        if(idd!=" ")
+        await props.postFriends(idd,props.auth.user.username);
         window.location.reload(false);
     }
 
@@ -83,7 +110,6 @@ function FriendList(props) {
         e.preventDefault();
         setAlert(true);
         document.getElementById("searchFriend").reset();
-        // setSearchWord('');
     }
 
     return (
@@ -116,6 +142,7 @@ function FriendList(props) {
                     word={searchWord}
                     friendList={friendList}
                     setAlert={setAlert}
+                    deleteChat={props.deleteChat}
                     className='friendList'
                 />
             </div>

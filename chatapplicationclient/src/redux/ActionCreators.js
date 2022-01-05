@@ -48,9 +48,9 @@ export const addcontacts = (contacts) => ({
     payload: contacts
 });
 
-export const postContact = (username) => (dispatch) => {
-
+export const postContact = (_id,username) => (dispatch) => {
     const newContact = {
+        _id:_id,
         username: username
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -81,10 +81,11 @@ export const postContact = (username) => (dispatch) => {
         .catch(error => { dispatch(ErrorMess('New contact not added')); })
 }
 
-export const deleteContact = (_ID) => (dispatch) => {
+export const deleteContact = (_ID1,ID2) => (dispatch) => {
 
     const deleteContact = {
-        _id: _ID
+        _id1: _ID1,
+        _id2:ID2
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 

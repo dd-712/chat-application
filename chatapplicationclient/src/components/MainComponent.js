@@ -37,9 +37,9 @@ const mapDispatchToProps = (dispatch) => ({
     fetchChats: (receiver) => { dispatch(fetchChats(receiver)) },
     fetchContacts: () => { dispatch(fetchContacts()) },
     postChat: (receiver, message, data, title, File) => dispatch(postChat(receiver, message, data, title, File)),
-    postContact: (username) => dispatch(postContact(username)),
+    postContact: (_id,username) => dispatch(postContact(_id,username)),
     deleteChat: (_ID) => dispatch(deleteChat(_ID)),
-    deleteContact: (_ID) => dispatch(deleteContact(_ID)),
+    deleteContact: (_ID1,_ID2) => dispatch(deleteContact(_ID1,_ID2)),
     loginUser: (creds) => dispatch(loginUser(creds)),
     logoutUser: () => dispatch(logoutUser()),
     signupUser: (username, password, firstname, lastname) => dispatch(signupUser(username, password, firstname, lastname)),
@@ -66,6 +66,7 @@ class Main extends Component {
     */
     render() {
         let Valid = this.props.auth.isAuthenticated;
+        
         if (!Valid) {
             return (
                 <div className='mainComponentDiv'>
@@ -83,12 +84,14 @@ class Main extends Component {
                         <div className='row' >
                             <div className='col-lg-3' style={{padding: '0px'}}>
                                 <FriendList
+                                    auth={this.props.auth}
                                     fetchFriends={this.props.fetchContacts}
                                     data={this.props.contacts}
                                     friends={this.props.contacts.contacts}
                                     //errormess={this.props.errormess.errMess}
                                     postFriends={this.props.postContact}
                                     deleteFriend={this.props.deleteContact}
+                                    deleteChat={this.props.deleteChat}
                                 />
                             </div>
                             <div className='col-lg-9' style={{padding: '0px'}}>
