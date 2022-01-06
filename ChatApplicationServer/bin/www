@@ -46,7 +46,16 @@ const getUserChat = (userId) => {
 };
 
 // function to update friendList
-
+let friendList = []
+const addFriend = (userId, socketId) => {
+  !friendList.some((friend) => friend.userId === userId) && friendList.push({ userId, socketId });
+};
+const removeFriend = (socketId) => {
+  friendList = friendList.filter((friend) => friend.socketId != socketId);
+};
+const getFriend = (userId, socketId) => {
+  return friendList.find((friend) => friend, userId === userId);
+}
 
 // socket server code
 var io = socketio(server, {
@@ -75,10 +84,25 @@ io.on("connection", (socket) => {
     });
   });
 
+  socket.on("addFriend", (userId) => {
+    addFriend(userId, socket.id);
+    io.emit("getFriends", friendList);
+  });
+
+  socket.on("newFriend", ({ senderId, receiverId }) => {
+    const friend = getFriend(receiverId);
+    console.log(friendList);
+    console.log(friend);
+    io.to(friend.socketId).emit("newFriendAdded", {
+      senderId,
+    });
+  });
+
   //when disconnect
   socket.on("disconnect", () => {
     console.log("a user disconnected!");
     removeUserChat(socket.id);
+    removeFriend(socket.id);
     io.emit("getUsersChat", usersChat);
   });
 });
