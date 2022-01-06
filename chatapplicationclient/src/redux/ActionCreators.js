@@ -48,10 +48,11 @@ export const addcontacts = (contacts) => ({
     payload: contacts
 });
 
-export const postContact = (_id,username) => (dispatch) => {
+export const postContact = (_id,username,roomId) => (dispatch) => {
     const newContact = {
         _id:_id,
-        username: username
+        username: username,
+        roomId
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 

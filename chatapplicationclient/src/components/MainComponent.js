@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchChats: (receiver) => { dispatch(fetchChats(receiver)) },
     fetchContacts: () => { dispatch(fetchContacts()) },
     postChat: (receiver, message, data, title, File) => dispatch(postChat(receiver, message, data, title, File)),
-    postContact: (_id,username) => dispatch(postContact(_id,username)),
+    postContact: (_id,username,roomId) => dispatch(postContact(_id,username,roomId)),
     deleteChat: (_ID) => dispatch(deleteChat(_ID)),
     deleteContact: (_ID1,_ID2) => dispatch(deleteContact(_ID1,_ID2)),
     loginUser: (creds) => dispatch(loginUser(creds)),

@@ -16,6 +16,7 @@ var uploadRouter=require('./routes/FileUpload');
 const url = config.mongoUrl;
 const connect = mongoose.connect(process.env.mongoUrl,
   {
+    config: { autoIndex: false },
     useNewUrlParser: true,
     useUnifiedTopology: true
   });

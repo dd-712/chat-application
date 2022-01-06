@@ -25,11 +25,10 @@ const FileFilter = (req, file, cb) => {
 const upload = multer({ storage: storage,limits:{fileSize: 10000000},fileFilter: FileFilter});
 
 const uploadRouter = express.Router();
-
+uploadRouter.options('*', cors.corsWithOptions, (req, res) => { res.sendStatus(200); });
 uploadRouter.use(bodyParser.json());
 
 uploadRouter.route('/')
-.options(cors.corsWithOptions,(req,res)=>{res.sendStatus(200);})
 .get(cors.cors,authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 403;
     res.end('GET operation not supported on /FileUpload');
@@ -46,6 +45,24 @@ uploadRouter.route('/')
 .delete(cors.corsWithOptions,authenticate.verifyUser, (req, res, next) => {
     res.statusCode = 403;
     res.end('DELETE operation not supported on /FileUpload');
+});
+
+uploadRouter.route('/download/:filename')
+.get(cors.cors,authenticate.verifyUser, (req, res, next) => {
+    //console.log(req.params.filename);
+    let npath=__dirname,path='';
+     npath=npath.split('\\');
+     for(let i=0;i<npath.length-1;i++)
+     path+=npath[i]+'\\';
+     
+    var fileName = path+'public\\Files\\'+req.params.filename;
+    console.log(fileName);
+    res.statusCode = 200;
+    res.sendFile(fileName, function (err) {
+        if (err) {
+            next(err);
+        } 
+    });
 });
 
 module.exports = uploadRouter;

@@ -104,13 +104,13 @@ function FriendList(props) {
         toggleModal();
 
         //alerts(curId._id);
-        await props.postFriends(curId._id, username);
+        await props.postFriends(curId._id, username,curId._id);
 
         let idd = await findId(username);
 
         //alert(idd);
         if (idd != " ")
-            await props.postFriends(idd, props.auth.user.username);
+            await props.postFriends(idd, props.auth.user.username,curId._id);
         console.log(idd);
         setAlert(true);
         socket.current.emit("newFriend", {

@@ -42,28 +42,20 @@ function ChatMessage(props) {
       receiverId: props.receiverId
     });
   }
-  const handleDownload = (url, filename) => {
-    axios({
-      method: "get",
-      url: url,
-      responseType: "blob"
-    })
-      .then((response) => {
-        alert('done');
-        var link = document.createElement("a");
-        link.href = window.URL.createObjectURL(
-          new Blob([response.data], { type: "application/octet-stream" })
-        );
-        link.download = filename;
-
-        document.body.appendChild(link);
-
-        link.click();
-        setTimeout(function () {
-          window.URL.revokeObjectURL(link);
-        }, 200);
-      })
-      .catch((error) => { });
+  const handleDownload =async (url, filename) => {
+    const bearer = 'Bearer ' + localStorage.getItem('token');
+    //alert(url);
+    const res = await axios.get(url, {
+      headers: {
+          'Authorization': bearer
+      },
+      responseType: 'blob',
+  });
+    const urln = window.URL.createObjectURL(new Blob([res.data], { type: filename.split('.')[-1] }));
+    const link = document.createElement('a');
+    link.href = urln;
+    link.download =filename;
+    link.click();
   }
 
   if (props.data === 1) {
@@ -94,7 +86,7 @@ function ChatMessage(props) {
         <div className='time'>
           <div className='timeContent'>{props.time}</div>
         </div>
-        <div className='downloadBtn' onClick={() => handleDownload(baseUrl + 'Files/' + props.File.filename, props.File.filename)}>
+        <div className='downloadBtn' onClick={() => handleDownload(baseUrl + 'UploadFile/download/' + props.File.filename, props.File.filename)}>
           <i className="fas fa-arrow-circle-down downloadBtn"></i>
         </div>
         <ShowDeleteArrow

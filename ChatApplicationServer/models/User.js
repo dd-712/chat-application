@@ -19,6 +19,10 @@ const User = new Schema({
         username:{
             type:String,
             default:''
+        },
+        roomId:{
+            type:String,
+            required:true
         }
     }],
     admin: {

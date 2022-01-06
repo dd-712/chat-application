@@ -28,6 +28,10 @@ function ChatFooter(props) {
         props.postFile(formData, props.receiver, 'File', 0, File.name);
         props.last('newOne');
         event.preventDefault();
+        props.socket.emit("sendMessage", {
+            senderId: props.userId,
+            receiverId: props.receiverId
+        });
     }
 
     const handleSubmit = async e => {
