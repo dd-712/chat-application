@@ -10,30 +10,34 @@ function Friend(props) {
   const getList = async (id) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
-    const url = baseUrl + 'chat/getChat/'+id;
+    const url = baseUrl + 'chat/getChat/' + id;
 
 
     const res = await axios.get(url, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': bearer
-        }
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': bearer
+      }
     })
 
-      let response = res.data.chat;
+    let response = res.data.chat;
 
-      for (let i = 0; i < response.length; i++) {
-          await props.deleteChat(response[i]._id);
-      }
+    for (let i = 0; i < response.length; i++) {
+      await props.deleteChat(response[i]._id);
     }
-  async function removeSecondAndChat(_Id){
-    let curId=jwt(localStorage.getItem('token'));
-    await getList(_Id);
-    await props.deleteFriend(curId._id,_Id);
-    await props.deleteFriend(_Id,curId._id);
-    //window.location.href = 'http://localhost:3001/users';
-    window.location.reload(false);
   }
+  async function removeSecondAndChat(_Id) {
+    let curId = jwt(localStorage.getItem('token'));
+    await getList(_Id);
+    await props.deleteFriend(curId._id, _Id);
+    await props.deleteFriend(_Id, curId._id);
+    props.setAlert(true);
+    props.socket.emit("newFriend", {
+      senderId: curId._id,
+      receiverId:  _Id
+    });
+  }
+
   var FriendList = props.friendList.map((info, index) => {
     return (
       <div key={index}>
@@ -41,14 +45,14 @@ function Friend(props) {
           <div className='friendBox'>
             <div className='uname'>{info.username}</div>
             <div className="remove">
-              <button className='btn' onClick={() => { removeSecondAndChat(info._id); props.setAlert(true); }}><i class="far fa-trash-alt"></i></button>
+              <button className='btn' onClick={() => { removeSecondAndChat(info._id); }}><i class="far fa-trash-alt"></i></button>
             </div>
           </div>
         </Link>
       </div>
     );
   });
-  if ( props.friendList.length == 0)
+  if (props.friendList.length == 0)
     FriendList = "No Friend found";
   return (
     <div className='friendList'>

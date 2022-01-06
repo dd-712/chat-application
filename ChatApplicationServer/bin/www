@@ -87,6 +87,8 @@ io.on("connection", (socket) => {
   socket.on("addFriend", (userId) => {
     addFriend(userId, socket.id);
     io.emit("getFriends", friendList);
+    console.log('friend')
+    console.log(friendList);
   });
 
   socket.on("newFriend", ({ senderId, receiverId }) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label
@@ -10,8 +10,6 @@ import Friend from './Friend';
 import jwt from 'jwt-decode';
 
 
-const socket = io("http://localhost:3001");
-
 function FriendList(props) {
 
     const [modelOpen, setState] = useState(false);
@@ -20,6 +18,15 @@ function FriendList(props) {
 
     const [friendList, setFriendList] = useState([]);
     const [alerts, setAlert] = useState(false);
+    const socket = useRef();
+
+    useEffect(() => {
+        socket.current = io("http://localhost:3000");
+        socket.current.emit("addFriend", jwt(localStorage.getItem('token'))._id);
+        socket.current.on("newFriendAdded", (data) => {
+            setAlert(true);
+        });
+    }, []);
 
     useEffect(() => {
 
@@ -74,38 +81,42 @@ function FriendList(props) {
     function toggleModal() {
         setState(!modelOpen);
     }
-    async function findId(username){
+    async function findId(username) {
         const bearer = 'Bearer ' + localStorage.getItem('token');
-            const url = baseUrl + 'users/connections/'+username;
-        
+        const url = baseUrl + 'users/connections/' + username;
 
-            const res = await axios.get(url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': bearer
-                }
-            })
-            
-            let response = res.data._id;
-            //alert(JSON.stringify(res));
-            return response;
+
+        const res = await axios.get(url, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': bearer
+            }
+        })
+
+        let response = res.data._id;
+        //alert(JSON.stringify(res));
+        return response;
     }
     async function addFriend(event) {
-        let curId=jwt(localStorage.getItem('token'));
+        let curId = jwt(localStorage.getItem('token'));
         //alerts(curId);
         event.preventDefault();
         toggleModal();
 
         //alerts(curId._id);
-        await props.postFriends(curId._id,username);
-        
-        let idd=await findId(username);
-        
-        //alert(idd);
-        if(idd!=" ")
-        await props.postFriends(idd,props.auth.user.username);
-        window.location.reload(false);
+        await props.postFriends(curId._id, username);
 
+        let idd = await findId(username);
+
+        //alert(idd);
+        if (idd != " ")
+            await props.postFriends(idd, props.auth.user.username);
+        console.log(idd);
+        setAlert(true);
+        socket.current.emit("newFriend", {
+            senderId: curId._id,
+            receiverId: idd
+        });
     }
 
     const handleSubmit = async e => {
@@ -146,6 +157,7 @@ function FriendList(props) {
                     setAlert={setAlert}
                     deleteChat={props.deleteChat}
                     className='friendList'
+                    socket={socket.current}
                 />
             </div>
         </div>
