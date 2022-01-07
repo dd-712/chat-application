@@ -30,6 +30,7 @@ function FriendList(props) {
 
     useEffect(() => {
 
+
         if (friendList.length && !alerts) {
             return;
         }
@@ -50,9 +51,7 @@ function FriendList(props) {
             for (var i = 0; i < response.length; i++) {
                 li.push(response[i]);
             }
-            if (searchWord === '')
-                setFriendList(li);
-            else {
+            if (searchWord !== '') {
                 const regex = new RegExp(searchWord, 'gi');
 
                 let newFriendList = [];
@@ -61,8 +60,12 @@ function FriendList(props) {
                         newFriendList.push(li[i]);
                 }
 
-                setFriendList(newFriendList);
+                li = newFriendList;
             }
+            if (li.length != 0)
+                setFriendList(li);
+            else
+                setFriendList(['none']);
         }
 
         getList();
@@ -81,6 +84,7 @@ function FriendList(props) {
     function toggleModal() {
         setState(!modelOpen);
     }
+
     async function findId(username) {
         const bearer = 'Bearer ' + localStorage.getItem('token');
         const url = baseUrl + 'users/connections/' + username;
@@ -97,6 +101,7 @@ function FriendList(props) {
         //alert(JSON.stringify(res));
         return response;
     }
+
     async function addFriend(event) {
         let curId = jwt(localStorage.getItem('token'));
         //alerts(curId);
@@ -104,13 +109,13 @@ function FriendList(props) {
         toggleModal();
 
         //alerts(curId._id);
-        await props.postFriends(curId._id, username,curId._id);
+        await props.postFriends(curId._id, username, curId._id);
 
         let idd = await findId(username);
 
         //alert(idd);
         if (idd != " ")
-            await props.postFriends(idd, props.auth.user.username,curId._id);
+            await props.postFriends(idd, props.auth.user.username, curId._id);
         console.log(idd);
         setAlert(true);
         socket.current.emit("newFriend", {

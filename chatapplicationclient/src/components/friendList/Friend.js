@@ -34,7 +34,7 @@ function Friend(props) {
     props.setAlert(true);
     props.socket.emit("newFriend", {
       senderId: curId._id,
-      receiverId:  _Id
+      receiverId: _Id
     });
   }
 
@@ -52,7 +52,7 @@ function Friend(props) {
       </div>
     );
   });
-  if (props.friendList.length == 0)
+  if (props.friendList.length == 0 || props.friendList === ['none'])
     FriendList = "No Friend found";
   return (
     <div className='friendList'>

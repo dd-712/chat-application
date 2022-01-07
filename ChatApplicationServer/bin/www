@@ -79,9 +79,11 @@ io.on("connection", (socket) => {
     const user = getUserChat(receiverId);
     console.log(usersChat);
     console.log(receiverId);
-    io.to(user.socketId).emit("getMessage", {
-      senderId,
-    });
+    if (user) {
+      io.to(user.socketId).emit("getMessage", {
+        senderId,
+      });
+    }
   });
 
   socket.on("addFriend", (userId) => {
@@ -95,9 +97,11 @@ io.on("connection", (socket) => {
     const friend = getFriend(receiverId);
     console.log(friendList);
     console.log(friend);
-    io.to(friend.socketId).emit("newFriendAdded", {
-      senderId,
-    });
+    if (friend) {
+      io.to(friend.socketId).emit("newFriendAdded", {
+        senderId,
+      });
+    }
   });
 
   //when disconnect
