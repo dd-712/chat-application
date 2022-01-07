@@ -20,9 +20,46 @@
 .audioIcon, .videoIcon {
     float: right;
     margin: 10px;
-    background: transparent;
-    
+    background: transparent;    
 }
+
+.modelDialog {
+    position: absolute;
+    top: -20px;
+    left: -150px;
+} 
+
+.videoChat {
+    justify-content: center;    
+    align-items: center;
+    padding: 1rem;
+    background-color: rgb(250, 250, 250);
+    height: 80vh;
+    width: 62vw;
+}
+
+.videoWindow {  
+    background-color: rgb(82, 19, 19);
+    display: inline-block;
+    height: 60vh;
+    width: 60vh;
+    margin: 10px;
+}
+
+.videoOnOff{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f80ec;
+    height: 50px;
+    border-radius: 5px;
+    color: #eeeeee;
+    font-size: 1.2rem;
+    width: 50px;
+    margin: 0 0.5rem;
+}
+
+
 
 #chatList {
     flex: 1;

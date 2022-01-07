@@ -5,6 +5,8 @@ import { baseUrl } from '../../shared/baseUrl';
 import './stylesFriendList.css';
 import jwt from 'jwt-decode';
 
+let cnt = 0;
+
 function Friend(props) {
 
   const getList = async (id) => {
@@ -52,8 +54,12 @@ function Friend(props) {
       </div>
     );
   });
-  if (props.friendList.length == 0 || props.friendList === ['none'])
+
+  if (props.friendList.length == 0 || props.friendList[0] === 'none') {
     FriendList = "No Friend found";
+  }
+  
+  cnt++;
   return (
     <div className='friendList'>
       {FriendList}

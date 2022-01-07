@@ -62,15 +62,15 @@ function FriendList(props) {
 
                 li = newFriendList;
             }
-            if (li.length != 0)
-                setFriendList(li);
-            else
-                setFriendList(['none']);
+
+            if (li.length == 0)
+                li.push('none');
+            setFriendList(li);
         }
 
         getList();
 
-    }, [alerts, friendList])
+    }, [alerts, friendList]);
 
     useEffect(() => {
         if (alerts) {
@@ -79,7 +79,7 @@ function FriendList(props) {
                 setSearchWord('');
             }, 100)
         }
-    }, [alerts])
+    }, [alerts]);
 
     function toggleModal() {
         setState(!modelOpen);
