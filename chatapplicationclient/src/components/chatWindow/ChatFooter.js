@@ -19,15 +19,15 @@ function ChatFooter(props) {
 
     async function sendFile(event) {
         toggleModal();
+        event.preventDefault();
         const formData = new FormData();
         formData.append(
             "File",
             File,
             File.name
         );
-        props.postFile(formData, props.receiver, 'File', 0, File.name);
+        await props.postFile(formData, props.receiver, 'File', 0, File.name);
         props.last('newOne');
-        event.preventDefault();
         props.socket.emit("sendMessage", {
             senderId: props.userId,
             receiverId: props.receiverId

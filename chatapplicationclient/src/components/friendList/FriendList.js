@@ -5,7 +5,7 @@ import {
 } from 'reactstrap';
 import io from 'socket.io-client';
 import axios from 'axios';
-import { baseUrl } from '../../shared/baseUrl';
+import { curUrl,baseUrl } from '../../shared/baseUrl';
 import Friend from './Friend';
 import jwt from 'jwt-decode';
 
@@ -21,7 +21,7 @@ function FriendList(props) {
     const socket = useRef();
 
     useEffect(() => {
-        socket.current = io("http://localhost:3000");
+        socket.current = io(baseUrl.slice(0,baseUrl.length-1));
         socket.current.emit("addFriend", jwt(localStorage.getItem('token'))._id);
         socket.current.on("newFriendAdded", (data) => {
             setAlert(true);

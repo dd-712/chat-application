@@ -1,13 +1,8 @@
 import React, { useState } from 'react';
-import {
-  Button, Modal, ModalHeader, ModalBody,
-  Form, FormGroup, Input, Label
-} from 'reactstrap';
+import { Modal, ModalHeader} from 'reactstrap';
 import './chatWindowStyles.css';
 import { baseUrl } from '../../shared/baseUrl';
-import fileDownload from 'js-file-download';
 import axios from 'axios';
-import { fileSaver } from 'file-saver';
 
 function ShowDeleteArrow({ type, toggleModal, modelOpen, deleteChat }) {
   if (type === 'sender') {
@@ -44,7 +39,6 @@ function ChatMessage(props) {
   }
   const handleDownload =async (url, filename) => {
     const bearer = 'Bearer ' + localStorage.getItem('token');
-    //alert(url);
     const res = await axios.get(url, {
       headers: {
           'Authorization': bearer
@@ -74,12 +68,7 @@ function ChatMessage(props) {
       </div>
     );
   }
-  else {/*
-    <div className='downloadBtn' onClick={() => handleDownload(baseUrl+'Files/'+props.File.filename,props.File.title)}>
-          <i className="fas fa-arrow-circle-down downloadBtn"></i>
-        </div>
-        <a href={baseUrl+'Files/'+props.File.filename} download>Click to download</a>
-        */
+  else {
     return (
       <div key={props.index} className={`msgDiv ${props.type}`} >
         <div className='File'>{props.File.title}</div>

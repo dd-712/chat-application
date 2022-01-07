@@ -1,52 +1,6 @@
 
 import * as ActionTypes from './ActionTypes';
-import { baseUrl } from '../shared/baseUrl';
-
-
-export const fetchContacts = () => (dispatch) => {
-dispatch(contactsLoading(true));
-const bearer = 'Bearer ' + localStorage.getItem('token');
-
-return fetch(baseUrl + 'users/connections', {
-    method: 'GET',
-    headers: {
-        'Content-Type': 'application/json',
-        'Authorization': bearer
-    },
-    credentials: 'same-origin'
-}).then((response) => {
-    alert('done');
-if (response.ok) {
-    return response;
-}
-else {
-    var error = new Error('Error ' + response.status + ': ' + response.statusText);
-    error.response = response;
-    throw error;
-}
-},
-error => {
-    var errmess = new Error(error.message);
-    throw errmess;}
-)
-.then(response => JSON.stringify(response))
-.then(contacts => dispatch(addcontacts(contacts)))
-.catch(error => {alert(error.message);dispatch(contactsFailed(error.message))});
-}
-
-export const contactsLoading = () => ({
-    type: ActionTypes.CONTACTS_LOADING
-});
-
-export const contactsFailed = (errmess) => ({
-    type: ActionTypes.CONTACTS_FAILED,
-    payload: errmess
-});
-
-export const addcontacts = (contacts) => ({
-    type: ActionTypes.ADD_CONTACTS,
-    payload: contacts
-});
+import { baseUrl, curUrl } from '../shared/baseUrl';
 
 export const postContact = (_id,username,roomId) => (dispatch) => {
     const newContact = {
@@ -116,55 +70,6 @@ export const deleteContact = (_ID1,ID2) => (dispatch) => {
         .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this contact')); })
 }
 
-export const fetchChats = (receiver) => (dispatch) => {
-    //alert(receiver);
-    dispatch(chatsLoading(true));
-    const chats = {
-        receiver: receiver
-    }
-    const bearer = 'Bearer ' + localStorage.getItem('token');
-
-    return fetch(baseUrl + 'chat/getChat', {
-        method: 'POST',
-        body: JSON.stringify(chats),
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': bearer
-        },
-        credentials: 'same-origin'
-    }).then(response => {
-        
-        if (response.ok) {
-            return response;
-        }
-        else {
-            var error = new Error('Error ' + response.status + ': ' + response.statusText);
-            error.response = response;
-            throw error;
-        }
-    },
-        error => {
-            var errmess = new Error(error.message);
-            throw errmess;
-        })
-        .then(response => response.json())
-        .then(chats => dispatch(addchats(chats)))
-        .catch(error => {alert(error.message);dispatch(chatsFailed(error.message))});
-}
-
-export const chatsLoading = () => ({
-    type: ActionTypes.CHATS_LOADING
-});
-
-export const chatsFailed = (errmess) => ({
-    type: ActionTypes.CHATS_FAILED,
-    payload: errmess
-});
-
-export const addchats = (chats) => ({
-    type: ActionTypes.ADD_CHATS,
-    payload: chats
-});
 
 export const postChat = (receiver, message, data, title, File) => (dispatch) => {
 
@@ -375,6 +280,7 @@ export const loginUser = (creds) => (dispatch) => {
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('creds', JSON.stringify(creds));
                 window.location.reload(false);
+                window.location.href=curUrl+"user";
                 // dispatch(fetchContacts());
                 dispatch(receiveLogin(response));
             }
@@ -404,6 +310,7 @@ export const logoutUser = () => (dispatch) => {
     dispatch(requestLogout())
     localStorage.removeItem('token');
     localStorage.removeItem('creds');
+    window.location.href=curUrl+"login";
     dispatch(receiveLogout())
 }
 

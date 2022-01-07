@@ -21,7 +21,7 @@ function Chat(props) {
     let found = 0;
 
     useEffect(() => {
-        socket.current = io("http://localhost:3000");
+        socket.current = io(baseUrl.slice(0,baseUrl.length-1));
         socket.current.emit("addUser", jwt(localStorage.getItem('token'))._id);
         socket.current.on("getMessage", (data) => {
             setLast('');

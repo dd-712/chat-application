@@ -12,15 +12,7 @@ import './styles.css';
 import Header from "./Header";
 import Login from "./Login";
 import Signup from "./Signup";
-
-import FriendList from './friendList/FriendList';
-import Chat from './chatWindow/Chat';
-
-import { matchPath } from 'react-router'
-/*
-
-import Header from './HeaderComponent';*/
-
+import Combine from './combineComponent';
 
 
 const mapStateToProps = state => {
@@ -34,8 +26,6 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchChats: (receiver) => { dispatch(fetchChats(receiver)) },
-    fetchContacts: () => { dispatch(fetchContacts()) },
     postChat: (receiver, message, data, title, File) => dispatch(postChat(receiver, message, data, title, File)),
     postContact: (_id,username,roomId) => dispatch(postContact(_id,username,roomId)),
     deleteChat: (_ID) => dispatch(deleteChat(_ID)),
@@ -51,22 +41,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 class Main extends Component {
-    /*
-        componentDidMount() {
-          this.props.fetchChats();
-          this.props.fetchContacts();
-          document.title="Chat App";
-        }
-        
-       
-        componentDidUpdate(){
-            this.props.fetchChats();
-            this.props.fetchContacts();
-        }
-    */
     render() {
         let Valid = this.props.auth.isAuthenticated;
-        
+    
         if (!Valid) {
             return (
                 <div className='mainComponentDiv'>
@@ -80,31 +57,22 @@ class Main extends Component {
             return (
                 <div className='mainComponentDiv'>
                     <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
-                    <div className='mainDiv'>
-                        <div className='row' >
-                            <div className='col-lg-3' style={{padding: '0px'}}>
-                                <FriendList
-                                    auth={this.props.auth}
-                                    fetchFriends={this.props.fetchContacts}
-                                    data={this.props.contacts}
-                                    friends={this.props.contacts.contacts}
-                                    //errormess={this.props.errormess.errMess}
-                                    postFriends={this.props.postContact}
-                                    deleteFriend={this.props.deleteContact}
-                                    deleteChat={this.props.deleteChat}
-                                />
-                            </div>
-                            <div className='col-lg-9' style={{padding: '0px'}}>
-                                <Chat
-                                    fetchChat={this.props.fetchChats}
-                                    postChat={this.props.postChat}
-                                    deleteChat={this.props.deleteChat}
-                                    postFile={this.props.postFile}
-                                    data={this.props.chats}
-                                />
-                            </div>
-                        </div>
-                    </div>
+                    <Switch>
+                        <Route path="/user" component={() => <Combine auth={this.props.auth}
+                                
+                                contacts={this.props.contacts}
+                                friends={this.props.contacts.contacts}
+                                //errormess={this.props.errormess.errMess}
+                                postContact={this.props.postContact}
+                                deleteContact={this.props.deleteContact}
+                                deleteChat={this.props.deleteChat}
+                                postChat={this.props.postChat}
+                                postFile={this.props.postFile}
+                                chats={this.props.chats}
+                            />} 
+                        />
+                        
+                    </Switch>
                 </div>
 
             );
