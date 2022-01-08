@@ -77,8 +77,6 @@ io.on("connection", (socket) => {
   //send and get message
   socket.on("sendMessage", ({ senderId, receiverId }) => {
     const user = getUserChat(receiverId);
-    console.log(usersChat);
-    console.log(receiverId);
     if (user) {
       io.to(user.socketId).emit("getMessage", {
         senderId,
@@ -89,8 +87,6 @@ io.on("connection", (socket) => {
   socket.on("addFriend", (userId) => {
     addFriend(userId, socket.id);
     io.emit("getFriends", friendList);
-    console.log('friend')
-    console.log(friendList);
   });
 
   socket.on("newFriend", ({ senderId, receiverId }) => {
