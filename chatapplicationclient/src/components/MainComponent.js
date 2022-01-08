@@ -57,7 +57,6 @@ class Main extends Component {
             return (
                 <div className='mainComponentDiv'>
                     <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
-                    <Switch>
                         <Route path="/user" component={() => <Combine auth={this.props.auth}
                                 
                                 contacts={this.props.contacts}
@@ -71,8 +70,6 @@ class Main extends Component {
                                 chats={this.props.chats}
                             />} 
                         />
-                        
-                    </Switch>
                 </div>
 
             );

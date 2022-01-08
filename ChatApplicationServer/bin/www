@@ -70,6 +70,7 @@ io.on("connection", (socket) => {
 
   //take userId and socketId from user
   socket.on("addUser", (userId) => {
+    console.log(usersChat);
     addUserChat(userId, socket.id);
     io.emit("getUsersChat", usersChat);
   });
@@ -77,6 +78,8 @@ io.on("connection", (socket) => {
   //send and get message
   socket.on("sendMessage", ({ senderId, receiverId }) => {
     const user = getUserChat(receiverId);
+    // console.log(usersChat);
+    // console.log(receiverId);
     if (user) {
       io.to(user.socketId).emit("getMessage", {
         senderId,

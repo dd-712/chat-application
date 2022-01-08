@@ -26,8 +26,11 @@ function ChatFooter(props) {
             File,
             File.name
         );
-        await props.postFile(formData, props.receiver, 'File', 0, File.name);
-        props.last('newOne');
+        props.postFile(formData, props.receiver, 'File', 0, File.name);
+        setTimeout(()=>{
+            props.last('newOne');
+        },300);
+
         props.socket.emit("sendMessage", {
             senderId: props.userId,
             receiverId: props.receiverId
