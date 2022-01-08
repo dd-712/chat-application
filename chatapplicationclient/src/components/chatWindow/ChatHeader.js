@@ -1,17 +1,41 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { forwardRef, useState, useEffect, useRef } from 'react';
 import {
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label
 } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import Peer from "simple-peer";
 
 import './chatWindowStyles.css';
 
 function ChatHeader(props) {
 
-    const [friend, setFriend] = useState('');
-    const [id, setId] = useState('id');
     const [modelOpen, setState] = useState(false);
+    const [stream, setStream] = useState();
+    const userVideo = useRef();
+    const partnerVideo = useRef();
+
+    useEffect(() => {
+        if (!modelOpen) {
+            if (stream)
+                stream.getTracks().forEach(track => track.stop());
+        } else {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then(stream => {
+                setStream(stream);
+                if (userVideo.current) {
+                    userVideo.current.srcObject = stream;
+                }
+            })
+        }
+
+    },[modelOpen]);
+
+
+    let UserVideo;
+    if (stream) {
+        UserVideo = (
+            <div id='user1' className='videoWindow' playsInline muted ref={userVideo} autoPlay />
+        );
+    }
 
     function toggleModal() {
         setState(!modelOpen);
@@ -25,7 +49,7 @@ function ChatHeader(props) {
             <Modal isOpen={modelOpen} toggle={toggleModal} className='modelDialog' centered>
                 <ModalBody className='videoChat'>
                     <div className='videoGrid'>
-                        <div id='user1' className='videoWindow'></div>
+                        {/* <UserVideo /> */}
                         <div id='user2' className='videoWindow'></div>
                     </div>
                     <div className='videoOnOff'><i class="fas fa-video"></i></div>

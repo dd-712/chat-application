@@ -27,9 +27,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => ({
     postChat: (receiver, message, data, title, File) => dispatch(postChat(receiver, message, data, title, File)),
-    postContact: (_id,username,roomId) => dispatch(postContact(_id,username,roomId)),
+    postContact: (_id, username, roomId) => dispatch(postContact(_id, username, roomId)),
     deleteChat: (_ID) => dispatch(deleteChat(_ID)),
-    deleteContact: (_ID1,_ID2) => dispatch(deleteContact(_ID1,_ID2)),
+    deleteContact: (_ID1, _ID2) => dispatch(deleteContact(_ID1, _ID2)),
     loginUser: (creds) => dispatch(loginUser(creds)),
     logoutUser: () => dispatch(logoutUser()),
     signupUser: (username, password, firstname, lastname) => dispatch(signupUser(username, password, firstname, lastname)),
@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
 class Main extends Component {
     render() {
         let Valid = this.props.auth.isAuthenticated;
-    
+        console.log(Valid);
         if (!Valid) {
             return (
                 <div className='mainComponentDiv'>
@@ -56,19 +56,19 @@ class Main extends Component {
 
             return (
                 <div className='mainComponentDiv'>
-                        <Route path="/user" component={() => <Combine auth={this.props.auth}
-                                logoutUser={this.props.logoutUser}
-                                contacts={this.props.contacts}
-                                friends={this.props.contacts.contacts}
-                                //errormess={this.props.errormess.errMess}
-                                postContact={this.props.postContact}
-                                deleteContact={this.props.deleteContact}
-                                deleteChat={this.props.deleteChat}
-                                postChat={this.props.postChat}
-                                postFile={this.props.postFile}
-                                chats={this.props.chats}
-                            />} 
-                        />
+                    <Route path="/user" component={() => <Combine auth={this.props.auth}
+                        logoutUser={this.props.logoutUser}
+                        contacts={this.props.contacts}
+                        friends={this.props.contacts.contacts}
+                        //errormess={this.props.errormess.errMess}
+                        postContact={this.props.postContact}
+                        deleteContact={this.props.deleteContact}
+                        deleteChat={this.props.deleteChat}
+                        postChat={this.props.postChat}
+                        postFile={this.props.postFile}
+                        chats={this.props.chats}
+                    />}
+                    />
                 </div>
 
             );

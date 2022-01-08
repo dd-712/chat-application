@@ -3,9 +3,8 @@ import {
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label
 } from 'reactstrap';
-import io from 'socket.io-client';
 import axios from 'axios';
-import { curUrl,baseUrl } from '../../shared/baseUrl';
+import { curUrl, baseUrl } from '../../shared/baseUrl';
 import Friend from './Friend';
 import jwt from 'jwt-decode';
 
@@ -17,21 +16,10 @@ function FriendList(props) {
     const [searchWord, setSearchWord] = useState('');
 
     const [friendList, setFriendList] = useState([]);
-    const [alerts, setAlert] = useState(false);
-    const socket = useRef();
 
     useEffect(() => {
-        socket.current = io(baseUrl.slice(0,baseUrl.length-1));
-        socket.current.emit("addFriend", jwt(localStorage.getItem('token'))._id);
-        socket.current.on("newFriendAdded", (data) => {
-            setAlert(true);
-        });
-    }, []);
-
-    useEffect(() => {
-
-
-        if (friendList.length && !alerts) {
+        
+        if (friendList.length && !props.alerts) {
             return;
         }
         // console.log(searchWord);
@@ -70,16 +58,16 @@ function FriendList(props) {
 
         getList();
 
-    }, [alerts, friendList]);
+    }, [props.alerts, friendList]);
 
     useEffect(() => {
-        if (alerts) {
+        if (props.alerts) {
             setTimeout(() => {
-                setAlert(false);
+                props.setAlert(false);
                 setSearchWord('');
             }, 100)
         }
-    }, [alerts]);
+    }, [props.alerts]);
 
     function toggleModal() {
         setState(!modelOpen);
@@ -117,8 +105,8 @@ function FriendList(props) {
         if (idd != " ")
             await props.postFriends(idd, props.auth.user.username, curId._id);
         //console.log(idd);
-        setAlert(true);
-        socket.current.emit("newFriend", {
+        props.setAlert(true);
+        props.socket.emit("newFriend", {
             senderId: curId._id,
             receiverId: idd
         });
@@ -126,10 +114,10 @@ function FriendList(props) {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        setAlert(true);
+        props.setAlert(true);
         document.getElementById("searchFriend").reset();
     }
-    
+
     return (
         <div className='friendListDiv'>
             <div className='friendListHeader'>
@@ -159,13 +147,13 @@ function FriendList(props) {
                     deleteFriend={props.deleteFriend}
                     word={searchWord}
                     friendList={friendList}
-                    setAlert={setAlert}
+                    setAlert={props.setAlert}
                     deleteChat={props.deleteChat}
                     className='friendList'
-                    socket={socket.current}
+                    socket={props.socket}
                     setFriendId={props.FriendId}
                     setFriendName={props.FriendName}
-                    
+
                 />
             </div>
         </div>

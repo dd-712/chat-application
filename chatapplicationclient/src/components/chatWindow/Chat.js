@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import { baseUrl } from '../../shared/baseUrl';
 import axios from 'axios';
-import io from 'socket.io-client';
 import jwt from 'jwt-decode';
 import './chatWindowStyles.css';
 
@@ -14,24 +12,14 @@ import ChatList from './ChatList';
 function Chat(props) {
 
     const [chatList, setChatList] = useState([]);
-    const [last, setLast] = useState('');
-    const socket = useRef();
     let found = 0;
-
-    useEffect(() => {
-        socket.current = io(baseUrl.slice(0,baseUrl.length-1));
-        socket.current.emit("addUser", jwt(localStorage.getItem('token'))._id);
-        socket.current.on("getMessage", (data) => {
-            setLast('');
-        });
-    }, []);
 
 
     useEffect(() => {
         if (props.friendName === '')
             return;
 
-        if (props.friendName === last) {
+        if (props.friendName === props.last) {
             return;
         }
         //console.log("here");
@@ -79,29 +67,25 @@ function Chat(props) {
             setChatList(li);
         }
 
-        
-            getList();
-            setLast(props.friendName);
 
-            setTimeout(() => {
-                const element = document.querySelectorAll('.msgDiv');
-                if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
-            }, 300);
+        getList();
+        props.setLast(props.friendName);
 
-
-        
-        //console.log(JSON.stringify(chatList));
-    }, [props.friendName, chatList, last]);
+        setTimeout(() => {
+            const element = document.querySelectorAll('.msgDiv');
+            if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
+        }, 300);
+    }, [props.friendName, chatList, props.last]);
 
 
 
     return (
-        
+
         <div className='mainChatWindow'>
-            
+
             {props.friendName !== '' ?
                 <>
-                    <ChatHeader receiverId={props.friendId} friendName={props.friendName}/>
+                    <ChatHeader receiverId={props.friendId} friendName={props.friendName} />
                     <ChatList
                         className='List'
                         chatList={chatList}
@@ -109,8 +93,8 @@ function Chat(props) {
                         deleteChat={props.deleteChat}
                         postFile={props.postFile}
                         data={props.data}
-                        last={setLast}
-                        socket={socket.current}
+                        last={props.setLast}
+                        socket={props.socket}
                         userId={jwt(localStorage.getItem('token'))._id}
                         receiverId={props.friendId}
                     />
@@ -118,8 +102,8 @@ function Chat(props) {
                         postChat={props.postChat}
                         postFile={props.postFile}
                         receiver={props.friendId}
-                        last={setLast}
-                        socket={socket.current}
+                        last={props.setLast}
+                        socket={props.socket}
                         userId={jwt(localStorage.getItem('token'))._id}
                         receiverId={props.friendId}
                     />

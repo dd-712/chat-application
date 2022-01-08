@@ -1,6 +1,8 @@
-import React,{useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useRef } from 'react';
 import './styles.css';
+import { baseUrl } from '../shared/baseUrl';
+import jwt from 'jwt-decode';
+import io from 'socket.io-client';
 import FriendList from './friendList/FriendList';
 import Chat from './chatWindow/Chat';
 import Header from './Header';
@@ -8,15 +10,28 @@ import Header from './Header';
 function Combine(props) {
     const [friendId, setFriendId] = useState('Empty');
     const [friendName, setFriendName] = useState('Empty');
-   
+    const [last, setLast] = useState('---');
+    const [alert,setAlert]=useState(false);
+    const socket = useRef();
+
+    useEffect(() => {
+        socket.current = io(baseUrl.slice(0, baseUrl.length - 1));
+        socket.current.emit("addUser", jwt(localStorage.getItem('token'))._id);
+        socket.current.on("getMessage", (data) => {
+            setLast('---');
+        });
+        socket.current.on("newFriendAdded", (data) => {
+            setAlert(true);
+        });
+    }, []);
 
     return (
         <div>
-            
+
             <Header auth={props.auth} logoutUser={props.logoutUser} />
             <div className='mainDiv'>
                 <div className='row' >
-                    <div className='col-lg-3' style={{padding: '0px'}}>
+                    <div className='col-lg-3' style={{ padding: '0px' }}>
                         <FriendList
                             auth={props.auth}
                             fetchFriends={props.fetchContacts}
@@ -30,9 +45,12 @@ function Combine(props) {
                             FriendName={setFriendName}
                             friendId={friendId}
                             friendName={friendName}
+                            alerts={alert}
+                            setAlert={setAlert}
+                            socket={socket.current}
                         />
                     </div>
-                    <div className='col-lg-9' style={{padding: '0px'}}>
+                    <div className='col-lg-9' style={{ padding: '0px' }}>
                         <Chat
                             fetchChat={props.fetchChats}
                             postChat={props.postChat}
@@ -41,6 +59,9 @@ function Combine(props) {
                             data={props.chats}
                             friendId={friendId}
                             friendName={friendName}
+                            last={last}
+                            setLast={setLast}
+                            socket={socket.current}
                         />
                     </div>
                 </div>
