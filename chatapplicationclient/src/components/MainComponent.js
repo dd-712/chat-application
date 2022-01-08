@@ -56,9 +56,8 @@ class Main extends Component {
 
             return (
                 <div className='mainComponentDiv'>
-                    <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
                         <Route path="/user" component={() => <Combine auth={this.props.auth}
-                                
+                                logoutUser={this.props.logoutUser}
                                 contacts={this.props.contacts}
                                 friends={this.props.contacts.contacts}
                                 //errormess={this.props.errormess.errMess}

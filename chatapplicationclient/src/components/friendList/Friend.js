@@ -8,7 +8,7 @@ import jwt from 'jwt-decode';
 let cnt = 0;
 
 function Friend(props) {
-  const [cid, setId] = useState('id');
+  
   const getList = async (id) => {
 
     const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -29,22 +29,7 @@ function Friend(props) {
     }
   }
 
-  useEffect(() => {
-    let url = window.location.href.split("/");
-    let found=0;
-    setId(" ");
-    for (let i = 2; i < url.length; i++) {
-        if (url[i].length >= 9 && url[i].slice(0, 9) == 'connect__' && i + 1 != url.length) {
-            found = 1;
-            let len = url[i + 1].length;
-            if (url[i + 1].indexOf("?") != -1)
-                len = url[i + 1].indexOf("?");
-            //alert(url[i+1].slice(0,len));
-            setId(url[i + 1].slice(0, len));
-            break;
-        }
-    }
-})
+  
 
   async function removeSecondAndChat(_Id) {
     let curId = jwt(localStorage.getItem('token'));
@@ -52,25 +37,30 @@ function Friend(props) {
     await props.deleteFriend(curId._id, _Id);
     await props.deleteFriend(_Id, curId._id);
     props.setAlert(true);
-    if(cid==_Id)
-    window.location.href=curUrl+"user";
+    
     props.socket.emit("newFriend", {
       senderId: curId._id,
       receiverId: _Id
     });
   }
+ 
+  function changeState(info){
+    //alert(props.friendId);
+    props.setFriendId(info._id);
+    //alert(props.friendId);
+    props.setFriendName(info.username);
+  }
 
   var FriendList = props.friendList.map((info, index) => {
     return (
-      <div key={index}>
-        <Link className="link" to={`/${'user/connect__' + info.username}/${info._id}`} >
+      <div key={index} onClick={()=>changeState(info)}>
           <div className='friendBox'>
             <div className='uname'>{info.username}</div>
             <div className="remove">
               <button className='btn' onClick={() => { removeSecondAndChat(info._id); }}><i class="far fa-trash-alt"></i></button>
             </div>
           </div>
-        </Link>
+        
       </div>
     );
   });

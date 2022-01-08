@@ -87,7 +87,7 @@ router.post(("/addChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res
     }
 })
 
-router.delete(("/deleteChat"),authenticate.verifyUser, cors.corsWithOptions, (req, res) => {
+router.delete(("/deleteChat"),authenticate.verifyUser, cors.corsWithOptions, (req, res,next) => {
     Chat.findById(req.body._Id)
     .then((chat)=>{
         if(req.user._id!=chat.sender && req.user._id!=chat.receiver)

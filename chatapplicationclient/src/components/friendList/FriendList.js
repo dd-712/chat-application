@@ -116,7 +116,7 @@ function FriendList(props) {
         //alert(idd);
         if (idd != " ")
             await props.postFriends(idd, props.auth.user.username, curId._id);
-        console.log(idd);
+        //console.log(idd);
         setAlert(true);
         socket.current.emit("newFriend", {
             senderId: curId._id,
@@ -129,7 +129,7 @@ function FriendList(props) {
         setAlert(true);
         document.getElementById("searchFriend").reset();
     }
-
+    
     return (
         <div className='friendListDiv'>
             <div className='friendListHeader'>
@@ -163,6 +163,9 @@ function FriendList(props) {
                     deleteChat={props.deleteChat}
                     className='friendList'
                     socket={socket.current}
+                    setFriendId={props.FriendId}
+                    setFriendName={props.FriendName}
+                    
                 />
             </div>
         </div>

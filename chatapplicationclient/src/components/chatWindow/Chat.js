@@ -13,8 +13,6 @@ import ChatList from './ChatList';
 
 function Chat(props) {
 
-    const [friend, setFriend] = useState('');
-    const [id, setId] = useState('id');
     const [chatList, setChatList] = useState([]);
     const [last, setLast] = useState('');
     const socket = useRef();
@@ -29,39 +27,20 @@ function Chat(props) {
     }, []);
 
 
-
     useEffect(() => {
-        let url = window.location.href.split("/");
-
-        for (let i = 2; i < url.length; i++) {
-            if (url[i].length >= 9 && url[i].slice(0, 9) == 'connect__' && i + 1 != url.length) {
-                found = 1;
-                setFriend(url[i].slice(9, url[i].length));
-                let len = url[i + 1].length;
-                if (url[i + 1].indexOf("?") != -1)
-                    len = url[i + 1].indexOf("?");
-                //alert(url[i+1].slice(0,len));
-                setId(url[i + 1].slice(0, len));
-                break;
-            }
-        }
-    })
-
-    useEffect(() => {
-
-        if (friend === '')
+        if (props.friendName === '')
             return;
 
-        if (friend === last) {
+        if (props.friendName === last) {
             return;
         }
-
+        //console.log("here");
+        //console.log(props.friendId);
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
-            const url = baseUrl + 'chat/getChat/' + id;
-
-
+            const url = baseUrl + 'chat/getChat/' + props.friendId;
+            //console.log("iii");
             const res = await axios.get(url, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -70,7 +49,7 @@ function Chat(props) {
             })
 
             let response = res.data.chat;
-
+            //console.log(response[0]._id);
             let li = [];
 
             for (let i = 0; i < response.length; i++) {
@@ -90,7 +69,7 @@ function Chat(props) {
                     "data": response[i].data,
                     "time": hour + ":" + min
                 };
-                if (response[i].receiver == id) {
+                if (response[i].receiver == props.friendId) {
                     nchat.type = 'sender';
                 } else {
                     nchat.type = 'receiver';
@@ -100,9 +79,9 @@ function Chat(props) {
             setChatList(li);
         }
 
-        if (found == 1) {
+        
             getList();
-            setLast(friend);
+            setLast(props.friendName);
 
             setTimeout(() => {
                 const element = document.querySelectorAll('.msgDiv');
@@ -110,16 +89,19 @@ function Chat(props) {
             }, 300);
 
 
-        }
-    }, [friend, chatList, last]);
+        
+        //console.log(JSON.stringify(chatList));
+    }, [props.friendName, chatList, last]);
 
 
 
     return (
+        
         <div className='mainChatWindow'>
-            {friend !== '' ?
+            
+            {props.friendName !== '' ?
                 <>
-                    <ChatHeader />
+                    <ChatHeader receiverId={props.friendId} friendName={props.friendName}/>
                     <ChatList
                         className='List'
                         chatList={chatList}
@@ -130,16 +112,16 @@ function Chat(props) {
                         last={setLast}
                         socket={socket.current}
                         userId={jwt(localStorage.getItem('token'))._id}
-                        receiverId={id}
+                        receiverId={props.friendId}
                     />
                     <ChatFooter
                         postChat={props.postChat}
                         postFile={props.postFile}
-                        receiver={id}
+                        receiver={props.friendId}
                         last={setLast}
                         socket={socket.current}
                         userId={jwt(localStorage.getItem('token'))._id}
-                        receiverId={id}
+                        receiverId={props.friendId}
                     />
                 </>
                 :
