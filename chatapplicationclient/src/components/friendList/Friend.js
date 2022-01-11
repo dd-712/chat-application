@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { curUrl,baseUrl } from '../../shared/baseUrl';
-import './stylesFriendList.css';
+import './friendListStyles.css';
 import jwt from 'jwt-decode';
 
 let cnt = 0;

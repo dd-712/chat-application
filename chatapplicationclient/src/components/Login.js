@@ -30,8 +30,8 @@ function Login(props) {
                     <Link to="/signup" style={{ textDecoration: 'none' }}><button>Signup</button></Link>
                     <button type="submit">Login</button>
                 </div>
-            </form >
-        </div >
+            </form>
+        </div>
     );
 }
 

@@ -1,0 +1,12 @@
+.myId {
+	background-color: black;
+
+	padding: 2rem;
+	display: grid;
+	justify-content: center;
+	align-content: center;
+}
+
+body {
+    background-color: blue;
+}
