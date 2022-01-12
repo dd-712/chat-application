@@ -228,7 +228,7 @@ export const signupUser = (username, password, firstname, lastname) => (dispatch
             throw errmess;
         })
         .then(response => response.json())
-        .then(response => alert(response.status))
+        .then(response =>{dispatch(loginUser({'username':username.username,'password':username.password}));})
         .catch(error => { dispatch(ErrorMess('Username Already Taken')); })
 };
 
@@ -254,8 +254,6 @@ export const loginError = (message) => {
 }
 
 export const loginUser = (creds) => (dispatch) => {
-    dispatch(requestLogin(creds))
-
     return fetch(baseUrl + 'users/login', {
         method: 'POST',
         headers: {
@@ -272,7 +270,8 @@ export const loginUser = (creds) => (dispatch) => {
         }
     },
         error => {
-            throw error;
+            var errmess = new Error(error.message);
+            throw errmess;
         })
         .then(response => response.json())
         .then(response => {
@@ -291,7 +290,7 @@ export const loginUser = (creds) => (dispatch) => {
             }
         })
         //.catch(error => alert(error.message))
-    .catch(error => dispatch(loginError(error.message)))
+        .catch(error => { dispatch(ErrorMess('Username Or Password is not valid')); })
 };
 
 export const requestLogout = () => {

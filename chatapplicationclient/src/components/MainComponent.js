@@ -49,7 +49,7 @@ class Main extends Component {
                 <div className='mainComponentDiv'>
                     <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
                     <Route exact path="/login" component={() => <Login loginUser={this.props.loginUser} />} />
-                    <Route exact path="/signup" component={() => <Signup signupUser={this.props.signupUser} />} />
+                    <Route exact path="/signup" component={() => <Signup signupUser={this.props.signupUser} errorMess={this.props.errorMess} />} />
                 </div>
             );
         } else {

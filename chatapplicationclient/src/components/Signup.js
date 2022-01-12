@@ -14,16 +14,21 @@ function Signup(props) {
         e.preventDefault();
         let english = /^[A-Za-z0-9]*$/;
         let error = "";
-        if (english.test(username)) {
+        
+        if (!english.test(username)) {
             error = "User Name should contain only english leter. "
         }
         if (password != confPassword) {
             error += "Password and Confirm Password must be equal."
         }
-        console.log(error);
         if (error.length == 0) {
             props.signupUser({ username, password, firstname, lastname });
-        } else {
+        }
+        if(props.errorMess.errMess!="0")
+        {
+            error=props.errorMess.errMess;
+        }
+        if(error.length != 0) {
             error="*"+error;
             document.getElementById("errorDiv").innerHTML = error;
         }
