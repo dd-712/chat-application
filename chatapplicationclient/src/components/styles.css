@@ -58,7 +58,7 @@ html, body {
   font-weight: 300;
 }
 .login-form .content {
-  padding: 35px;
+  padding: 25px;
   text-align: center;
 }
 .login-form .input-field {
@@ -148,6 +148,13 @@ html, body {
   font-size: 16px;
   font-weight: 500;
 }
+
+.error{
+  color: #ff0000;
+  font-size: 14px;
+  margin: 0;
+}
+
 .logout{
   background-color:	#974343;
   color:white;

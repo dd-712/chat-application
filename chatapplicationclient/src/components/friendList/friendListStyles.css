@@ -79,10 +79,15 @@
 }
 
 .friendBox:hover {
-    background: linear-gradient(105deg,#093c94 ,#6e99e6);
+    background-color: #6e99ef;
+    /* background: linear-gradient(105deg,#093c94 ,#6e99e6); */
     color: #fff;
 }
 
+.friendSelected {
+    background-color: #6e19e1;
+    color: #fff;
+}
 
 .uname{
     margin-left:1%;

@@ -14,7 +14,6 @@ function FriendList(props) {
     const [modelOpen, setState] = useState(false);
     const [username, setUserName] = useState();
     const [searchWord, setSearchWord] = useState('');
-
     const [friendList, setFriendList] = useState([]);
 
     useEffect(() => {
@@ -22,7 +21,6 @@ function FriendList(props) {
         if (friendList.length && !props.alerts) {
             return;
         }
-        // console.log(searchWord);
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
@@ -86,25 +84,19 @@ function FriendList(props) {
         })
 
         let response = res.data._id;
-        //alert(JSON.stringify(res));
         return response;
     }
 
     async function addFriend(event) {
         let curId = jwt(localStorage.getItem('token'));
-        //alerts(curId);
         event.preventDefault();
         toggleModal();
-
-        //alerts(curId._id);
         await props.postFriends(curId._id, username, curId._id);
 
         let idd = await findId(username);
 
-        //alert(idd);
         if (idd != " ")
             await props.postFriends(idd, props.auth.user.username, curId._id);
-        //console.log(idd);
         props.setAlert(true);
         props.socket.emit("newFriend", {
             senderId: curId._id,
@@ -153,7 +145,7 @@ function FriendList(props) {
                     socket={props.socket}
                     setFriendId={props.FriendId}
                     setFriendName={props.FriendName}
-
+                    friendId={props.friendId}
                 />
             </div>
         </div>

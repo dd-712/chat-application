@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './styles.css';
 
@@ -8,31 +8,47 @@ function Signup(props) {
     const [password, setPassword] = useState();
     const [firstname, setfirstName] = useState();
     const [lastname, setlastName] = useState();
+    const [confPassword, setConfPassword] = useState();
+
     const handleSubmit = async e => {
         e.preventDefault();
-        props.signupUser({username,password,firstname,lastname});
-        
-      }
+        let english = /^[A-Za-z0-9]*$/;
+        let error = "";
+        if (english.test(username)) {
+            error = "User Name should contain only english leter. "
+        }
+        if (password != confPassword) {
+            error += "Password and Confirm Password must be equal."
+        }
+        console.log(error);
+        if (error.length == 0) {
+            props.signupUser({ username, password, firstname, lastname });
+        } else {
+            error="*"+error;
+            document.getElementById("errorDiv").innerHTML = error;
+        }
+    }
 
     return (
         <div className="login-form form">
             <form onSubmit={handleSubmit}>
                 <h1>Register</h1>
                 <div className="content">
+                    <div className='error' id='errorDiv'> &nbsp; <br/> &nbsp;</div>
                     <div className="input-field">
-                        <input type="text" onChange={e => setfirstName(e.target.value)} placeholder="First Name" autocomplete="nope" id="firstName" />
+                        <input type="text" onChange={e => setfirstName(e.target.value)} placeholder="First Name" autocomplete="off" id="firstName" />
                     </div>
                     <div className="input-field">
-                        <input type="text" onChange={e => setlastName(e.target.value)} placeholder="Last Name" autocomplete="nope" id="lastName"/>
+                        <input type="text" onChange={e => setlastName(e.target.value)} placeholder="Last Name" autocomplete="off" id="lastName" />
                     </div>
                     <div className="input-field">
-                        <input type="text" onChange={e => setUserName(e.target.value)} placeholder="Username" autocomplete="nope" id="userName"/>
+                        <input type="text" onChange={e => setUserName(e.target.value)} placeholder="Username" autocomplete="off" id="userName" />
                     </div>
                     <div className="input-field">
-                        <input type="password" onChange={e => setPassword(e.target.value)} placeholder="Password" autocomplete="new-password" id="password"/>
+                        <input type="password" onChange={e => setPassword(e.target.value)} placeholder="Password" autocomplete="new-password" id="password" />
                     </div>
                     <div className="input-field">
-                        <input type="password" placeholder="Confirm Password" autocomplete="new-password" id="confirmPass"/>
+                        <input type="password" onChange={e => setConfPassword(e.target.value)} placeholder="Confirm Password" autocomplete="new-password" id="confirmPass" />
                     </div>
                 </div>
                 <div className="action">
