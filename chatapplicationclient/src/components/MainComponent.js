@@ -67,6 +67,7 @@ class Main extends Component {
                         postChat={this.props.postChat}
                         postFile={this.props.postFile}
                         chats={this.props.chats}
+                        errorMess={this.props.errorMess}
                     />}
                     />
                 </div>

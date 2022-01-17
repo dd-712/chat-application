@@ -86,22 +86,41 @@ function FriendList(props) {
         let response = res.data._id;
         return response;
     }
-
+    let error="0";
     async function addFriend(event) {
         let curId = jwt(localStorage.getItem('token'));
         event.preventDefault();
-        toggleModal();
-        await props.postFriends(curId._id, username, curId._id);
-
-        let idd = await findId(username);
-
-        if (idd != " ")
-            await props.postFriends(idd, props.auth.user.username, curId._id);
-        props.setAlert(true);
-        props.socket.emit("newFriend", {
-            senderId: curId._id,
-            receiverId: idd
-        });
+        if(props.auth.user.username==username)
+        error="You cann't add youself as your friend";
+        else
+        {
+            
+            await props.postFriends(curId._id, username, curId._id);
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            let idd;
+            alert(props.errorMess.errMess);
+            if (props.errorMess.errMess!="New contact not added")
+            {
+                idd = await findId(username);
+                alert("in");
+                await props.postFriends(idd, props.auth.user.username, curId._id);
+                toggleModal();
+                props.setAlert(true);
+                props.socket.emit("newFriend", {
+                    senderId: curId._id,
+                    receiverId: idd
+                });
+            }
+            else
+            {
+                error=props.errorMess.errMess;
+            }
+            
+        }
+        if(error.length != 0) {
+            error="*"+error;
+            document.getElementById("errorDiv").innerHTML = error;
+        }
     }
 
     const handleSubmit = async e => {
@@ -129,6 +148,7 @@ function FriendList(props) {
                                     autocomplete='off'
                                 />
                             </FormGroup>
+                            <div className='error' id='errorDiv'> &nbsp; <br/> &nbsp;</div>
                             <Button type="submit" value="submit" color="primary">Add</Button>
                         </Form>
                     </ModalBody>

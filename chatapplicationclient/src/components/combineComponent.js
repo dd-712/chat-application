@@ -48,6 +48,7 @@ function Combine(props) {
                             alerts={alert}
                             setAlert={setAlert}
                             socket={socket.current}
+                            errorMess={props.errorMess}
                         />
                     </div>
                     <div className='col-lg-9' style={{ padding: '0px' }}>
