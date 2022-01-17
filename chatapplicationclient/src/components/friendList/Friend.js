@@ -57,13 +57,11 @@ function Friend(props) {
       <div key={index}
         onClick={() => { changeState(info); }}
         className={`friendBox ${selected}`} >
-
         <div className='uname'>{info.username}</div>
         <div className="remove">
           <button className='btn' onClick={() => { removeSecondAndChat(info._id); }}><i class="far fa-trash-alt"></i></button>
         </div>
-
-      </div >
+      </div>
     );
   });
 

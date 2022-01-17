@@ -126,7 +126,6 @@ function FriendList(props) {
     const handleSubmit = async e => {
         e.preventDefault();
         props.setAlert(true);
-        document.getElementById("searchFriend").reset();
     }
 
     return (

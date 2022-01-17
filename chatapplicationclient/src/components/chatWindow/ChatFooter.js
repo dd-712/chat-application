@@ -46,7 +46,7 @@ function ChatFooter(props) {
             receiver, message, data, title, "Not a File"
         );
         document.getElementById("chatInput").reset();
-        props.last('newOne');
+        props.last('newOne'); 
         props.socket.emit("sendMessage", {
             senderId: props.userId,
             receiverId: props.receiverId
@@ -75,7 +75,7 @@ function ChatFooter(props) {
                     <Form onSubmit={sendFile}>
                         <FormGroup>
                             <Label htmlFor="file">Upload File</Label>
-                            <Input type="file" id="file" name="file"
+                            <Input type="file" id="file" name="file" className='inputOp'
                                 onChange={onFileChange} />
                         </FormGroup>
                         <Button type="submit" value="submit" color="primary">Send</Button>

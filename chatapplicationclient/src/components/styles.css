@@ -13,9 +13,8 @@ html, body {
 
 .header {
   height: 10vh;
-  border-bottom: 1.5px solid rgb(185, 60, 60);
-  border-radius: 5px;
-  background-color: #FEECE9;
+  border-bottom: 3px;
+  background-color: #BAABDA;
 }
 
 .logo {
@@ -28,13 +27,11 @@ html, body {
 }
 
 .col-lg-3 {
-  background-color: #A6B1E1;
   height: 90vh;
 }
 
 .col-lg-9 {
   padding: 0px;
-  background-color: #fff;
   height: 90vh;
 }
 
@@ -123,7 +120,7 @@ html, body {
 }
 
 .login{
-  background-color:	#228ea1;
+  background-color:	#146356;
   color:white;
   cursor: pointer;
   padding: 3px 9px;
@@ -133,7 +130,7 @@ html, body {
   background-color:#39a6b9 ;
 }
 .signup{
-  background-color:	#1b8d4a;
+  background-color:	#D77FA1;
   color:white;
   cursor: pointer;
   padding: 3px 9px;
@@ -144,7 +141,7 @@ html, body {
   background-color:#39aa52 ;
 }
 .usname{
-  color:#3b1c32 ;
+  color:#146356 ;
   font-size: 16px;
   font-weight: 500;
 }
@@ -156,7 +153,7 @@ html, body {
 }
 
 .logout{
-  background-color:	#974343;
+  background-color:	#D77FA1;
   color:white;
   cursor: pointer;
   padding: 3px 9px;

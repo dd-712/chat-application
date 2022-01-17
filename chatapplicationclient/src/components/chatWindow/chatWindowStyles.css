@@ -1,14 +1,13 @@
 
-
 .chatWindowHeader {
     height: 8vh;
     width: 97%; 
-    border-bottom: 1.5px solid rgb(185, 60, 60);
     border-radius: 5px;
     margin-top: 3px;
     margin-left: 1.5%;
     margin-bottom: 7px;
-    background-color: #CCD1E4;
+    background-color: #BAABDA;
+    font-family: 'Mochiy Pop P One', sans-serif;
 }
 
 .friendName {
@@ -68,23 +67,20 @@
     align-self: flex-end;
     padding-right: 10px;
     margin-right: 15px;
-    border-radius: 7px 7px 0px 7px;
+    border-radius: 5px 5px 5px 5px;
     background-color: #ffffff;
     color: #707c97;
-    border: 1px solid rgba(112, 124, 151, 0.25);
-    box-shadow: 10px    10px 25px 0px rgba(112, 124, 151, 0.05), 15px 15px 35px 0px rgba(112, 124, 151, 0.05);
+    border: 1px solid #707c9740;
 }
 
 .receiver {
     align-self: flex-start;
     padding-left: 10px;
     margin-left: 15px;
-    border-radius: 0px 7px 7px 7px;
-    background: rgb(96, 169, 246);
-    background: linear-gradient(135deg, rgba(96, 169, 246, 1) 0%, rgba(42, 139, 242, 1) 100%);
+    border-radius: 5px 5px 5px 5px;
+    background: #60a9f6;
+    background-color: #60a9f6;
     color: #ffffff;
-    box-shadow: 10px 10px 25px 0px rgba(42, 139, 242, 0.1), 15px 15px 35px 0px rgba(33, 44, 56, 0.05),
-        10px 10px 50px 0px rgba(42, 139, 242, 0.1);
 }
 
 div.img {
@@ -125,7 +121,6 @@ div.file {
     cursor: pointer;
 }
 
-
 .chatWindowFooter {
     margin-left: 6%;
     width: 100%;
@@ -141,9 +136,30 @@ span.file, .sendButton {
 .File{
     cursor: pointer;
 }
+
 .inputForm {
     display: inline-block;
     width: 90%;
+}
+
+input{
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom:2px solid #136bcf;
+    outline:none;
+    transition:.3s;
+    background: transparent;
+    color: #000;
+}
+
+input::placeholder { 
+    color: #000;
+}
+
+input:focus {
+    border-color:#6e99e6;
+    box-shadow:0 0 8px 0 #6e99e6;
 }
 
 .inputMessage {

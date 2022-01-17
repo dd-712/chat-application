@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
+
 
 .friendListDiv {
     width: 100%;
@@ -9,12 +11,12 @@
     border-right:2px solid #0000004f;
 }
 
-.friendListDiv::-webkit-scrollbar-track
+/* .friendListDiv::-webkit-scrollbar-track
 {
 	background-color: #ebebeb;
     -webkit-border-radius: 10px;
     border-radius: 10px;
-}
+} */
 
 .friendListDiv::-webkit-scrollbar
 {
@@ -39,9 +41,11 @@
 
 .input {
     width: 80%;
-    border-bottom:2px solid rgb(19, 107, 207);
-    border-radius:4px;
-    margin:8px 0;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom:2px solid #136bcf;
+    margin:15px 0;
     outline:none;
     padding:8px;
     transition:.3s;
@@ -60,7 +64,6 @@
 
 .input,.searchIcon,.friendRequest {
     display: inline-block;
-    margin: 3px;
 }
 
 .friendBox {
@@ -80,18 +83,22 @@
 
 .friendBox:hover {
     background-color: #6e99ef;
-    /* background: linear-gradient(105deg,#093c94 ,#6e99e6); */
     color: #fff;
 }
 
 .friendSelected {
-    background-color: #6e19e1;
+    background-color: #6e99ef;
     color: #fff;
+}
+
+.friendList {
+    margin-left: 15px;
+    font-family: 'Mochiy Pop P One', sans-serif;
 }
 
 .uname{
     margin-left:1%;
-    font-family: cursive;
+    font-family: 'Mochiy Pop P One', sans-serif;
     font-weight: 900;
     position: absolute;
     left: 12px;
