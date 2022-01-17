@@ -43,7 +43,7 @@ const mapDispatchToProps = (dispatch) => ({
 class Main extends Component {
     render() {
         let Valid = this.props.auth.isAuthenticated;
-        console.log(Valid);
+        //console.log(Valid);
         if (!Valid) {
             return (
                 <div className='mainComponentDiv'>

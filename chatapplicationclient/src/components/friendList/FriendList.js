@@ -86,25 +86,34 @@ function FriendList(props) {
         let response = res.data._id;
         return response;
     }
-    let error="0";
+    let error="";
     async function addFriend(event) {
         let curId = jwt(localStorage.getItem('token'));
         event.preventDefault();
-        if(props.auth.user.username==username)
-        error="You cann't add youself as your friend";
+        let found=0;
+        for(let i=0;i<friendList.length;i++)
+        {
+            if(friendList[i].username==username)
+            {
+                found=1;
+                break;
+            }
+        }
+        if(found==1)
+        error="Enter person already exist into your friendlist.";
+        else if(props.auth.user.username==username)
+        error="You cann't add youself as your friend.";
         else
         {
             
-            await props.postFriends(curId._id, username, curId._id);
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            let message=await props.postFriends(curId._id, username, curId._id);
             let idd;
-            alert(props.errorMess.errMess);
-            if (props.errorMess.errMess!="New contact not added")
+            if (message!="New contact not added")
             {
                 idd = await findId(username);
-                alert("in");
                 await props.postFriends(idd, props.auth.user.username, curId._id);
                 toggleModal();
+                
                 props.setAlert(true);
                 props.socket.emit("newFriend", {
                     senderId: curId._id,
@@ -113,12 +122,11 @@ function FriendList(props) {
             }
             else
             {
-                error=props.errorMess.errMess;
+                error='New Contact not added Please Check username';
             }
-            
         }
         if(error.length != 0) {
-            error="*"+error;
+            error="*"+error+"<br/>";
             document.getElementById("errorDiv").innerHTML = error;
         }
     }

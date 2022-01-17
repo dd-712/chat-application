@@ -9,14 +9,14 @@ function Login(props) {
     
     const handleSubmit = async e => {
         e.preventDefault();
-        props.loginUser({
+        let message=await props.loginUser({
         username,
         password
         });
         let error = "";
-        if(props.errorMess.errMess!="0")
+        if(message=="Username Or Password is not valid")
         {
-            error=props.errorMess.errMess;
+            error=message;
         }
         if(error.length != 0) {
             error="*"+error;

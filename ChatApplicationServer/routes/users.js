@@ -24,8 +24,8 @@ router.post('/signup', cors.corsWithOptions, function (req, res, next) {
     req.body.password, (err, user) => {
       if (err) {
         // console.log(err.message);
-        err = new Error(err.message)
-        err.status = 500;
+        err = new Error('Username Taken already')
+        err.status = 403;
         return next(err);
       }
       else {
@@ -54,17 +54,21 @@ router.post('/signup', cors.corsWithOptions, function (req, res, next) {
 router.post('/login', cors.cors, (req, res, next) => {
   passport.authenticate('local', (err, user, info) => {
     if (err)
+    {
+      err = new Error(err.message)
+      err.status = 500;
       return next(err);
+    }
     if (!user) {
-      res.statusCode = 401;
-      res.setHeader('Content-Type', 'application/json');
-      res.json({ success: false, status: 'Login Unsuccessful!', err: info });
+      err = new Error(err.message)
+      err.status = 401;
+      return next(err);
     }
     req.logIn(user, (err) => {
       if (err) {
-        res.statusCode = 401;
-        res.setHeader('Content-Type', 'application/json');
-        res.json({ success: false, status: 'Login Unsuccessful!', err: 'Could not login user' });
+        err = new Error(err.message)
+      err.status = 401;
+      return next(err);
       }
       var token = authenticate.getToken({ _id: req.user._id });
       res.statusCode = 200;

@@ -33,7 +33,7 @@ export const postContact = (_id,username,roomId) => (dispatch) => {
             throw errmess;
         })
         // .then(response => dispatch(fetchContacts()))
-        .catch(error => { dispatch(ErrorMess('New contact not added')); })
+        .catch(error => { return('New contact not added'); })
 }
 
 export const deleteContact = (_ID1,ID2) => (dispatch) => {
@@ -214,6 +214,7 @@ export const signupUser = (username, password, firstname, lastname) => (dispatch
         },
         credentials: 'same-origin'
     }).then(response => {
+        
         if (response.ok) {
             return response;
         }
@@ -229,7 +230,7 @@ export const signupUser = (username, password, firstname, lastname) => (dispatch
         })
         .then(response => response.json())
         .then(response =>{dispatch(loginUser({'username':username.username,'password':username.password}));})
-        .catch(error => { dispatch(ErrorMess('Username Already Taken')); })
+        .catch(error => {return ('Username Already Taken'); })
 };
 
 export const requestLogin = (creds) => {
@@ -290,7 +291,7 @@ export const loginUser = (creds) => (dispatch) => {
             }
         })
         //.catch(error => alert(error.message))
-        .catch(error => { dispatch(ErrorMess('Username Or Password is not valid')); })
+        .catch(error => { return ('Username Or Password is not valid'); })
 };
 
 export const requestLogout = () => {

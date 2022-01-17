@@ -22,7 +22,9 @@ function Signup(props) {
             error += "Password and Confirm Password must be equal."
         }
         if (error.length == 0) {
-            props.signupUser({ username, password, firstname, lastname });
+            let message=await props.signupUser({ username, password, firstname, lastname });
+            if(message=="Username Already Taken")
+            error+="Username Already Taken";
         }
         if(props.errorMess.errMess!="0")
         {
