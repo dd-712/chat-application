@@ -22,13 +22,11 @@ function Chat(props) {
         if (props.friendName === props.last) {
             return;
         }
-        //console.log("here");
-        //console.log(props.friendId);
+
         const getList = async () => {
 
             const bearer = 'Bearer ' + localStorage.getItem('token');
             const url = baseUrl + 'chat/getChat/' + props.friendId;
-            //console.log("iii");
             const res = await axios.get(url, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +35,6 @@ function Chat(props) {
             })
 
             let response = res.data.chat;
-            //console.log(response[0]._id);
             let li = [];
 
             for (let i = 0; i < response.length; i++) {

@@ -63,6 +63,15 @@
     border-radius: 6px;
 } 
 
+.msgDivImage {
+    display: flex;
+    color: white;
+    min-width: 80px;
+    max-width: 60%;
+    margin: 5px;
+    border-radius: 6px;
+} 
+
 .sender  {
     align-self: flex-end;
     padding-right: 10px;
@@ -109,6 +118,30 @@ div.file {
     bottom: -5px;
     right: 0px;
     opacity: 0.8;
+}
+.timeImage {
+    width: 50px;
+    position: relative;
+}
+
+.timeContentImage {
+    font-size: 15px;
+    position: absolute;
+    bottom: 0px;
+    opacity: 0.8;
+}
+
+.downloadBtnImage {
+    margin: 5px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.deleteArrowImage {
+    margin-left: 7px;
+    cursor: pointer;
+    font-size: 10px;
+    position: absolute;
 }
 
 .downloadBtn {

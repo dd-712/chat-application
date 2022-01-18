@@ -4,11 +4,11 @@ import './chatWindowStyles.css';
 import { baseUrl } from '../../shared/baseUrl';
 import axios from 'axios';
 
-function ShowDeleteArrow({ type, toggleModal, modelOpen, deleteChat }) {
+function ShowDeleteArrow({ type, toggleModal, modelOpen, deleteChat,classname }) {
   if (type === 'sender') {
     return (
       <>
-        <div className='deleteArrow' onClick={toggleModal} > <i class="fas fa-chevron-down fa-xm"></i>
+        <div className={`${classname}`} onClick={toggleModal} > <i class="fas fa-chevron-down fa-xm"></i>
           <Modal isOpen={modelOpen} toggle={toggleModal} contentClassName='deleteChatModel' isClearable={false}>
             <ModalHeader toggle={toggleModal}><button onClick={() => { deleteChat(); toggleModal(); }} className='deleteChatBtn'>Delete msg</button></ModalHeader>
           </Modal>
@@ -71,23 +71,51 @@ function ChatMessage(props) {
     );
   }
   else {
-    return (
-      <div key={props.index} className={`msgDiv ${props.type}`} >
-        <div className='File'>{props.File.title}</div>
-        <div className='time'>
-          <div className='timeContent'>{props.time}</div>
+    let ext = props.File.title.slice(props.File.title.lastIndexOf(".")+1,props.File.title.length);
+    if(ext=='jpg'||ext=='jpeg'||ext=='png'||ext=='gif'||ext=='jfif'||ext=='PNG'||ext=='JPG'||ext=='JPEG'||ext=='JFIF')
+    {
+      return(
+        <div key={props.index} className={`msgDivImage ${props.type}`}>
+            <div className="card">
+                <img width="100%" src={baseUrl+'Files/'+props.File.filename} alt={props.File.title} />
+            </div>
+            <div className='timeImage'>
+            <div className='timeContentImage'>{props.time}</div>
+          </div>
+          <div className='downloadBtnImage' onClick={() => handleDownload(baseUrl + 'UploadFile/download/' + props.File.filename, props.File.filename)}>
+            <i className="fas fa-arrow-circle-down downloadBtn"></i>
+          </div>
+          <ShowDeleteArrow
+            type={props.type}
+            toggleModal={toggleModal}
+            modelOpen={modelOpen}
+            deleteChat={deleteChat}
+            classname={'deleteArrowImage'}
+          />
         </div>
-        <div className='downloadBtn' onClick={() => handleDownload(baseUrl + 'UploadFile/download/' + props.File.filename, props.File.filename)}>
-          <i className="fas fa-arrow-circle-down downloadBtn"></i>
+      );
+    }
+    else
+    {
+      return (
+        <div key={props.index} className={`msgDiv ${props.type}`} >
+          <div className='File'>{props.File.title}</div>
+          <div className='time'>
+            <div className='timeContent'>{props.time}</div>
+          </div>
+          <div className='downloadBtn' onClick={() => handleDownload(baseUrl + 'UploadFile/download/' + props.File.filename, props.File.filename)}>
+            <i className="fas fa-arrow-circle-down downloadBtn"></i>
+          </div>
+          <ShowDeleteArrow
+            type={props.type}
+            toggleModal={toggleModal}
+            modelOpen={modelOpen}
+            deleteChat={deleteChat}
+            classname={'deleteArrow'}
+          />
         </div>
-        <ShowDeleteArrow
-          type={props.type}
-          toggleModal={toggleModal}
-          modelOpen={modelOpen}
-          deleteChat={deleteChat}
-        />
-      </div>
-    );
+      );
+    }
   }
 }
 

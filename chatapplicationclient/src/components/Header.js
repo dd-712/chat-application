@@ -1,25 +1,26 @@
-import * as React from 'react';
-import { Link } from 'react-router-dom';
+import  React,{ useState,useEffect }  from 'react';
+import { Link,useLocation } from 'react-router-dom';
+import jwt from 'jwt-decode';
+//import { baseUrl } from '../shared/baseUrl';
 import './styles.css';
 
-function Header(props) {/*
-  const [ user, setUser ] = useState(JSON.parse(localStorage.getItem('token'))); //convert to object
- 
+function Header(props) {
+  const [ user, setUser ] = useState(JSON.stringify(localStorage.getItem('token')));
+  const location = useLocation();
   const logout = () =>{
           props.logoutUser();
-          history.push("/login");
           setUser(null);
       }
   
       useEffect(()=>{
-          const token = user?.token;
-  
-          if(token){
-              const decodedToken = decode(token)
-              if(decodedToken.exp*1000 < newDate().getTime()) logout();
+          const token = user;
+          if(token!="null"){
+              const decodedToken = jwt(token)
+              if(decodedToken.exp*1000 < new Date().getTime())
+              logout();
           }
-          setUser(JSON.parse(localStorage.getItem('profile')))
-      },[location])*/
+          setUser(JSON.stringify(localStorage.getItem('token')));
+      },[location])
     return (
       <div className="header">
         <header className="d-flex  align-items-center justify-content-md-between  mb-4">

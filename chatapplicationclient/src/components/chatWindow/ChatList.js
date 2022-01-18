@@ -3,11 +3,6 @@ import './chatWindowStyles.css';
 import ChatMessage from './ChatMessage';
 
 function ChatList(props) {
-    //console.log("in");
-    //console.log(props.userId);
-    //console.log(props.receiverId);
-    //console.log(JSON.stringify(props.chatList[0]));
-    //console.log("out");
     return (
         <div id='chatList'>
             {props.chatList.map((info, index) => {
