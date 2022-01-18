@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import React from 'react';
 import axios from 'axios';
 import { curUrl, baseUrl } from '../../shared/baseUrl';
 import './friendListStyles.css';

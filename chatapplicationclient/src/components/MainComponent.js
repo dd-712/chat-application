@@ -1,5 +1,5 @@
-import React, { Component, useState, useEffect } from 'react';
-import { Switch, Route, Redirect, withRouter, Link } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
     fetchChats, fetchContacts, postChat, postContact, postFile,

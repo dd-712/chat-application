@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label
@@ -17,7 +17,7 @@ function FriendList(props) {
     const [friendList, setFriendList] = useState([]);
 
     useEffect(() => {
-        
+
         if (friendList.length && !props.alerts) {
             return;
         }
@@ -86,47 +86,42 @@ function FriendList(props) {
         let response = res.data._id;
         return response;
     }
-    let error="";
+    let error = "";
     async function addFriend(event) {
         let curId = jwt(localStorage.getItem('token'));
         event.preventDefault();
-        let found=0;
-        for(let i=0;i<friendList.length;i++)
-        {
-            if(friendList[i].username==username)
-            {
-                found=1;
+        let found = 0;
+        for (let i = 0; i < friendList.length; i++) {
+            if (friendList[i].username == username) {
+                found = 1;
                 break;
             }
         }
-        if(found==1)
-        error="Enter person already exist into your friendlist.";
-        else if(props.auth.user.username==username)
-        error="You cann't add youself as your friend.";
-        else
-        {
-            
-            let message=await props.postFriends(curId._id, username, curId._id);
+        if (found == 1)
+            error = "Enter person already exist into your friendlist.";
+        else if (props.auth.user.username == username)
+            error = "You can't add youself as your friend.";
+        else {
+
+            let message = await props.postFriends(curId._id, username, curId._id);
             let idd;
-            if (message!="New contact not added")
-            {
+            if (message != "New contact not added") {
                 idd = await findId(username);
                 await props.postFriends(idd, props.auth.user.username, curId._id);
                 toggleModal();
-                
+
                 props.setAlert(true);
                 props.socket.emit("newFriend", {
                     senderId: curId._id,
                     receiverId: idd
                 });
             }
-            else
-            {
-                error='New Contact not added Please Check username';
+            else {
+                error = 'Username not found';
             }
         }
-        if(error.length != 0) {
-            error="*"+error+"<br/>";
+        if (error.length != 0) {
+            error = "*" + error + "<br/>";
             document.getElementById("errorDiv").innerHTML = error;
         }
     }
@@ -155,7 +150,7 @@ function FriendList(props) {
                                     autocomplete='off'
                                 />
                             </FormGroup>
-                            <div className='error' id='errorDiv'> &nbsp; <br/> &nbsp;</div>
+                            <div className='error' id='errorDiv'> &nbsp; <br /> &nbsp;</div>
                             <Button type="submit" value="submit" color="primary">Add</Button>
                         </Form>
                     </ModalBody>

@@ -7,7 +7,7 @@
     margin-left: 1.5%;
     margin-bottom: 7px;
     background-color: #BAABDA;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .friendName {
@@ -117,19 +117,42 @@ div.file {
 }
 
 .deleteArrow {
-    margin: 5px;
+    margin-left: 7px;
     cursor: pointer;
+    font-size: 10px;
 }
+
+.deleteChatModel {
+    max-width: 30%;
+    top: 100px;
+    left: 50%;
+}
+
+.deleteChatBtn{
+    background-color: #ad2828;
+    color: white;
+}
+
+.deleteChatBtn:hover {
+    background-color: #7c0606;
+}
+
 
 .chatWindowFooter {
-    margin-left: 6%;
+    margin-left: 2px;
     width: 100%;
     position: absolute;
-    bottom: 9px;
+    bottom: 13px;
+    border-top: 2px solid #2e2c2c;
 }
 
-span.file, .sendButton {
-    margin: 5px;
+.file {
+    margin-left: 5%;
+    margin-right: 10px;
+}
+
+.sendButton {
+    margin: 10px;
     cursor: pointer;
 }
 
@@ -163,5 +186,7 @@ input:focus {
 }
 
 .inputMessage {
+    margin-top: 3px;
     width: 80%;
+    height: 30px;
 }

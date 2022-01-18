@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Mochiy+Pop+P+One&display=swap');
 
 
 .friendListDiv {
@@ -93,12 +92,11 @@
 
 .friendList {
     margin-left: 15px;
-    font-family: 'Mochiy Pop P One', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .uname{
     margin-left:1%;
-    font-family: 'Mochiy Pop P One', sans-serif;
     font-weight: 900;
     position: absolute;
     left: 12px;

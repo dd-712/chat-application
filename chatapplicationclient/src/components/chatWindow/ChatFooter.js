@@ -1,4 +1,4 @@
-import React, { forwardRef, useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import {
     Button, Modal, ModalHeader, ModalBody,
     Form, FormGroup, Input, Label
@@ -27,9 +27,9 @@ function ChatFooter(props) {
             File.name
         );
         props.postFile(formData, props.receiver, 'File', 0, File.name);
-        setTimeout(()=>{
+        setTimeout(() => {
             props.last('newOne');
-        },300);
+        }, 300);
 
         props.socket.emit("sendMessage", {
             senderId: props.userId,
@@ -46,7 +46,7 @@ function ChatFooter(props) {
             receiver, message, data, title, "Not a File"
         );
         document.getElementById("chatInput").reset();
-        props.last('newOne'); 
+        props.last('newOne');
         props.socket.emit("sendMessage", {
             senderId: props.userId,
             receiverId: props.receiverId

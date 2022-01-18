@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, ModalHeader} from 'reactstrap';
+import { Modal, ModalHeader } from 'reactstrap';
 import './chatWindowStyles.css';
 import { baseUrl } from '../../shared/baseUrl';
 import axios from 'axios';
@@ -8,10 +8,12 @@ function ShowDeleteArrow({ type, toggleModal, modelOpen, deleteChat }) {
   if (type === 'sender') {
     return (
       <>
-        <div className='deleteArrow' onClick={toggleModal} > <i class="fas fa-chevron-right"></i></div>
-        <Modal isOpen={modelOpen} toggle={toggleModal}>
-          <ModalHeader toggle={toggleModal}><button onClick={() => { deleteChat(); toggleModal(); }}>Delete Chat</button></ModalHeader>
-        </Modal>
+        <div className='deleteArrow' onClick={toggleModal} > <i class="fas fa-chevron-down fa-xm"></i>
+          <Modal isOpen={modelOpen} toggle={toggleModal} contentClassName='deleteChatModel' isClearable={false}>
+            <ModalHeader toggle={toggleModal}><button onClick={() => { deleteChat(); toggleModal(); }} className='deleteChatBtn'>Delete msg</button></ModalHeader>
+          </Modal>
+        </div>
+
       </>
     )
   } else {
@@ -37,18 +39,18 @@ function ChatMessage(props) {
       receiverId: props.receiverId
     });
   }
-  const handleDownload =async (url, filename) => {
+  const handleDownload = async (url, filename) => {
     const bearer = 'Bearer ' + localStorage.getItem('token');
     const res = await axios.get(url, {
       headers: {
-          'Authorization': bearer
+        'Authorization': bearer
       },
       responseType: 'blob',
-  });
+    });
     const urln = window.URL.createObjectURL(new Blob([res.data], { type: filename.split('.')[-1] }));
     const link = document.createElement('a');
     link.href = urln;
-    link.download =filename;
+    link.download = filename;
     link.click();
   }
 
