@@ -78,20 +78,21 @@ function ChatMessage(props) {
         <div key={props.index} className={`msgDivImage ${props.type}`}>
             <div className="card">
                 <img width="100%" src={baseUrl+'Files/'+props.File.filename} alt={props.File.title} />
+                <ShowDeleteArrow
+                    type={props.type}
+                    toggleModal={toggleModal}
+                    modelOpen={modelOpen}
+                    deleteChat={deleteChat}
+                    classname={'deleteArrowImage'}
+                  />
+                <div className='timeImage'>
+                  <div className='timeContentImage'>{props.time}</div>
+                  <div className='downloadBtnImage' onClick={() => handleDownload(baseUrl + 'UploadFile/download/' + props.File.filename, props.File.filename)}>
+                    <i className="fas fa-arrow-circle-down downloadBtn"></i>
+                  </div>
+                  
+                </div>
             </div>
-            <div className='timeImage'>
-            <div className='timeContentImage'>{props.time}</div>
-          </div>
-          <div className='downloadBtnImage' onClick={() => handleDownload(baseUrl + 'UploadFile/download/' + props.File.filename, props.File.filename)}>
-            <i className="fas fa-arrow-circle-down downloadBtn"></i>
-          </div>
-          <ShowDeleteArrow
-            type={props.type}
-            toggleModal={toggleModal}
-            modelOpen={modelOpen}
-            deleteChat={deleteChat}
-            classname={'deleteArrowImage'}
-          />
         </div>
       );
     }

@@ -79,7 +79,6 @@
 
 .sender  {
     align-self: flex-end;
-    padding-right: 10px;
     margin-right: 15px;
     border-radius: 5px 5px 5px 5px;
     background-color: #ffffff;
@@ -89,17 +88,11 @@
 
 .receiver {
     align-self: flex-start;
-    padding-left: 10px;
     margin-left: 15px;
     border-radius: 5px 5px 5px 5px;
     background: #60a9f6;
     background-color: #60a9f6;
     color: #ffffff;
-}
-
-div.img {
-    width: 45px; 
-    height: 45px;
 }
 
 div.file {
@@ -125,28 +118,36 @@ div.file {
     opacity: 0.8;
 }
 .timeImage {
-    width: 50px;
-    position: relative;
+    text-align: right;
+    position: absolute;
+    left: 0;
+    bottom: 1px;
+    right: 10px;
+    padding: 1%;
+    color: #fff;
 }
 
 .timeContentImage {
-    font-size: 15px;
-    position: absolute;
-    bottom: 0px;
-    opacity: 0.8;
+    font-weight: 500;
+    font-size: 100%;
+    font-family: Brush Script MT,cursive;
 }
 
 .downloadBtnImage {
-    margin: 5px;
-    cursor: pointer;
+    text-align: right;
     position: absolute;
+    cursor: pointer;
+    left: 0;
+    bottom: 1px;
+    right: 50px;
 }
-
 .deleteArrowImage {
-    margin-left: 7px;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 15px;
+    top: 5px;
     position: absolute;
+    right: 10px;
+    color: #fff;
 }
 
 .downloadBtn {
