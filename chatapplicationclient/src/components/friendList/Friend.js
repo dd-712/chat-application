@@ -54,7 +54,16 @@ function Friend(props) {
 
     return (
       <div key={index}
-        onClick={() => { changeState(info); }}
+        onClick={() => {
+          changeState(info);
+          if (window.innerWidth < 768) {
+            props.setDisplayFriend('hideComponent');
+            props.setDisplayChat('');
+          } else {
+            props.setDisplayFriend('');
+            props.setDisplayChat('');
+          }
+        }}
         className={`friendBox ${selected}`} >
         <div className='uname'>{info.username}</div>
         <div className="remove">

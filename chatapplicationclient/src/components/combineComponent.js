@@ -11,8 +11,16 @@ function Combine(props) {
     const [friendId, setFriendId] = useState('Empty');
     const [friendName, setFriendName] = useState('Empty');
     const [last, setLast] = useState('---');
-    const [alert,setAlert]=useState(false);
+    const [alert, setAlert] = useState(false);
+    const [width, setWidth] = useState(window.innerWidth);
+    const [displayFriend, setDisplayFriend] = useState('');
+    const [displayChat, setDisplayChat] = useState('');
+
     const socket = useRef();
+
+    useEffect(() => {
+        window.addEventListener('resize', () => setWidth(window.innerWidth));
+    }, []);
 
     useEffect(() => {
         socket.current = io(baseUrl.slice(0, baseUrl.length - 1));
@@ -25,13 +33,23 @@ function Combine(props) {
         });
     }, []);
 
+    useEffect(() => {
+        if(width<768) {
+            setDisplayFriend('');
+            setDisplayChat('hideComponent');
+        } else {
+            setDisplayFriend('');
+            setDisplayChat('');
+        }
+    }, [window.innerWidth]);
+
     return (
         <div>
 
             <Header auth={props.auth} logoutUser={props.logoutUser} />
             <div className='mainDiv'>
                 <div className='row' >
-                    <div className='col-lg-3' style={{ padding: '0px' }}>
+                    <div className={`col-md-3 ${displayFriend}`} style={{ padding: '0px' }}>
                         <FriendList
                             auth={props.auth}
                             fetchFriends={props.fetchContacts}
@@ -49,9 +67,11 @@ function Combine(props) {
                             setAlert={setAlert}
                             socket={socket.current}
                             errorMess={props.errorMess}
+                            setDisplayFriend={setDisplayFriend}
+                            setDisplayChat={setDisplayChat}
                         />
                     </div>
-                    <div className='col-lg-9' style={{ padding: '0px' }}>
+                    <div className={`col-md-9 ${displayChat}`} style={{ padding: '0px' }}>
                         <Chat
                             fetchChat={props.fetchChats}
                             postChat={props.postChat}
@@ -63,6 +83,8 @@ function Combine(props) {
                             last={last}
                             setLast={setLast}
                             socket={socket.current}
+                            setDisplayFriend={setDisplayFriend}
+                            setDisplayChat={setDisplayChat}
                         />
                     </div>
                 </div>

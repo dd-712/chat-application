@@ -82,7 +82,12 @@ function Chat(props) {
 
             {props.friendName !== '' ?
                 <>
-                    <ChatHeader receiverId={props.friendId} friendName={props.friendName} />
+                    <ChatHeader
+                        receiverId={props.friendId}
+                        friendName={props.friendName}
+                        setDisplayFriend={props.setDisplayFriend}
+                        setDisplayChat={props.setDisplayChat}
+                    />
                     <ChatList
                         className='List'
                         chatList={chatList}

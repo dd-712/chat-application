@@ -168,6 +168,8 @@ function FriendList(props) {
                     setFriendId={props.FriendId}
                     setFriendName={props.FriendName}
                     friendId={props.friendId}
+                    setDisplayFriend={props.setDisplayFriend}
+                    setDisplayChat={props.setDisplayChat}
                 />
             </div>
         </div>

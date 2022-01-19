@@ -163,3 +163,7 @@ html, body {
 .logout:hover{
   background-color:#a80d1f ;
 }
+
+.hideComponent {
+  display: none;
+}
