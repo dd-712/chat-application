@@ -49,7 +49,7 @@ function Combine(props) {
             <Header auth={props.auth} logoutUser={props.logoutUser} />
             <div className='mainDiv'>
                 <div className='row' >
-                    <div className={`col-md-3 ${displayFriend}`} style={{ padding: '0px' }}>
+                    <div className={`col-md-3 ${displayFriend} height`} style={{ padding: '0px' }}>
                         <FriendList
                             auth={props.auth}
                             fetchFriends={props.fetchContacts}
@@ -71,7 +71,7 @@ function Combine(props) {
                             setDisplayChat={setDisplayChat}
                         />
                     </div>
-                    <div className={`col-md-9 ${displayChat}`} style={{ padding: '0px' }}>
+                    <div className={`col-md-9 ${displayChat} height`} style={{ padding: '0px' }}>
                         <Chat
                             fetchChat={props.fetchChats}
                             postChat={props.postChat}

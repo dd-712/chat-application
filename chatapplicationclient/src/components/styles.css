@@ -26,21 +26,20 @@ html, body {
   width: 60px;
 }
 
-.col-lg-3 {
+.height {
   height: 90vh;
 }
 
 .col-lg-9 {
   padding: 0px;
-  height: 90vh;
 }
 
 .form {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .login-form {
   background: #fff;
   width: 500px;
@@ -55,8 +54,8 @@ html, body {
   font-weight: 300;
 }
 .login-form .content {
-  padding: 25px;
-  text-align: center;
+padding: 25px;
+text-align: center;
 }
 .login-form .input-field {
   padding: 12px 5px;
@@ -104,7 +103,7 @@ html, body {
   transition: all 0.3s;
 }
 .login-form .action a {
-    width: 100%;
+  width: 100%;
 }
 .login-form .action button:hover {
   background: #d8d8d8;
@@ -138,7 +137,7 @@ html, body {
   border-radius: 3px;
 }
 .signup:hover{
-  background-color:#39aa52 ;
+background-color:#39aa52 ;
 }
 .usname{
   color:#146356 ;

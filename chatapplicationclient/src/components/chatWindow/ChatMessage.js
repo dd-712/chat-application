@@ -8,7 +8,7 @@ function ShowDeleteArrow({ type, toggleModal, modelOpen, deleteChat,classname })
   if (type === 'sender') {
     return (
       <>
-        <div className={`${classname}`} onClick={toggleModal} > <i class="fas fa-chevron-down fa-xm"></i>
+        <div className={`${classname}`} onClick={toggleModal} > <i class="fas fa-chevron-down fa-xs"></i>
           <Modal isOpen={modelOpen} toggle={toggleModal} contentClassName='deleteChatModel' isClearable={false}>
             <ModalHeader toggle={toggleModal}><button onClick={() => { deleteChat(); toggleModal(); }} className='deleteChatBtn'>Delete msg</button></ModalHeader>
           </Modal>
@@ -112,7 +112,6 @@ function ChatMessage(props) {
             toggleModal={toggleModal}
             modelOpen={modelOpen}
             deleteChat={deleteChat}
-            classname={'deleteArrow'}
           />
         </div>
       );
