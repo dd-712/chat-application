@@ -1,6 +1,6 @@
 var express = require('express');
 const bodyParser = require('body-parser');
-var User = require('../models/user');
+var User = require('../models/User');
 var passport = require('passport');
 const authenticate = require('../authenticate');
 const cors = require('./cors');
@@ -154,6 +154,16 @@ router.route('/connections/:username')
 })
 
 
+router.route('/favicon.ico')
+  .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
+  .get(cors.corsWithOptions, function (req, res, next) {
+    
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.json({'no':"no"});
+        //console.log(res);
+      
+  });
 router.route('/connections')
   .options(cors.corsWithOptions, (req, res) => { res.sendStatus(200); })
   .get(cors.corsWithOptions, authenticate.verifyUser, function (req, res, next) {

@@ -26,9 +26,7 @@ function Signup(props) {
             if (message === "Username Already Taken")
                 error += "Username Already Taken";
         }
-        if (props.errorMess.errMess !== "0") {
-            error = props.errorMess.errMess;
-        }
+        
         if (error.length !== 0) {
             error = "*" + error;
             document.getElementById("errorDiv").innerHTML = error;

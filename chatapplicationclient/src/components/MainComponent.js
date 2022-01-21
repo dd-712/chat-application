@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
     postChat, postContact, postFile,
     postChangeUsername, deleteChat, deleteContact, loginUser, logoutUser,
-    signupUser, ErrorMess, Set_default
+    signupUser
 } from '../redux/ActionCreators';
 
 import './styles.css';
@@ -17,11 +17,7 @@ import Combine from './combineComponent';
 
 const mapStateToProps = state => {
     return {
-        chats: state.chats,
-        contacts: state.contacts,
-        errorMess: state.errorMess,
         auth: state.auth,
-        file: state.file
     }
 }
 
@@ -35,8 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
     signupUser: (username, password, firstname, lastname) => dispatch(signupUser(username, password, firstname, lastname)),
     postChangeUsername: (newUsername) => dispatch(postChangeUsername(newUsername)),
     postFile: (formadata, receiver, message, data, title) => dispatch(postFile(formadata, receiver, message, data, title)),
-    Set_default: () => dispatch(Set_default()),
-    ErrorMess: (message) => dispatch(ErrorMess(message))
+  
 });
 
 
@@ -49,7 +44,7 @@ class Main extends Component {
                 <div className='mainComponentDiv'>
                     <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
                     <Route exact path="/login" component={() => <Login loginUser={this.props.loginUser} />} />
-                    <Route exact path="/signup" component={() => <Signup signupUser={this.props.signupUser} errorMess={this.props.errorMess} />} />
+                    <Route exact path="/signup" component={() => <Signup signupUser={this.props.signupUser} />} />
                 </div>
             );
         } else {
@@ -58,16 +53,13 @@ class Main extends Component {
                 <div className='mainComponentDiv'>
                     <Route path="/user" component={() => <Combine auth={this.props.auth}
                         logoutUser={this.props.logoutUser}
-                        contacts={this.props.contacts}
-                        friends={this.props.contacts.contacts}
-                        //errormess={this.props.errormess.errMess}
                         postContact={this.props.postContact}
                         deleteContact={this.props.deleteContact}
                         deleteChat={this.props.deleteChat}
                         postChat={this.props.postChat}
                         postFile={this.props.postFile}
                         chats={this.props.chats}
-                        errorMess={this.props.errorMess}
+                        
                     />}
                     />
                 </div>

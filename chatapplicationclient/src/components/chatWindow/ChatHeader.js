@@ -33,11 +33,11 @@ function ChatHeader(props) {
                         props.setDisplayChat('');
                     }
                 }}
-            ><i class="fas fa-arrow-left fa-lg"></i>
+            ><i className="fas fa-arrow-left fa-lg"></i>
             </span>
             <span className='friendName'>{props.friendName}</span>
-            {/* <span className='audioIcon'><i class="fas fa-phone-alt"></i></span>
-            <span className='videoIcon'><i class="fas fa-video"></i></span> */}
+            {/* <span className='audioIcon'><i className="fas fa-phone-alt"></i></span>
+            <span className='videoIcon'><i className="fas fa-video"></i></span> */}
 
         </header>
     );

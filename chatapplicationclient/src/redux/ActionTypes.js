@@ -1,5 +1,4 @@
 export const ADD_FILE = 'ADD_FILE';
-export const SET_DEFAULT = 'SET_DEFAULT';
 
 export const CONTACTS_LOADING = 'CONTACTS_LOADING';
 export const CONTACTS_FAILED = 'CONTACTS_FAILED';

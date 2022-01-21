@@ -67,7 +67,7 @@ export const deleteContact = (_ID1,ID2) => (dispatch) => {
             throw errmess;
         })
         // .then(response => dispatch(fetchContacts()))
-        .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this contact')); })
+        .catch(error => { /*('You are not authourized to REMOVE this contact'));*/ })
 }
 
 
@@ -103,7 +103,7 @@ export const postChat = (receiver, message, data, title, File) => (dispatch) => 
             var errmess = new Error(error.message);
             throw errmess;
         })
-        .catch(error => { dispatch(ErrorMess('Your data could not be send')); })
+        .catch(error => { /*dispatch(ErrorMess('Your data could not be send'));*/ })
 }
 
 export const deleteChat = (_ID) => (dispatch) => {
@@ -135,7 +135,7 @@ export const deleteChat = (_ID) => (dispatch) => {
             var errmess = new Error(error.message);
             throw errmess;
         })
-        .catch(error => { dispatch(ErrorMess('You are not authourized to REMOVE this chat')); })
+        .catch(error => { /*dispatch(ErrorMess('You are not authourized to REMOVE this chat'));*/ })
 }
 
 export const postFile = (formadata, receiver, message, data, title) => (dispatch) => {
@@ -167,12 +167,12 @@ export const postFile = (formadata, receiver, message, data, title) => (dispatch
         .then(response => {
             dispatch(postChat(receiver, message, data, title, response.file));
         })
-        .catch(error => {
+        .catch(error => {/*
             if (error.message === "Error 401: Unauthorized")
                 dispatch(ErrorMess('Please LOGIN to chat'));
             else
                 dispatch(ErrorMess('Please upload File with valid file extension.'));
-            dispatch(Set_default());
+            dispatch(Set_default());*/
         })
 }
 
@@ -181,15 +181,6 @@ export const addFile = (name) => ({
     payload: name
 });
 
-export const Set_default = () => ({
-    type: ActionTypes.SET_DEFAULT,
-    payload: '00'
-});
-
-export const ErrorMess = (errmess) => ({
-    type: ActionTypes.ErrorMess,
-    payload: errmess
-});
 
 export const signupUser = (username, password, firstname, lastname) => (dispatch) => {
 

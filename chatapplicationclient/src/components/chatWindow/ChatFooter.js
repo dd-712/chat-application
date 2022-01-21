@@ -67,7 +67,7 @@ function ChatFooter(props) {
             <span className="file far fa-file-alt" onClick={toggleModal} />
             <form className='inputForm' id="chatInput">
                 <input id="textField" className="inputMessage" onChange={e => setMessage(e.target.value)} type="message" placeholder="Enter Message" autoComplete="off" onKeyDown={handleKeypress} />
-                <span className="sendButton" onClick={handleSubmit}><i class="fas fa-paper-plane"></i></span>
+                <span className="sendButton" onClick={handleSubmit}><i className="fas fa-paper-plane"></i></span>
             </form>
             <Modal isOpen={modelOpen} toggle={toggleModal}>
                 <ModalHeader toggle={toggleModal}>Select File</ModalHeader>

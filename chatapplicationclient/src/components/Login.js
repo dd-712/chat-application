@@ -30,10 +30,10 @@ function Login(props) {
                 <div className="content">
                 <div className='error' id='errorDiv'> &nbsp; <br/> &nbsp;</div>
                     <div className="input-field">
-                        <input type="text" onChange={e => setUserName(e.target.value)} placeholder="Username" autocomplete="off" id="userName" />
+                        <input type="text" onChange={e => setUserName(e.target.value)} placeholder="Username"  id="userName" />
                     </div>
                     <div className="input-field">
-                        <input type="password" onChange={e => setPassword(e.target.value)} placeholder="Password" autocomplete="new-password" id="password" />
+                        <input type="password" onChange={e => setPassword(e.target.value)} placeholder="Password"  id="password" />
                     </div>
                 </div>
                 <div className="action">

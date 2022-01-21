@@ -1,2 +1,2 @@
-export const baseUrl = 'http://localhost:3000/';
-export const curUrl="http://localhost:3001/";
+export const baseUrl = 'https://chatappliserver.herokuapp.com/';
+export const curUrl="https://chat-application-dh.herokuapp.com/";

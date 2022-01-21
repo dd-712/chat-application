@@ -136,9 +136,9 @@ function FriendList(props) {
             <div className='friendListHeader'>
                 <form id='searchFriend'>
                     <input type='text' placeholder='Search Friends' className='input' onChange={e => setSearchWord(e.target.value)} />
-                    <button className='searchIcon btn' onClick={handleSubmit}><i class="fas fa-search"></i></button>
+                    <button className='searchIcon btn' onClick={handleSubmit}><i className="fas fa-search"></i></button>
                 </form>
-                <button className='friendRequest btn' onClick={toggleModal}><i class="fas fa-user-alt"></i></button>
+                <button className='friendRequest btn' onClick={toggleModal}><i className="fas fa-user-alt"></i></button>
                 <Modal isOpen={modelOpen} toggle={toggleModal}>
                     <ModalHeader toggle={toggleModal}>Add Friend</ModalHeader>
                     <ModalBody>

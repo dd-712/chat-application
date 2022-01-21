@@ -53,9 +53,6 @@ function Combine(props) {
                         <FriendList
                             auth={props.auth}
                             fetchFriends={props.fetchContacts}
-                            data={props.contacts}
-                            friends={props.friends}
-                            //errormess={this.props.errormess.errMess}
                             postFriends={props.postContact}
                             deleteFriend={props.deleteContact}
                             deleteChat={props.deleteChat}
