@@ -17,12 +17,8 @@ function ChatHeader(props) {
         } else {
             setHideArrow('hideComponent');
         }
-        // console.log(width);
     }, [window.innerWidth]);
 
-    const hideChatWindow = () => {
-
-    }
 
     return (
         <header className="chatWindowHeader">

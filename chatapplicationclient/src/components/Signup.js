@@ -14,24 +14,23 @@ function Signup(props) {
         e.preventDefault();
         let english = /^[A-Za-z0-9]*$/;
         let error = "";
-        
+
         if (!english.test(username)) {
             error = "User Name should contain only english leter. "
         }
-        if (password != confPassword) {
+        if (password !== confPassword) {
             error += "Password and Confirm Password must be equal."
         }
-        if (error.length == 0) {
-            let message=await props.signupUser({ username, password, firstname, lastname });
-            if(message=="Username Already Taken")
-            error+="Username Already Taken";
+        if (error.length === 0) {
+            let message = await props.signupUser({ username, password, firstname, lastname });
+            if (message === "Username Already Taken")
+                error += "Username Already Taken";
         }
-        if(props.errorMess.errMess!="0")
-        {
-            error=props.errorMess.errMess;
+        if (props.errorMess.errMess !== "0") {
+            error = props.errorMess.errMess;
         }
-        if(error.length != 0) {
-            error="*"+error;
+        if (error.length !== 0) {
+            error = "*" + error;
             document.getElementById("errorDiv").innerHTML = error;
         }
     }
@@ -41,7 +40,7 @@ function Signup(props) {
             <form onSubmit={handleSubmit}>
                 <h1>Register</h1>
                 <div className="content">
-                    <div className='error' id='errorDiv'> &nbsp; <br/> &nbsp;</div>
+                    <div className='error' id='errorDiv'> &nbsp; <br /> &nbsp;</div>
                     <div className="input-field">
                         <input type="text" onChange={e => setfirstName(e.target.value)} placeholder="First Name" autocomplete="off" id="firstName" />
                     </div>

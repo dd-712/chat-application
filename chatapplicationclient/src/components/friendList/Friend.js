@@ -1,10 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import { curUrl, baseUrl } from '../../shared/baseUrl';
+import { baseUrl } from '../../shared/baseUrl';
 import './friendListStyles.css';
 import jwt from 'jwt-decode';
-
-let cnt = 0;
 
 function Friend(props) {
 
@@ -73,11 +71,10 @@ function Friend(props) {
     );
   });
 
-  if (props.friendList.length == 0 || props.friendList[0] === 'none') {
+  if (props.friendList.length === 0 || props.friendList[0] === 'none') {
     FriendList = "No Friend found";
   }
 
-  cnt++;
   return (
     <div className='friendList'>
       {FriendList}

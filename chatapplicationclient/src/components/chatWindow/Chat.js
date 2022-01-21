@@ -12,8 +12,6 @@ import ChatList from './ChatList';
 function Chat(props) {
 
     const [chatList, setChatList] = useState([]);
-    let found = 0;
-
 
     useEffect(() => {
         if (props.friendName === '')
@@ -54,7 +52,7 @@ function Chat(props) {
                     "data": response[i].data,
                     "time": hour + ":" + min
                 };
-                if (response[i].receiver == props.friendId) {
+                if (response[i].receiver === props.friendId) {
                     nchat.type = 'sender';
                 } else {
                     nchat.type = 'receiver';
@@ -70,7 +68,8 @@ function Chat(props) {
 
         setTimeout(() => {
             const element = document.querySelectorAll('.msgDiv');
-            if (element) document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
+            if (element !== null)
+                document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
         }, 300);
     }, [props.friendName, chatList, props.last]);
 

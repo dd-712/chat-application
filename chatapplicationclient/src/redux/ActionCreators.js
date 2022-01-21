@@ -168,7 +168,7 @@ export const postFile = (formadata, receiver, message, data, title) => (dispatch
             dispatch(postChat(receiver, message, data, title, response.file));
         })
         .catch(error => {
-            if (error.message == "Error 401: Unauthorized")
+            if (error.message === "Error 401: Unauthorized")
                 dispatch(ErrorMess('Please LOGIN to chat'));
             else
                 dispatch(ErrorMess('Please upload File with valid file extension.'));

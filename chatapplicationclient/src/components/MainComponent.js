@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
-    fetchChats, fetchContacts, postChat, postContact, postFile,
+    postChat, postContact, postFile,
     postChangeUsername, deleteChat, deleteContact, loginUser, logoutUser,
     signupUser, ErrorMess, Set_default
 } from '../redux/ActionCreators';

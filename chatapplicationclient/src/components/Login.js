@@ -14,11 +14,11 @@ function Login(props) {
         password
         });
         let error = "";
-        if(message=="Username Or Password is not valid")
+        if(message==="Username Or Password is not valid")
         {
             error=message;
         }
-        if(error.length != 0) {
+        if(error.length !== 0) {
             error="*"+error;
             document.getElementById("errorDiv").innerHTML = error;
         }

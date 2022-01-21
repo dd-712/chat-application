@@ -4,7 +4,7 @@ import {
     Form, FormGroup, Input, Label
 } from 'reactstrap';
 import axios from 'axios';
-import { curUrl, baseUrl } from '../../shared/baseUrl';
+import { baseUrl } from '../../shared/baseUrl';
 import Friend from './Friend';
 import jwt from 'jwt-decode';
 
@@ -49,14 +49,14 @@ function FriendList(props) {
                 li = newFriendList;
             }
 
-            if (li.length == 0)
+            if (li.length === 0)
                 li.push('none');
             setFriendList(li);
         }
 
         getList();
 
-    }, [props.alerts, friendList]);
+    },[props.alerts, friendList]);
 
     useEffect(() => {
         if (props.alerts) {
@@ -65,7 +65,7 @@ function FriendList(props) {
                 setSearchWord('');
             }, 100)
         }
-    }, [props.alerts]);
+    },[props.alerts]);
 
     function toggleModal() {
         setState(!modelOpen);
@@ -92,20 +92,20 @@ function FriendList(props) {
         event.preventDefault();
         let found = 0;
         for (let i = 0; i < friendList.length; i++) {
-            if (friendList[i].username == username) {
+            if (friendList[i].username === username) {
                 found = 1;
                 break;
             }
         }
-        if (found == 1)
+        if (found === 1)
             error = "Enter person already exist into your friendlist.";
-        else if (props.auth.user.username == username)
+        else if (props.auth.user.username === username)
             error = "You can't add youself as your friend.";
         else {
 
             let message = await props.postFriends(curId._id, username, curId._id);
             let idd;
-            if (message != "New contact not added") {
+            if (message !== "New contact not added") {
                 idd = await findId(username);
                 await props.postFriends(idd, props.auth.user.username, curId._id);
                 toggleModal();
@@ -120,7 +120,7 @@ function FriendList(props) {
                 error = 'Username not found';
             }
         }
-        if (error.length != 0) {
+        if (error.length !== 0) {
             error = "*" + error + "<br/>";
             document.getElementById("errorDiv").innerHTML = error;
         }
