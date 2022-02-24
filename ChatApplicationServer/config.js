@@ -1,4 +1,4 @@
 
-module.exports = {
-    'curUrl': "http://localhost:3001"
+ module.exports = {
+     'curUrl': "Your current client side url goes here"
 };

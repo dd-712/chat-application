@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import jwt from 'jwt-decode';
+import logo from './logo/ChatApp.png';
 import './styles.css';
 
 function Header(props) {
@@ -22,12 +23,12 @@ function Header(props) {
   }, [location])
   return (
     <div className="header">
-      <header className="d-flex  align-items-center justify-content-md-between  mb-4">
-        <a href="/" className="logo">
-          <img src="https://cdn.dribbble.com/users/267404/screenshots/3713416/talkup.png" className='logoImg' alt='logo'/>
+      <header className=" align-items-center justify-content-md-between  mb-4">
+        <a href="/">
+          <img src={logo} className='logoImg' alt='logo' />
         </a>
 
-        <div className="col-md-3 text-end btr">
+        <div className="col-md-3 text-end btr buttons">
           {!props.auth.isAuthenticated
             ?
             <span className="login">

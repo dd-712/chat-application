@@ -113,7 +113,7 @@ export const deleteChat = (_ID) => (dispatch) => {
     }
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
-    return fetch(baseUrl + 'chat/deleteChat', {
+    return fetch(baseUrl + 'UploadFile/delete', {
         method: 'DELETE',
         body: JSON.stringify(deleteChat),
         headers: {
@@ -138,14 +138,13 @@ export const deleteChat = (_ID) => (dispatch) => {
         .catch(error => { /*dispatch(ErrorMess('You are not authourized to REMOVE this chat'));*/ })
 }
 
-export const postFile = (formadata, receiver, message, data, title) => (dispatch) => {
+export const postFile = (formadata, receiver, message, data, title) =>  (dispatch) => {
     const bearer = 'Bearer ' + localStorage.getItem('token');
 
     return fetch(baseUrl + 'UploadFile', {
         method: 'POST',
         body: formadata,
         headers: {
-
             'Authorization': bearer
         },
         credentials: 'same-origin'

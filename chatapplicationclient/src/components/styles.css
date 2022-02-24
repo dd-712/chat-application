@@ -18,12 +18,21 @@ html, body {
 }
 
 .logo {
+  position: relative;
   margin-left: 40px;
 }
 
 .logoImg {
-  margin: 10px;
-  width: 60px;
+  position: absolute;
+  margin: 0;
+  width: 140px;
+  top: -35px;
+}
+
+.buttons {
+  display: inline-block;
+  left: 75%;
+  top: 13px;
 }
 
 .height {

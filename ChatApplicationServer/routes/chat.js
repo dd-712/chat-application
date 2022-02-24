@@ -87,29 +87,4 @@ router.post(("/addChat"),authenticate.verifyUser,cors.corsWithOptions, (req, res
     }
 })
 
-router.delete(("/deleteChat"),authenticate.verifyUser, cors.corsWithOptions, (req, res,next) => {
-    Chat.findById(req.body._Id)
-    .then((chat)=>{
-        if(req.user._id!=chat.sender && req.user._id!=chat.receiver)
-        {
-            err=new Error('You are not allowed to delete this post');
-            err.status=403;
-            return next(err);
-        }
-        else
-        {
-            if(chat.data==0)
-            fs.unlinkSync('./public/Files/'+chat.File.filename);
-            Chat.deleteOne(chat)
-            .then((resp)=>{
-                res.statusCode=200;
-                res.setHeader('Content-Type','application/json');
-                res.json(resp);
-            },(err)=>next(err))
-            .catch((err)=>next(err));
-        }
-    })
-    .catch((err)=>next(err));
-})
-
 module.exports = router;

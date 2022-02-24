@@ -1,2 +1,2 @@
-export const baseUrl = 'https://chatappliserver.herokuapp.com/';
-export const curUrl="https://chat-application-dh.herokuapp.com/";
+export const baseUrl = 'Your Server Url goes here';
+export const curUrl="Your current client side URL goes here";

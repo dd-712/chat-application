@@ -2,3 +2,7 @@ node_modules
 package-lock.json
 configure.js
 .env
+firebaseconfig.js
+package-lock.json
+Procfile
+chatapp-d3b50-firebase-adminsdk-xb5c1-b18aed868d.json

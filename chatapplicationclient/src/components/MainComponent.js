@@ -6,6 +6,7 @@ import {
     postChangeUsername, deleteChat, deleteContact, loginUser, logoutUser,
     signupUser
 } from '../redux/ActionCreators';
+import { curUrl } from '../shared/baseUrl';
 
 import './styles.css';
 
@@ -39,7 +40,10 @@ class Main extends Component {
     render() {
         let Valid = this.props.auth.isAuthenticated;
         //console.log(Valid);
+        
         if (!Valid) {
+            if(window.location.href==curUrl+"user")
+            {window.location.href=curUrl+"login"};
             return (
                 <div className='mainComponentDiv'>
                     <Header auth={this.props.auth} logoutUser={this.props.logoutUser} />
@@ -48,7 +52,8 @@ class Main extends Component {
                 </div>
             );
         } else {
-
+            if(window.location.href!=curUrl+"user")
+            {window.location.href=curUrl+"user"};
             return (
                 <div className='mainComponentDiv'>
                     <Route path="/user" component={() => <Combine auth={this.props.auth}

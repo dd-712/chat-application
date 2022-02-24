@@ -14,6 +14,7 @@ function Chat(props) {
     const [chatList, setChatList] = useState([]);
 
     useEffect(() => {
+        
         if (props.friendName === '')
             return;
 
@@ -70,7 +71,7 @@ function Chat(props) {
             const element = document.querySelectorAll('.msgDiv');
             if (element !== null)
                 document.getElementById('chatList').scrollTop = element[element.length - 1].offsetTop;
-        }, 300);
+        }, 1000);
     }, [props.friendName, chatList, props.last]);
 
 
