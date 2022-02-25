@@ -59,7 +59,7 @@ A Responsive website where users can chat with wach other, share photos, videos,
  ![Login page][login]
  ### Chat Window
  ![Chat window][chat]
- ## Mobile View
+ ### Mobile View
  ![Mobile View][mobileChat]
 
 
