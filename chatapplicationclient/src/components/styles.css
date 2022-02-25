@@ -19,7 +19,6 @@ html, body {
 
 .logo {
   position: relative;
-  margin-left: 40px;
 }
 
 .logoImg {
@@ -29,11 +28,23 @@ html, body {
   top: -35px;
 }
 
-.buttons {
-  display: inline-block;
-  left: 75%;
-  top: 13px;
+@media (min-width:768px) {
+  .buttons {
+    display: inline-block;
+    left: 75%;
+    top: 20px;
+  }
 }
+
+
+@media (max-width: 767px) {
+  .buttons {
+    display: inline-block;
+    top: 20px;
+  }
+}
+
+
 
 .height {
   height: 90vh;
@@ -51,7 +62,8 @@ html, body {
 
 .login-form {
   background: #fff;
-  width: 500px;
+  max-width: 500px;
+  min-width: 100px;
   margin: 20px auto;
   display: flex;
   flex-direction: column;
