@@ -77,36 +77,36 @@ A Responsive website where users can chat with wach other, share photos, videos,
 ## Getting Started
 
 * Clone this repo
-```
-git clone https://github.com/dd-712/chat-application.git
-```
+    ```
+    git clone https://github.com/dd-712/chat-application.git
+    ```
 
 * Create .env file into ChatApplicationServer and add below code.
     ```
-secretKey=<Your_Secrete_key>
-mongoUrl=<url to mongodb database>
-bucket_url=<firebase bucket url>
+    secretKey=<Your_Secrete_key>
+    mongoUrl=<url to mongodb database>
+    bucket_url=<firebase bucket url>
     ```
 * In app.js file located in ChatApplicationServer, update the following data.
-	```
-	const serviceAccount = require('./File wich contains private key of firebase database');
+    ```
+    const serviceAccount = require('./File wich contains private key of firebase database');
 
-	admin.initializeApp({
-	  credential: admin.credential.cert(serviceAccount),
-	  databaseURL: "Your database Url goes here",
-	  storageBucket: process.env.bucket_url
-	});
-	```
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+      databaseURL: "Your database Url goes here",
+      storageBucket: process.env.bucket_url
+    });
+    ```
 
 * Install node from here : https://nodejs.org/en/
 
 * In ChatApplicationServer folder install the dependencies via terminal,
     ```
-        npm install
+    npm install
     ```
 * In chatapplicationclient folder install the dependencies required for React via terminal,
     ```
-        yarn install
+    yarn install
     ```
 * Now you are ready to start the server.
 
