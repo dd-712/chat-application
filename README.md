@@ -55,11 +55,11 @@ A Responsive website where users can chat with wach other, share photos, videos,
 
 ### Some ScreenShots Of Website
 
-####Login page
+ ### Login page
  ![Login page][login]
  ### Chat Window
  ![Chat window][chat]
- ###Mobile View
+ ## Mobile View
  ![Mobile View][mobileChat]
 
 
