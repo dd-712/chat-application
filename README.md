@@ -12,8 +12,6 @@
     <a href="https://github.com/dd-712/chat-application"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://chat-application-dh.herokuapp.com/login">View Website</a>
-    ·
     <a href="https://github.com/dd-712/chat-application/issues">Report Bug</a>
     ·
     <a href="https://github.com/dd-712/chat-application/issues">Request Feature</a>
@@ -26,9 +24,6 @@
 <details open="open">
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="https://chat-application-dh.herokuapp.com/login">Live Website<a/>
-    <li>
       <a href="#about-the-project">About The Website</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
